@@ -7,12 +7,11 @@ public class Vakje {
 
     public Vakje() {
         this.isBruikbaar = false;
-        this.kleur = "O";
+        this.kleur = "-";
     }
     public void kleurIn() {
-        this.kleur = "M";
+        this.kleur = "X";
     }
-
 
     public void setKleur(String kleur) {
         this.kleur = kleur;

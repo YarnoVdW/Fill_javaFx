@@ -2,6 +2,7 @@ package be.kdg.applicatienaam.model;
 
 import be.kdg.applicatienaam.model.bord.Bord;
 
+import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
@@ -58,8 +59,6 @@ public class Speler {
         boolean plaats = false;
         int kolom;
         int rij;
-
-
         while (!plaats) {
             System.out.print("welke rij?(0,1,2)(van bove naar beneden): ");
             kolom = keyboard.nextInt();
@@ -67,8 +66,6 @@ public class Speler {
             rij = keyboard.nextInt();
             //plaats = bord.maakZet(new Zet(color), kolom, rij);
             plaats = bord.maakMove(new Move(kolom, rij));
-
-
         }
     }
 

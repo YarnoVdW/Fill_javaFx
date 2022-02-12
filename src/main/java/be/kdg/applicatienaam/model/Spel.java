@@ -44,8 +44,8 @@ public class Spel {
             int antwoord = key.nextInt();
             if (antwoord == 0) System.out.println(showHighscores()+"\nHoogste score:\n"+showHighestScore());
             System.out.println("nog een keertje?(ja/nee)");
-            //String herstart = key.next();
-            //if (herstart.equalsIgnoreCase("ja")) herstartSpel();
+            String herstart = key.next();
+            if (herstart.equalsIgnoreCase("ja")) herstartSpel();
 
         }
 
@@ -54,12 +54,13 @@ public class Spel {
     public void selecteerLevel() {
 
     }
-    /*public void herstartSpel() {//werkt nog niet
+    public void herstartSpel() {//werkt nog niet
         bord.maakBordLeeg();
+        bord.vulBord();
+        bord.maakPatroon();
         startSpel();
 
-
-    }*/
+    }
     public Speler showHighestScore() {
         return null; //Collections.max(spelerList);
 
