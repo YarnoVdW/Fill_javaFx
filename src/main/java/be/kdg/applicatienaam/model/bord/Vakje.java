@@ -10,13 +10,24 @@ public class Vakje {
         this.kleur = "O";
     }
     public void kleurIn() {
-        this.kleur = "X";
+        this.kleur = "M";
     }
-    public void setBruikbaar(){
-        this.isBruikbaar = true;
+
+
+    public void setKleur(String kleur) {
+        this.kleur = kleur;
     }
+
+
     public String toString() {
         return this.kleur;
     }
 
+    public boolean isBruikbaar() {
+        return this.isBruikbaar;
+    }
+
+    public void setBruikbaar(boolean bruikbaar) {
+        isBruikbaar = bruikbaar;
+    }
 }

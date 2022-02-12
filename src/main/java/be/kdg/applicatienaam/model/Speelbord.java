@@ -13,6 +13,7 @@ public class Speelbord {
     private List<Move> laatsteZetten = new ArrayList<>();
     private int teller;
 
+
     public Speelbord() {
         this.zetten = new Zet[BREEDTE][HOOGTE];
     }
@@ -35,26 +36,9 @@ public class Speelbord {
         return printBord.toString();
     }
 
-    private boolean isAllowedMove(Move move){
-        if(this.laatsteZet == null) return true; // nog geen moves gemaakt dus altijd allowed.
 
-        boolean reedsGespeeld = !List.of(this.laatsteZetten).contains(move);// gebruikt de equals method van Move
-        boolean naastLaatsteZet = move.isNaast(this.laatsteZet);
-        return reedsGespeeld && naastLaatsteZet;
-    }
 
-    public boolean maakZet(Zet zet, Move move){//maakZetJuiste genoemd omdat dit de goede is
-        if(this.isAllowedMove(move)){
-            this.zetten[move.rij][move.kolom] = zet;
-            this.teller++;
-            this.laatsteZet = move;
-            this.laatsteZetten.add(move);
-            return true;
-        }
-        if(!(this.isAllowedMove(move))) System.out.println("Dit is een verkeerde zet");
 
-        return false;
-    }
     public void maakBordLeeg(){//werkt nog niet volledig, het bord wordt wel leeg gemaakt maar de zetten zijn niet correct leeg gemaakt
         this.zetten =new Zet[BREEDTE][ HOOGTE];
         laatsteZetten.removeAll(laatsteZetten);

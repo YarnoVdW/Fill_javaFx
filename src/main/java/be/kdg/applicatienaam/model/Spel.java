@@ -1,5 +1,7 @@
 package be.kdg.applicatienaam.model;
 
+import be.kdg.applicatienaam.model.bord.Bord;
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -11,11 +13,11 @@ public class Spel {
     private final Speler speler;
     private final List<Speler> spelerList = new ArrayList<>();
 
-    private final Speelbord bord;
+    private final Bord bord;
 
 
     public Spel() {
-        bord = new Speelbord();
+        bord = new Bord();
         speler = new Speler(Zet.Color.RED);
     }
 
@@ -26,11 +28,11 @@ public class Spel {
         String gebruikersNaam = key.nextLine();
         speler.setGebruikersNaam(gebruikersNaam);
         LocalTime timeOne = LocalTime.now();
-        System.out.println(bord.toString());
-        do {
+        bord.printBord();
+        while(!bord.isVol()) {
             speler.play(bord);
-            System.out.println(bord.toString());
-        }while (!bord.isVol());
+            bord.printBord();
+        }
         LocalTime timeTwo = LocalTime.now();
         Duration tijdsduur = Duration.between(timeOne, timeTwo);
         int seconds = (int) tijdsduur.getSeconds();
@@ -52,12 +54,12 @@ public class Spel {
     public void selecteerLevel() {
 
     }
-    public void herstartSpel() {//werkt nog niet
+    /*public void herstartSpel() {//werkt nog niet
         bord.maakBordLeeg();
         startSpel();
 
 
-    }
+    }*/
     public Speler showHighestScore() {
         return null; //Collections.max(spelerList);
 

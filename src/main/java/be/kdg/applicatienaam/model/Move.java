@@ -32,5 +32,13 @@ public class Move {
     public int hashCode() {
         return Objects.hash(rij, kolom);
     }
+
+    public int getRij() {
+        return rij;
+    }
+
+    public int getKolom() {
+        return kolom;
+    }
 }
 

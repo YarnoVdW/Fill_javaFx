@@ -1,5 +1,7 @@
 package be.kdg.applicatienaam.model;
 
+import be.kdg.applicatienaam.model.bord.Bord;
+
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
@@ -51,7 +53,7 @@ public class Speler {
         return String.format("%-10s%d seconden", gebruikersNaam, score);
 
     }
-    public void play(Speelbord bord) {
+    public void play(Bord bord) {
         Scanner keyboard = new Scanner(System.in);
         boolean plaats = false;
         int kolom;
@@ -64,7 +66,9 @@ public class Speler {
             System.out.print("welke kolom?(0,1,2)(van rechts naar links): ");
             rij = keyboard.nextInt();
             //plaats = bord.maakZet(new Zet(color), kolom, rij);
-            plaats = bord.maakZet((new Zet(color)), new Move(kolom, rij));
+            plaats = bord.maakMove(new Move(kolom, rij));
+
+
         }
     }
 
