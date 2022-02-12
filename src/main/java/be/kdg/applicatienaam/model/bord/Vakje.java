@@ -6,16 +6,17 @@ public class Vakje {
     private String kleur;
 
     public Vakje() {
-        this.isBruikbaar = true;
-        this.kleur = "";
+        this.isBruikbaar = false;
+        this.kleur = "O";
     }
     public void kleurIn() {
-        this.kleur = "x";
+        this.kleur = "X";
     }
     public void setBruikbaar(){
-        this.isBruikbaar = false;
+        this.isBruikbaar = true;
     }
     public String toString() {
-        return kleur;
+        return this.kleur;
     }
+
 }
