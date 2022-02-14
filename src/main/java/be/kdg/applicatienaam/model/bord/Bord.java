@@ -58,10 +58,6 @@ public class Bord {
         }
     }
     private boolean isAllowedMove(Move move){
-        /*if(this.laatsteZetten == null) return true;
-        boolean reedsGespeeld = !List.of(this.laatsteZetten).contains(move);// gebruikt de equals method van Move
-        boolean naastLaatsteZet = move.isNaast(this.laatsteZet);*/
-
         return this.getVakje(move).isBruikbaar();
     }
 
@@ -83,10 +79,7 @@ public class Bord {
             this.teller++;
             this.bordLayout[move.getKolom()][move.getRij()].setBruikbaar(false);
             setLaatsteZet(move);
-            this.laatsteZetten.add(move);
-
-            move.setBeginRij(this.laatsteZet.getRij());
-            move.setBeginKolom(this.laatsteZet.getKolom());
+            //this.laatsteZetten.add(move);?
 
             return true;
         }
@@ -103,8 +96,8 @@ public class Bord {
                 this.bordLayout[i][j] = null;
             }
         }
-        this.laatsteZet = null;
-        this.laatsteZetten.removeAll(laatsteZetten);
+        this.laatsteZet = new Move(0,0);
+
         this.teller = 0;
     }
 
