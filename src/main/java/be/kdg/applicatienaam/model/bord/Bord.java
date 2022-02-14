@@ -12,7 +12,7 @@ public class Bord {
     private int bordHoogte = 5;
     private int teller = 0;
     private List<Move> laatsteZetten = new ArrayList<>();
-    private Move laatsteZet;
+    private Move laatsteZet = new Move(0,0);
 
     public Bord() {
         this.bordLayout = new Vakje[bordBreedte][bordHoogte];
@@ -58,22 +58,31 @@ public class Bord {
         }
     }
     private boolean isAllowedMove(Move move){
-        if(this.laatsteZetten == null) return true;
+        /*if(this.laatsteZetten == null) return true;
         boolean reedsGespeeld = !List.of(this.laatsteZetten).contains(move);// gebruikt de equals method van Move
-        boolean naastLaatsteZet = move.isNaast(this.laatsteZet);
+        boolean naastLaatsteZet = move.isNaast(this.laatsteZet);*/
 
-        return this.getVakje(move).isBruikbaar() && reedsGespeeld && naastLaatsteZet;
+        return this.getVakje(move).isBruikbaar();
+    }
+
+    public boolean isNaast(Move move){
+
+        return Math.abs(this.laatsteZet.getRij() - move.getRij()) == 1 ^ Math.abs(this.laatsteZet.getKolom() - move.getKolom()) == 1;
+    }
+
+    public void setLaatsteZet(Move laatsteZet) {
+        this.laatsteZet = laatsteZet;
     }
 
     private Vakje getVakje(Move move) {
         return this.bordLayout[move.getKolom()][move.getRij()];
     }
     public boolean maakMove(Move move){
-        if(this.isAllowedMove(move)){
+        if(this.isAllowedMove(move) && this.isNaast(move)){
             this.bordLayout[move.getKolom()][move.getRij()].kleurIn();
             this.teller++;
             this.bordLayout[move.getKolom()][move.getRij()].setBruikbaar(false);
-            this.laatsteZet = move;
+            setLaatsteZet(move);
             this.laatsteZetten.add(move);
 
             move.setBeginRij(this.laatsteZet.getRij());
@@ -81,7 +90,7 @@ public class Bord {
 
             return true;
         }
-        if(!(this.isAllowedMove(move))) System.out.println("Dit is een verkeerde zet");
+        if(!(this.isAllowedMove(move)) || !(this.isNaast(move))) System.out.println("Dit is een verkeerde zet");
         return false;
     }
     public boolean isVol() {
@@ -94,6 +103,8 @@ public class Bord {
                 this.bordLayout[i][j] = null;
             }
         }
+        this.laatsteZet = null;
+        this.laatsteZetten.removeAll(laatsteZetten);
         this.teller = 0;
     }
 

@@ -38,6 +38,7 @@ public class Move {
         //^ betekent dat er MAAR 1 juist mag zijn, exclusive or, diagonalen checken
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
