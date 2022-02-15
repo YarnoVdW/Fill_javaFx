@@ -79,7 +79,6 @@ public class Bord {
             this.teller++;
             this.bordLayout[move.getKolom()][move.getRij()].setBruikbaar(false);
             setLaatsteZet(move);
-            //this.laatsteZetten.add(move);?
 
             return true;
         }
