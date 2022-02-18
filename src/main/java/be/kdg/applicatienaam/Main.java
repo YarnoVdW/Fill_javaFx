@@ -1,24 +1,23 @@
 package be.kdg.applicatienaam;
 
 import be.kdg.applicatienaam.model.ApplicatieNaamModel;
-import be.kdg.applicatienaam.view.ApplicatieNaamPresenter;
-import be.kdg.applicatienaam.view.ApplicatieNaamView;
+import be.kdg.applicatienaam.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ApplicatieNaamModel model =
-                new ApplicatieNaamModel();
-        ApplicatieNaamView view =
-                new ApplicatieNaamView();
-        ApplicatieNaamPresenter presenter =
-                new ApplicatieNaamPresenter(model, view);
+
+        //HomeView view = new HomeView();
+        LevelCompleteView view = new LevelCompleteView();
+        //HomeViewPresenter presenter = new HomeViewPresenter(view);
         primaryStage.setScene(new Scene(view));
-        presenter.addWindowEventHandlers();
+        primaryStage.setTitle("Home");
         primaryStage.show();
+
     }
     public static void main(String[] args) {
         Application.launch(args);
