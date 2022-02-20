@@ -1,6 +1,8 @@
 package be.kdg.applicatienaam.view.home;
 
 import be.kdg.applicatienaam.view.home.HomeView;
+import be.kdg.applicatienaam.view.levelSelector.LevelSelectorPresenter;
+import be.kdg.applicatienaam.view.levelSelector.LevelSelectorView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -16,6 +18,19 @@ public class HomeViewPresenter {
         addEventHandlerInfo();
         updateView();
         addEventHandlerToggle();
+        addEventHandlerPlay();
+    }
+
+    private void addEventHandlerPlay() {
+        view.getPlayButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                LevelSelectorView levelSelectorView = new LevelSelectorView();
+                LevelSelectorPresenter presenter = new LevelSelectorPresenter(levelSelectorView);
+                view.getScene().setRoot(levelSelectorView);
+                levelSelectorView.getScene().getWindow().sizeToScene();
+            }
+        });
     }
 
     private void updateView() {
@@ -53,4 +68,5 @@ public class HomeViewPresenter {
             view.getSoundButton().setGraphic(node);
         }
     }
+
 }

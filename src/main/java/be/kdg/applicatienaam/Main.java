@@ -4,6 +4,8 @@ import be.kdg.applicatienaam.view.home.HomeView;
 import be.kdg.applicatienaam.view.level.LevelView;
 import be.kdg.applicatienaam.view.levelComplete.LevelCompletePresenter;
 import be.kdg.applicatienaam.view.levelComplete.LevelCompleteView;
+import be.kdg.applicatienaam.view.levelSelector.LevelSelectorPresenter;
+import be.kdg.applicatienaam.view.levelSelector.LevelSelectorView;
 import be.kdg.applicatienaam.view.login.LoginPresenter;
 import be.kdg.applicatienaam.view.login.LoginView;
 import be.kdg.applicatienaam.view.registreer.RegistreerView;
@@ -25,6 +27,8 @@ public class Main extends Application {
         LoginPresenter presenter = new LoginPresenter(view);
         //LevelView view = new LevelView();
         //RegistreerView view = new RegistreerView();
+        //LevelSelectorView view = new LevelSelectorView();
+        //LevelSelectorPresenter presenter = new LevelSelectorPresenter(view);
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Home");
         primaryStage.show();

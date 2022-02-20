@@ -2,13 +2,15 @@ package be.kdg.applicatienaam.model.bord;
 
 import be.kdg.applicatienaam.model.Move;
 import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Bord {
+public class Bord{// extends gridpane?
     private Vakje[][] bordLayout;
     private int bordBreedte = 5;
     private int bordHoogte = 5;
@@ -21,10 +23,13 @@ public class Bord {
         vulBord();
         maakPatroon();
     }
+
+
     public void vulBord() {
         for (int i = 0; i < bordBreedte; i++) {
             for (int j = 0; j < bordHoogte; j++) {
                 this.bordLayout[i][j]= new Vakje();
+
             }
         }
     }

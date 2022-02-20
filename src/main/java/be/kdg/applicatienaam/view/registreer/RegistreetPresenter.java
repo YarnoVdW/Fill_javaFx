@@ -23,9 +23,7 @@ public class RegistreetPresenter {
                 LoginView loginView = new LoginView();
                 LoginPresenter presenter = new LoginPresenter(loginView);
                 view.getScene().setRoot(loginView);
-
                 loginView.getScene().getWindow().sizeToScene();
-
             }
         });
     }
