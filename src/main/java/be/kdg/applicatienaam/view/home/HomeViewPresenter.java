@@ -1,10 +1,10 @@
-package be.kdg.applicatienaam.view;
+package be.kdg.applicatienaam.view.home;
 
+import be.kdg.applicatienaam.view.home.HomeView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

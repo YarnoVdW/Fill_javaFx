@@ -1,6 +1,8 @@
 package be.kdg.applicatienaam.model.bord;
 
 import be.kdg.applicatienaam.model.Move;
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,24 +38,24 @@ public class Bord {
 
     }
     public void maakPatroon(){
-        bordLayout[0][0].setKleur("X");
+        bordLayout[0][0].setKleur(Color.RED);
         for (int i = 1; i < 3; i++) {
             bordLayout[i][0].setBruikbaar(true);
-            bordLayout[i][0].setKleur("O");
+            bordLayout[i][0].setKleur(Color.GRAY);
         }
         for (int i = 0; i < 3; i++) {
             bordLayout[2][i].setBruikbaar(true);
-            bordLayout[2][i].setKleur("O");
+            bordLayout[2][i].setKleur(Color.GRAY);
 
         }
         for (int i = 2 ; i <5 ; i++) {
             bordLayout[i][2].setBruikbaar(true);
-            bordLayout[i][2].setKleur("O");
+            bordLayout[i][2].setKleur(Color.GRAY);
 
         }
         for (int i = 2 ; i < 5; i++) {
             bordLayout[4][i].setBruikbaar(true);
-            bordLayout[4][i].setKleur("O");
+            bordLayout[4][i].setKleur(Color.GRAY);
 
         }
     }
@@ -99,6 +101,7 @@ public class Bord {
 
         this.teller = 0;
     }
+
 
 
 }

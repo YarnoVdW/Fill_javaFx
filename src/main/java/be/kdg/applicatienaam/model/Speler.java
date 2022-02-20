@@ -13,17 +13,15 @@ public class Speler {
     private String gebruikersNaam;
     private long score;
     Random random = new Random();
-    private Zet.Color color;
 
-    public Speler(String gebruikersNaam, int score) {
+
+    public Speler(String gebruikersnaam, int leeftijd) {
         this.naam = naam;
         this.leeftijd = leeftijd;
         this.gebruikersNaam = gebruikersNaam;
         this.score = score;
     }
-    public Speler(Zet.Color color) {
-        this.color = color;
-    }
+
 
     public String getNaam() {
         return naam;
@@ -74,7 +72,7 @@ public class Speler {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Speler speler = (Speler) o;
-        return leeftijd == speler.leeftijd && score == speler.score && Objects.equals(naam, speler.naam) && Objects.equals(gebruikersNaam, speler.gebruikersNaam) && Objects.equals(random, speler.random) && color == speler.color;
+        return leeftijd == speler.leeftijd && score == speler.score && Objects.equals(naam, speler.naam) && Objects.equals(gebruikersNaam, speler.gebruikersNaam) && Objects.equals(random, speler.random);
     }
 
     @Override

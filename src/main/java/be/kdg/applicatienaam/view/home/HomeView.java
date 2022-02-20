@@ -1,4 +1,4 @@
-package be.kdg.applicatienaam.view;
+package be.kdg.applicatienaam.view.home;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -7,8 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 public class HomeView extends GridPane {
 
@@ -16,6 +16,10 @@ public class HomeView extends GridPane {
     private Button infoButton;
     private ToggleButton soundButton;
     private ImageView imageView;
+    private Background background;
+    private BackgroundImage backgroundImage;
+    private Image backImage;
+    private HBox hbtn;
 
 
 
@@ -29,11 +33,10 @@ public class HomeView extends GridPane {
         infoButton = new Button("", new ImageView("/info.png"));
         soundButton = new ToggleButton("", new ImageView("/soundOnn.png"));
         imageView = new ImageView("/fill_homeScreen.png");
+        this.hbtn = new HBox(10);
     }
     private void layoutNodes() {
-        //this.playButton.setPrefSize(20,20);
-        //this.infoButton.setPrefSize(20,20);
-        this.soundButton.setPrefSize(30,30);
+
 
 
         this.setGridLinesVisible(false);
@@ -42,9 +45,6 @@ public class HomeView extends GridPane {
         this.playButton.setMinSize(30, 30);
         this.infoButton.setMinSize(30,30);
         this.soundButton.setMinSize(30,30);
-        this.add(playButton, 1, 1, 1,1);
-        this.add(infoButton, 3,1, 2, 1);
-        this.add(soundButton, 3, 1, 1 ,1);
         this.add(imageView, 1, 0, 3,1);
         this.setPadding(new Insets(20));
 
@@ -53,8 +53,14 @@ public class HomeView extends GridPane {
         GridPane.setHalignment(infoButton, HPos.CENTER);
         GridPane.setHalignment(soundButton, HPos.RIGHT);
 
-        //this.setHgap(10);
-        this.setVgap(10);
+        this.hbtn.getChildren().add(playButton);
+        this.hbtn.getChildren().add(infoButton);
+        this.hbtn.getChildren().add(soundButton);
+        this.hbtn.setAlignment(Pos.BOTTOM_CENTER);
+        this.add(hbtn, 1, 4);
+        this.setVgap(5);
+
+
     }
 
     public Button getPlayButton() {

@@ -1,6 +1,7 @@
 package be.kdg.applicatienaam.model;
 
 import be.kdg.applicatienaam.model.bord.Bord;
+import javafx.scene.paint.Color;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -18,7 +19,7 @@ public class Spel {
 
     public Spel() {
         bord = new Bord();
-        speler = new Speler(Zet.Color.RED);
+        speler = new Speler("test", 21);
     }
 
     public void startSpel() {//ik zou hier nog aanpassingen willen maken(nog opsplitsen in andere klassen)
