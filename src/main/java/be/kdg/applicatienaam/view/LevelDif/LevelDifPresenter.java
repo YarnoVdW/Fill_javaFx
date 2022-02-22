@@ -1,20 +1,24 @@
-package be.kdg.applicatienaam.view.levelSelector;
+package be.kdg.applicatienaam.view.LevelDif;
 
 import be.kdg.applicatienaam.view.home.HomeView;
 import be.kdg.applicatienaam.view.home.HomeViewPresenter;
+import be.kdg.applicatienaam.view.levelChoser.LevelChosePresenter;
+import be.kdg.applicatienaam.view.levelChoser.LevelChoseView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class LevelSelectorPresenter {
-    private LevelSelectorView view;
+public class LevelDifPresenter {
+    private LevelDifChose view;
 
-    public LevelSelectorPresenter(LevelSelectorView view) {
+    public LevelDifPresenter(LevelDifChose view) {
         this.view = view;
         addEventHandlerHome();
         addEventHandlerToggle();
+        addEventHandlerBtn1();
+
     }
 
     private void addEventHandlerHome() {
@@ -48,5 +52,16 @@ public class LevelSelectorPresenter {
             Node node = new ImageView(image);
             view.getSoundButton().setGraphic(node);
         }
+    }
+    private void addEventHandlerBtn1(){
+        view.getBtn1().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                LevelChoseView levelChoseView = new LevelChoseView();
+                LevelChosePresenter presenter = new LevelChosePresenter(levelChoseView);
+                view.getScene().setRoot(levelChoseView);
+                levelChoseView.getScene().getWindow().sizeToScene();
+            }
+        });
     }
 }

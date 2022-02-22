@@ -1,8 +1,7 @@
 package be.kdg.applicatienaam.view.home;
 
-import be.kdg.applicatienaam.view.home.HomeView;
-import be.kdg.applicatienaam.view.levelSelector.LevelSelectorPresenter;
-import be.kdg.applicatienaam.view.levelSelector.LevelSelectorView;
+import be.kdg.applicatienaam.view.LevelDif.LevelDifPresenter;
+import be.kdg.applicatienaam.view.LevelDif.LevelDifChose;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -25,10 +24,10 @@ public class HomeViewPresenter {
         view.getPlayButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                LevelSelectorView levelSelectorView = new LevelSelectorView();
-                LevelSelectorPresenter presenter = new LevelSelectorPresenter(levelSelectorView);
-                view.getScene().setRoot(levelSelectorView);
-                levelSelectorView.getScene().getWindow().sizeToScene();
+                LevelDifChose levelDifChose = new LevelDifChose();
+                LevelDifPresenter presenter = new LevelDifPresenter(levelDifChose);
+                view.getScene().setRoot(levelDifChose);
+                levelDifChose.getScene().getWindow().sizeToScene();
             }
         });
     }

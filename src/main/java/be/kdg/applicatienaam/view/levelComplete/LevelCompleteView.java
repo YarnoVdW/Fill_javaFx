@@ -64,4 +64,12 @@ public class LevelCompleteView extends GridPane {
     public Button getHomeButton() {
         return homeButton;
     }
+
+    public Button getHerstart() {
+        return herstart;
+    }
+
+    public Button getVolgendLevel() {
+        return volgendLevel;
+    }
 }

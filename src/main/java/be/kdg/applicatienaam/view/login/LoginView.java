@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.Shadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
@@ -59,6 +61,7 @@ public class LoginView extends GridPane {
         this.add(password, 0, 2);
         this.add(pwField,1, 2);
         this.hbtn.getChildren().add(registerBtn);
+
     }
     public Button getSingInBtn() {
         return singInBtn;

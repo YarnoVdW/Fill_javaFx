@@ -1,5 +1,6 @@
-package be.kdg.applicatienaam.view.levelSelector;
+package be.kdg.applicatienaam.view.levelChoser;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,7 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class LevelSelectorView extends GridPane {
+public class LevelChoseView extends GridPane {
+
     private Button btn1;
     private Button btn2;
     private Button btn3;
@@ -28,8 +30,10 @@ public class LevelSelectorView extends GridPane {
     private HBox hbox3;
     private ToggleButton soundButton;
     private Label label;
+    private final int GRID_PANE_HEIGTH = 200;
+    private final int GRID_PANE_WIDTH = 200;
 
-    public LevelSelectorView(){
+    public LevelChoseView() {
         this.initialiseNodes();
         this.layoutNodes();
     }
@@ -47,10 +51,10 @@ public class LevelSelectorView extends GridPane {
         this.btn8 = new Button("8");
         this.btn9 = new Button("9");
         this.btn10 = new Button("10");
-        this.homeButton = new Button("",new ImageView("/homeButton.png"));
+        this.homeButton = new Button("", new ImageView("/homeButton.png"));
         this.hbox3 = new HBox(10);
         this.soundButton = new ToggleButton("", new ImageView("/soundOnn.png"));
-        this.label = new Label("Chose difficulty");
+        this.label = new Label("Chose level");
     }
 
     private void layoutNodes() {
@@ -64,23 +68,23 @@ public class LevelSelectorView extends GridPane {
         this.hBox2.getChildren().add(btn8);
         this.hBox2.getChildren().add(btn9);
         this.hBox2.getChildren().add(btn10);
-        this.hBox2.setAlignment(Pos.CENTER );
+        this.hBox2.setAlignment(Pos.CENTER);
         this.hBox.setAlignment(Pos.CENTER);
-        this.add(hBox, 0,2);
-        this.add(hBox2,0,3);
+        this.add(hBox, 0, 2);
+        this.add(hBox2, 0, 3);
         this.setVgap(15);
         this.setHgap(10);
         this.setAlignment(Pos.CENTER);
-        this.setPadding(new Insets(20,20,20,20));
-        this.setMinSize(200,200);
+        this.setPadding(new Insets(20, 20, 20, 20));
+        this.setMinSize(GRID_PANE_WIDTH, GRID_PANE_HEIGTH);
         this.hbox3.getChildren().add(homeButton);
         this.hbox3.setAlignment(Pos.TOP_RIGHT);
-        this.add(hbox3, 0,1);
-        this.homeButton.setMaxSize(5,5);
+        this.add(hbox3, 0, 1);
+        this.homeButton.setMaxSize(5, 5);
         this.hbox3.getChildren().add(soundButton);
-        this.add(label, 0,0,3,1);
+        this.add(label, 0, 0, 3, 1);
         this.label.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        this.label.setAlignment(Pos.TOP_RIGHT);
+        GridPane.setHalignment(label, HPos.CENTER);
 
     }
 
@@ -90,5 +94,9 @@ public class LevelSelectorView extends GridPane {
 
     public ToggleButton getSoundButton() {
         return soundButton;
+    }
+
+    public Button getBtn1() {
+        return btn1;
     }
 }

@@ -1,29 +1,31 @@
 package be.kdg.applicatienaam.model.bord;
 
 
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Vakje {
     private boolean isBruikbaar;
 
-    private Color kleur;
+    private Image kleur;
 
     public Vakje() {
         this.isBruikbaar = false;
-        this.kleur = Color.GREY;
+        //this.kleur = new Image("/Oranje.png");
     }
-    public void kleurIn() {
-        this.kleur = Color.RED;
+    public Image kleurIn() {
+        return this.kleur = new Image("/VakjeKleur.png");
     }
 
-    public void setKleur(Color kleur) {
+    public void setKleur(Image kleur) {
         this.kleur = kleur;
     }
 
 
-    /*public String toString() {
+
+    public Image geefKleur() {
         return this.kleur;
-    }*/
+    }
 
     public boolean isBruikbaar() {
         return this.isBruikbaar;
@@ -32,4 +34,6 @@ public class Vakje {
     public void setBruikbaar(boolean bruikbaar) {
         isBruikbaar = bruikbaar;
     }
+
+
 }

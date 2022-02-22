@@ -20,6 +20,8 @@ public class HomeView extends GridPane {
     private BackgroundImage backgroundImage;
     private Image backImage;
     private HBox hbtn;
+    private final int GRID_PANE_HEIGTH = 200;
+    private final int GRID_PANE_WIDTH = 200;
 
 
 
@@ -40,8 +42,8 @@ public class HomeView extends GridPane {
 
 
         this.setGridLinesVisible(false);
-        this.setMinWidth(200);
-        this.setMinHeight(200);
+        this.setMinWidth(GRID_PANE_WIDTH);
+        this.setMinHeight(GRID_PANE_HEIGTH);
         this.playButton.setMinSize(30, 30);
         this.infoButton.setMinSize(30,30);
         this.soundButton.setMinSize(30,30);

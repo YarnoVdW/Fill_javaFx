@@ -56,8 +56,8 @@ public class Spel {
 
     }
     public void herstartSpel() {//werkt nog niet
-        bord.maakBordLeeg();
-        bord.vulBord();
+
+
         bord.maakPatroon();
         startSpel();
 
