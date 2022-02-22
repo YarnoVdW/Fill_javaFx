@@ -1,5 +1,6 @@
 package be.kdg.applicatienaam.view.home;
 
+import be.kdg.applicatienaam.model.bord.Bord;
 import be.kdg.applicatienaam.view.LevelDif.LevelDifPresenter;
 import be.kdg.applicatienaam.view.LevelDif.LevelDifChose;
 import javafx.event.ActionEvent;
@@ -8,9 +9,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 
 public class HomeViewPresenter {
     private HomeView view;
+    private Bord bord;
+
 
     public HomeViewPresenter(HomeView view) {
         this.view = view;
@@ -60,6 +64,7 @@ public class HomeViewPresenter {
             Image image = new Image("/soundOff.png");
             Node node = new ImageView(image);
             view.getSoundButton().setGraphic(node);
+
 
         } else {
             Image image = new Image("/soundOnn.png");

@@ -1,6 +1,8 @@
 package be.kdg.applicatienaam.model;
 
 import be.kdg.applicatienaam.model.bord.Bord;
+import be.kdg.applicatienaam.view.login.LoginPresenter;
+import be.kdg.applicatienaam.view.login.LoginView;
 import javafx.scene.paint.Color;
 
 import java.time.Duration;
@@ -22,35 +24,9 @@ public class Spel {
         speler = new Speler("test", 21);
     }
 
-    public void startSpel() {//ik zou hier nog aanpassingen willen maken(nog opsplitsen in andere klassen)
-        //bijvoorbeeld een klasse voor de score te berekenen en deze terug te geven ipv dat hier te doen
-        Scanner key = new Scanner(System.in);
-        System.out.println("Dag, geef uw gebruikersnaam: ");
-        String gebruikersNaam = key.nextLine();
-        speler.setGebruikersNaam(gebruikersNaam);
-        LocalTime timeOne = LocalTime.now();
-        bord.printBord();
-        while(!bord.isVol()) {
-            speler.play(bord);
-            bord.printBord();
-        }
-        LocalTime timeTwo = LocalTime.now();
-        Duration tijdsduur = Duration.between(timeOne, timeTwo);
-        int seconds = (int) tijdsduur.getSeconds();
-        spelerList.add(new Speler(gebruikersNaam, seconds));
-
-        if (bord.isVol()) {
-            System.out.println("Gewonnen\nCongratz "+speler.getGebruikersNaam()+"\nJe hebt het patroon in "+ seconds+" seconden ingevuld.");
-            System.out.println("Highscore zien?(0 is ja, 1 is nee)");
-            int antwoord = key.nextInt();
-            if (antwoord == 0) System.out.println(showHighscores()+"\nHoogste score:\n"+showHighestScore());
-            System.out.println("nog een keertje?(ja/nee)");
-            String herstart = key.next();
-            if (herstart.equalsIgnoreCase("ja")) herstartSpel();
-
-        }
-
-
+    public void startSpel() {
+        LoginView view = new LoginView();
+        LoginPresenter presenter = new LoginPresenter(view);
     }
     public void selecteerLevel() {
 

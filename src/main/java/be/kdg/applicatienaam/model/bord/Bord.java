@@ -5,8 +5,13 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +50,8 @@ public class Bord{
     }
     public void maakPatroon(){
         Image image = new Image("/Oranje.png");
+        Image beginImage = new Image("/white.png");
+        this.bordLayout[0][0].setKleur(beginImage);
         for (int i = 1; i < 4; i++) {
             bordLayout[0][i].setBruikbaar(true);
             bordLayout[0][i].setKleur(image);
@@ -79,8 +86,9 @@ public class Bord{
     }
 
     public boolean isNaast(Move move){
-
-        return Math.abs(this.laatsteZet.getRij() - move.getRij()) == 1 ^ Math.abs(this.laatsteZet.getKolom() - move.getKolom()) == 1;
+        int rijDiff = Math.abs(this.laatsteZet.getRij() - move.getRij());
+        int kolDiff = Math.abs(this.laatsteZet.getKolom() - move.getKolom());
+        return (rijDiff == 1 ^ kolDiff == 1) && rijDiff + kolDiff ==1;
     }
 
     public void setLaatsteZet(Move laatsteZet) {
@@ -107,5 +115,25 @@ public class Bord{
 
     public Vakje[][] getBordLayout() {
         return bordLayout;
+    }
+
+    public void maakLeeg(){
+        Bord bord = new Bord();
+        bord.vulBord();
+
+        this.teller = 0;
+
+    }
+
+    public void setTeller(int teller) {
+        this.teller = teller;
+    }
+
+    public void playSound(){
+        if(isVol()){
+            AudioClip clip = new AudioClip(this.getClass().getResource("/complete.mp3").toExternalForm());
+            clip.play();
+
+        }
     }
 }

@@ -8,8 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class LevelCompleteView extends GridPane {
     private Label label;
@@ -25,18 +27,15 @@ public class LevelCompleteView extends GridPane {
     }
 
     private void layoutNodes() {
-        this.setGridLinesVisible(true);
-        this.setMinWidth(450);
-        this.setMinHeight(450);
+        this.setGridLinesVisible(false);
+
 
         this.homeButton.setMinSize(30, 30);
         this.herstart.setMinSize(30,30);
         this.volgendLevel.setMinSize(30,30);
         this.label.setPrefSize(200,200);
 
-       /* this.add(homeButton, 1, 1, 1,1);
-        this.add(herstart, 3,1, 2, 1);
-        this.add(volgendLevel, 3, 1, 1 ,1);*/
+
         this.add(label, 1, 0, 3,1);
         this.hbtn.getChildren().add(homeButton);
         this.hbtn.getChildren().add(herstart);
@@ -50,6 +49,8 @@ public class LevelCompleteView extends GridPane {
         GridPane.setHalignment(herstart, HPos.CENTER);
         GridPane.setHalignment(volgendLevel, HPos.RIGHT);
         GridPane.setHalignment(label, HPos.CENTER);
+        this.label.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        this.setBackground(new Background(new BackgroundFill(Color.BLUEVIOLET, CornerRadii.EMPTY, Insets.EMPTY)));
 
     }
 
@@ -72,4 +73,5 @@ public class LevelCompleteView extends GridPane {
     public Button getVolgendLevel() {
         return volgendLevel;
     }
+
 }

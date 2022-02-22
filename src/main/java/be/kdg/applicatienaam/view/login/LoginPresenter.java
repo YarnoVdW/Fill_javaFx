@@ -43,4 +43,8 @@ public class LoginPresenter {
             }
         });
     }
+    private void username(){
+        String username = view.getUserTextField().getText();
+
+    }
 }

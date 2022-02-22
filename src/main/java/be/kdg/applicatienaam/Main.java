@@ -1,5 +1,6 @@
 package be.kdg.applicatienaam;
 
+import be.kdg.applicatienaam.model.Spel;
 import be.kdg.applicatienaam.model.bord.Bord;
 import be.kdg.applicatienaam.view.level.LevelPresenter;
 import be.kdg.applicatienaam.view.level.LevelView;
@@ -19,14 +20,16 @@ public class Main extends Application {
         //LevelCompleteView view = new LevelCompleteView();
         //LevelCompletePresenter presenter = new LevelCompletePresenter(view);
         //HomeViewPresenter presenter = new HomeViewPresenter(view);
-        LoginView view = new LoginView();
-        LoginPresenter presenter = new LoginPresenter(view);
+        //LoginView view = new LoginView();
+        //LoginPresenter presenter = new LoginPresenter(view);
         Bord bord = new Bord();
-        //LevelView view = new LevelView();
-        //LevelPresenter presenter = new LevelPresenter(view,bord);
+        LevelView view = new LevelView();
+        LevelPresenter presenter = new LevelPresenter(view,bord);
         //RegistreerView view = new RegistreerView();
         //LevelSelectorView view = new LevelSelectorView();
         //LevelSelectorPresenter presenter = new LevelSelectorPresenter(view);
+        //Spel spel = new Spel();
+        //spel.startSpel();
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Home");
         primaryStage.show();

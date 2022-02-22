@@ -2,14 +2,13 @@ package be.kdg.applicatienaam.view.level;
 
 import be.kdg.applicatienaam.model.Move;
 import be.kdg.applicatienaam.model.bord.Bord;
-import be.kdg.applicatienaam.model.bord.Vakje;
 import be.kdg.applicatienaam.view.levelComplete.LevelCompletePresenter;
 import be.kdg.applicatienaam.view.levelComplete.LevelCompleteView;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class LevelPresenter {
     private LevelView view;
@@ -22,12 +21,13 @@ public class LevelPresenter {
         this.bord = new Bord();
         this.bord.maakPatroon();
         this.vulBord();
+        addEventHandlerHerstart();
 
 
     }
 
     private void addEventHandler(){
-        view.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->{
+        view.addEventHandler(MouseEvent.MOUSE_DRAGGED, e ->{
             int moveX = (int) (e.getX()/50);
             int moveY = (int)(e.getY()/50);
             Move move = new Move(moveY, moveX);
@@ -35,15 +35,17 @@ public class LevelPresenter {
             System.out.println(e.getY());
             if(bord.isAllowedMove(move) && bord.isNaast(move)) {
 
-                view.setPosititon(bord.getBordLayout()[moveY][moveX].kleurIn(), moveX, moveY);
+                view.setPosition(bord.getBordLayout()[moveY][moveX].kleurIn(), moveX, moveY);
             }
             bord.maakMove(move);
             if(bord.isVol()){
+                bord.playSound();
                 levelComplete();
             }
         });
 
     }
+
     private void levelComplete(){
         LevelCompleteView levelCompleteView = new LevelCompleteView();
         LevelCompletePresenter presenter = new LevelCompletePresenter(levelCompleteView);
@@ -53,7 +55,7 @@ public class LevelPresenter {
     private void vulBord(){
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
-                view.setPosititon(bord.getBordLayout()[i][j].geefKleur(), i , j);
+                view.setPosition(bord.getBordLayout()[i][j].geefKleur(), i , j);
             }
 
         }
@@ -62,7 +64,19 @@ public class LevelPresenter {
     private void updateView(){
 
     }
-
-
-
+    private void addEventHandlerHerstart(){
+        view.getHerstart().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                herstart();
+            }
+        });
+    }
+    private void herstart(){
+        LevelView view = new LevelView();
+        Bord bord = new Bord();
+        bord.vulBord();
+        bord.maakPatroon();
+        bord.setTeller(0);
+    }
 }
