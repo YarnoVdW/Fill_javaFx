@@ -22,10 +22,7 @@ public class LevelPresenter {
         this.bord.maakPatroon();
         this.vulBord();
         addEventHandlerHerstart();
-
-
     }
-
     private void addEventHandler(){
         view.addEventHandler(MouseEvent.MOUSE_DRAGGED, e ->{
             int moveX = (int) (e.getX()/50);
@@ -34,7 +31,6 @@ public class LevelPresenter {
             System.out.println(e.getX());
             System.out.println(e.getY());
             if(bord.isAllowedMove(move) && bord.isNaast(move)) {
-
                 view.setPosition(bord.getBordLayout()[moveY][moveX].kleurIn(), moveX, moveY);
             }
             bord.maakMove(move);
@@ -43,9 +39,7 @@ public class LevelPresenter {
                 levelComplete();
             }
         });
-
     }
-
     private void levelComplete(){
         LevelCompleteView levelCompleteView = new LevelCompleteView();
         LevelCompletePresenter presenter = new LevelCompletePresenter(levelCompleteView);
@@ -57,13 +51,9 @@ public class LevelPresenter {
             for (int j = 0; j < 6; j++) {
                 view.setPosition(bord.getBordLayout()[i][j].geefKleur(), i , j);
             }
-
         }
-
     }
-    private void updateView(){
 
-    }
     private void addEventHandlerHerstart(){
         view.getHerstart().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -73,10 +63,10 @@ public class LevelPresenter {
         });
     }
     private void herstart(){
-        LevelView view = new LevelView();
+        LevelView nieuwView = new LevelView();
         Bord bord = new Bord();
-        bord.vulBord();
-        bord.maakPatroon();
-        bord.setTeller(0);
+        LevelPresenter presenter = new LevelPresenter(nieuwView, bord);
+        view.getScene().setRoot(nieuwView);
+        nieuwView.getScene().getWindow().sizeToScene();
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Spel {
-    private final Speler speler;
+
     private final List<Speler> spelerList = new ArrayList<>();
 
     private final Bord bord;
@@ -21,7 +21,7 @@ public class Spel {
 
     public Spel() {
         bord = new Bord();
-        speler = new Speler("test", 21);
+
     }
 
     public void startSpel() {
@@ -53,6 +53,6 @@ public class Spel {
     @Override
     public String toString() {
         return "Spel{" +
-                "speler=" + speler + '}';
+                "speler="  + '}';
     }
 }

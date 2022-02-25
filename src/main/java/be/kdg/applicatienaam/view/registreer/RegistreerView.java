@@ -64,4 +64,16 @@ public class RegistreerView extends GridPane {
     public Button getRegistreerBtn() {
         return registreerBtn;
     }
+
+    public TextField getUserTextField() {
+        return userTextField;
+    }
+
+    public PasswordField getPwField() {
+        return pwField;
+    }
+
+    public PasswordField getPwFieldHerhaal() {
+        return pwFieldHerhaal;
+    }
 }

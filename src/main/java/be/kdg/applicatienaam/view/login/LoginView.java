@@ -73,4 +73,8 @@ public class LoginView extends GridPane {
     public TextField getUserTextField() {
         return userTextField;
     }
+
+    public PasswordField getPwField() {
+        return pwField;
+    }
 }
