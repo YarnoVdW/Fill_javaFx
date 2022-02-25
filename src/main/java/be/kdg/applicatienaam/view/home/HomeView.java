@@ -20,6 +20,7 @@ public class HomeView extends GridPane {
     private BackgroundImage backgroundImage;
     private Image backImage;
     private HBox hbtn;
+    private Button logout;
     private final int GRID_PANE_HEIGTH = 200;
     private final int GRID_PANE_WIDTH = 200;
 
@@ -35,6 +36,7 @@ public class HomeView extends GridPane {
         infoButton = new Button("", new ImageView("/info.png"));
         soundButton = new ToggleButton("", new ImageView("/soundOnn.png"));
         imageView = new ImageView("/fill_homeScreen.png");
+        logout = new Button("", new ImageView("/logout.png"));
         this.hbtn = new HBox(10);
     }
     private void layoutNodes() {
@@ -47,6 +49,8 @@ public class HomeView extends GridPane {
         this.playButton.setMinSize(30, 30);
         this.infoButton.setMinSize(30,30);
         this.soundButton.setMinSize(30,30);
+        //this.logout.setMinSize(30,30);
+        this.logout.setMaxSize(25,25);
         this.add(imageView, 1, 0, 3,1);
         this.setPadding(new Insets(20));
 
@@ -59,6 +63,7 @@ public class HomeView extends GridPane {
         this.hbtn.getChildren().add(infoButton);
         this.hbtn.getChildren().add(soundButton);
         this.hbtn.setAlignment(Pos.BOTTOM_CENTER);
+        this.hbtn.getChildren().add(logout);
         this.add(hbtn, 1, 4);
         this.setVgap(5);
 
@@ -75,5 +80,9 @@ public class HomeView extends GridPane {
 
     public ToggleButton getSoundButton() {
         return soundButton;
+    }
+
+    public Button getLogout() {
+        return logout;
     }
 }

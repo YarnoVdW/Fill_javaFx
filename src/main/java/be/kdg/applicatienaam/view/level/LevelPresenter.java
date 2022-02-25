@@ -11,8 +11,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class LevelPresenter {
-    private LevelView view;
-    private Bord bord;
+    private final LevelView view;
+    private final Bord bord;
 
 
     public LevelPresenter(LevelView view, Bord bord) {
@@ -28,8 +28,7 @@ public class LevelPresenter {
             int moveX = (int) (e.getX()/50);
             int moveY = (int)(e.getY()/50);
             Move move = new Move(moveY, moveX);
-            System.out.println(e.getX());
-            System.out.println(e.getY());
+
             if(bord.isAllowedMove(move) && bord.isNaast(move)) {
                 view.setPosition(bord.getBordLayout()[moveY][moveX].kleurIn(), moveX, moveY);
             }

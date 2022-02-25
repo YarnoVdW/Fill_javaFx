@@ -47,8 +47,6 @@ public class JavaPostgresUser {
             if (resultSet.next()) {
                 return true;
             }
-
-
         } catch (SQLException e) {
             Logger lgr = Logger.getLogger(JavaPostgresUser.class.getName());
             lgr.log(Level.SEVERE, e.getMessage(), e);
