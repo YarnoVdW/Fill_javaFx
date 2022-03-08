@@ -7,15 +7,16 @@ import be.kdg.applicatienaam.view.levelComplete.LevelCompleteView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 public class LevelPresenter {
     private final LevelView view;
     private final Bord bord;
 
 
-    public LevelPresenter(LevelView view, Bord bord) {
+    public LevelPresenter(LevelView view, Bord bord) throws FileNotFoundException, URISyntaxException {
         this.view = view;
         addEventHandler();
         this.bord = new Bord();
@@ -24,26 +25,35 @@ public class LevelPresenter {
         addEventHandlerHerstart();
     }
     private void addEventHandler(){
-        view.addEventHandler(MouseEvent.MOUSE_DRAGGED, e ->{
-            int moveX = (int) (e.getX()/50);
-            int moveY = (int)(e.getY()/50);
-            Move move = new Move(moveY, moveX);
+        try {
+            view.addEventHandler(MouseEvent.MOUSE_DRAGGED, e ->{
+                int moveX = (int) (e.getX()/50);
+                int moveY = (int)(e.getY()/50);
+                Move move = new Move(moveY, moveX);
 
-            if(bord.isAllowedMove(move) && bord.isNaast(move)) {
-                view.setPosition(bord.getBordLayout()[moveY][moveX].kleurIn(), moveX, moveY);
-            }
-            bord.maakMove(move);
-            if(bord.isVol()){
-                bord.playSound();
-                levelComplete();
-            }
-        });
+                if(bord.isAllowedMove(move) && bord.isNaast(move)) {
+                    view.setPosition(bord.getBordLayout()[moveY][moveX].kleurIn(), moveX, moveY);
+                }
+                bord.maakMove(move);
+                if(bord.isVol()){
+                    bord.playSound();
+                    levelComplete();
+                }
+            });
+        } catch (Exception e) {
+            System.out.println();
+        }
     }
     private void levelComplete(){
-        LevelCompleteView levelCompleteView = new LevelCompleteView();
-        LevelCompletePresenter presenter = new LevelCompletePresenter(levelCompleteView);
-        view.getScene().setRoot(levelCompleteView);
-        levelCompleteView.getScene().getWindow().sizeToScene();
+        try {
+            LevelCompleteView levelCompleteView = new LevelCompleteView();
+            LevelCompletePresenter presenter = new LevelCompletePresenter(levelCompleteView);
+            view.getScene().setRoot(levelCompleteView);
+            levelCompleteView.getScene().getWindow().sizeToScene();
+        } catch (Exception e) { // slechte manier, maar ik heb een rare foutmelding
+            System.out.println();
+        }
+
     }
     private void vulBord(){
         for (int i = 0; i < 6; i++) {
@@ -57,11 +67,15 @@ public class LevelPresenter {
         view.getHerstart().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                herstart();
+                try {
+                    herstart();
+                } catch (FileNotFoundException | URISyntaxException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
-    private void herstart(){
+    private void herstart() throws FileNotFoundException, URISyntaxException {
         LevelView nieuwView = new LevelView();
         Bord bord = new Bord();
         LevelPresenter presenter = new LevelPresenter(nieuwView, bord);

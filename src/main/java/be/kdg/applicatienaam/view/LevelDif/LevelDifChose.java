@@ -84,6 +84,8 @@ public class LevelDifChose extends GridPane {
         this.add(label, 0,0,3,1);
         this.label.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         GridPane.setHalignment(label, HPos.CENTER);
+        this.setMinSize(GRID_PANE_WIDTH, GRID_PANE_HEIGTH);
+
 
     }
 

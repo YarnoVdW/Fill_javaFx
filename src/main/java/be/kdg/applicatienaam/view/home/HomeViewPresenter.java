@@ -93,7 +93,6 @@ public class HomeViewPresenter {
                     view.getScene().setRoot(loginView);
                     loginView.getScene().getWindow().sizeToScene();
                 }
-
             }
         });
     }

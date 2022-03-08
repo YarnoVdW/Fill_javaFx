@@ -8,6 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.media.AudioClip;
 
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+
 public class LevelChosePresenter {
     private LevelChoseView view;
 
@@ -22,8 +25,19 @@ public class LevelChosePresenter {
             public void handle(ActionEvent actionEvent) {
                 playSound();
                 LevelView levelView = new LevelView();
-                Bord bord = new Bord();
-                LevelPresenter presenter = new LevelPresenter(levelView, bord);
+                Bord bord = null;
+                try {
+                    bord = new Bord();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    LevelPresenter presenter = new LevelPresenter(levelView, bord);
+                } catch (FileNotFoundException | URISyntaxException e) {
+                    e.printStackTrace();
+                }
                 view.getScene().setRoot(levelView);
                 levelView.getScene().getWindow().sizeToScene();
 

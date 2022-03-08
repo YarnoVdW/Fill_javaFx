@@ -21,7 +21,9 @@ public class Vakje {
         this.kleur = kleur;
     }
 
-
+    public Image geefKleur() {
+        return this.kleur;
+    }
 
     public Image geefKleur() {
         return this.kleur;

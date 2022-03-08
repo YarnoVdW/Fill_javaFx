@@ -5,6 +5,8 @@ import be.kdg.applicatienaam.view.login.LoginPresenter;
 import be.kdg.applicatienaam.view.login.LoginView;
 import javafx.scene.paint.Color;
 
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,35 +21,12 @@ public class Spel {
     private final Bord bord;
 
 
-    public Spel() {
+    public Spel() throws FileNotFoundException, URISyntaxException {
         bord = new Bord();
-
     }
-
     public void startSpel() {
         LoginView view = new LoginView();
         LoginPresenter presenter = new LoginPresenter(view);
-    }
-    public void selecteerLevel() {
-
-    }
-    public void herstartSpel() {//werkt nog niet
-
-
-        bord.maakPatroon();
-        startSpel();
-
-    }
-    public Speler showHighestScore() {
-        return null; //Collections.max(spelerList);
-
-    }
-    public String showHighscores(){//is nog niet volledig juist, het spel geeft enkel de speler terug die net gespeeld heeft.
-        for(Speler spelers : spelerList){
-            //Collections.sort(spelerList);
-            System.out.printf("%s \n", spelers);
-        }
-        return "";
     }
 
     @Override
