@@ -3,5 +3,5 @@ module JavaFxapplication {
     requires javafx.media;
     requires java.sql;
 
-    exports be.kdg.applicatienaam;
+    exports be.kdg.fill;
 }
