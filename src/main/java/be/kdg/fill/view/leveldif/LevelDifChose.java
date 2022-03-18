@@ -15,19 +15,12 @@ import javafx.scene.text.FontWeight;
 public class LevelDifChose extends GridPane {
     private Button btn1;
     private Button btn2;
-    private Button btn3;
-    private Button btn4;
-    private Button btn5;
-    private Button btn6;
-    private Button btn7;
-    private Button btn8;
-    private Button btn9;
-    private Button btn10;
+
+
     private HBox hBox;
     private HBox hBox2;
     private Button homeButton;
     private HBox hbox3;
-    private ToggleButton soundButton;
     private Label label;
 
     public LevelDifChose(){
@@ -40,31 +33,16 @@ public class LevelDifChose extends GridPane {
         this.hBox2 = new HBox(10);
         this.btn1 = new Button("1");
         this.btn2 = new Button("2");
-        this.btn3 = new Button("3");
-        this.btn4 = new Button("4");
-        this.btn5 = new Button("5");
-        this.btn6 = new Button("6");
-        this.btn7 = new Button("7");
-        this.btn8 = new Button("8");
-        this.btn9 = new Button("9");
-        this.btn10 = new Button("10");
+
         this.homeButton = new Button("",new ImageView("/homeButton.png"));
         this.hbox3 = new HBox(10);
-        this.soundButton = new ToggleButton("", new ImageView("/soundOn.png"));
         this.label = new Label("Chose difficulty");
     }
 
     private void layoutNodes() {
         this.hBox.getChildren().add(btn1);
         this.hBox.getChildren().add(btn2);
-        this.hBox.getChildren().add(btn3);
-        this.hBox.getChildren().add(btn4);
-        this.hBox.getChildren().add(btn5);
-        this.hBox2.getChildren().add(btn6);
-        this.hBox2.getChildren().add(btn7);
-        this.hBox2.getChildren().add(btn8);
-        this.hBox2.getChildren().add(btn9);
-        this.hBox2.getChildren().add(btn10);
+
         this.hBox2.setAlignment(Pos.CENTER );
         this.hBox.setAlignment(Pos.CENTER);
         this.add(hBox, 0,2);
@@ -80,7 +58,6 @@ public class LevelDifChose extends GridPane {
         this.hbox3.setAlignment(Pos.TOP_RIGHT);
         this.add(hbox3, 0,1);
         this.homeButton.setMaxSize(5,5);
-        this.hbox3.getChildren().add(soundButton);
         this.add(label, 0,0,3,1);
         this.label.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         GridPane.setHalignment(label, HPos.CENTER);
@@ -93,11 +70,13 @@ public class LevelDifChose extends GridPane {
         return homeButton;
     }
 
-    public ToggleButton getSoundButton() {
-        return soundButton;
-    }
 
     public Button getBtn1() {
         return btn1;
     }
+
+    public Button getBtn2() {
+        return btn2;
+    }
+
 }

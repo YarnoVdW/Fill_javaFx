@@ -2,6 +2,7 @@ package be.kdg.fill.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -10,11 +11,14 @@ import java.util.logging.Logger;
 public class Player {
 
 
-    private static int levelsPlayed =0;
+    private static int levelDif1 =0;
+    private static int levelDif2 = 0;
     private static String playerName;
     private static final ObservableList<Integer> playerLevels = FXCollections.observableArrayList();
+    private static final ObservableList<Integer> playerLevels2 = FXCollections.observableArrayList();
 
     public static void writeToDatabase(String userName, String userPassword) {
+        /*Deze methode gaat een speler aanmaken en in het database opslaan */
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
         String password = "student";
@@ -31,8 +35,9 @@ public class Player {
             System.out.println("User successfully created");
 
         } catch (SQLException ex) {
-            Logger lgr = Logger.getLogger(Player.class.getName());
-            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("Username already exists!");
+            alert.show();
         }
     }
 
@@ -58,11 +63,12 @@ public class Player {
         } catch (SQLException e) {
             Logger lgr = Logger.getLogger(Player.class.getName());
             lgr.log(Level.SEVERE, e.getMessage(), e);
+
         }
         return false;
     }
 
-    public static void setLevelsPlayed(String userName,int levelsPlayed) {
+    public static void setLevelsPlayedDif1(String userName, int levelsPlayed) {
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
         String password = "student";
@@ -73,10 +79,36 @@ public class Player {
 
             pst.setInt(1,levelsPlayed);
             pst.setString(2, userName);
-            Player.levelsPlayed = levelsPlayed;
+            Player.levelDif1 = levelsPlayed;
 
             pst.execute();
             System.out.println("User level successfully updated");
+
+        } catch (SQLException ex) {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("User name already exists!");
+            alert.show();
+        }
+
+
+
+    }
+    public static void setLevelsPlayedDif2(String userName, int levelsPlayed) {
+        String url = "jdbc:postgresql://localhost:5433/JavaFx";
+        String user = "postgres";
+        String password = "student";
+
+        String query = "update player set level2 = ? where name= ?";
+        try (Connection con = DriverManager.getConnection(url, user, password);
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setInt(1,levelsPlayed);
+            pst.setString(2, userName);
+            Player.levelDif2 = levelsPlayed;
+
+            pst.execute();
+            System.out.println("User level2 successfully updated");
 
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Player.class.getName());
@@ -84,28 +116,65 @@ public class Player {
         }
 
     }
+    public static void emptyPlayerLevels(String userName) {
+        String url = "jdbc:postgresql://localhost:5433/JavaFx";
+        String user = "postgres";
+        String password = "student";
 
-    public static int getLevelsPlayed() {
+        String query = "update player set level2 = 1, levels =1 where name= ?";
+        try (Connection con = DriverManager.getConnection(url, user, password);
+             PreparedStatement pst = con.prepareStatement(query)) {
 
-        return levelsPlayed;
+
+            pst.setString(1, userName);
+            Player.levelDif2 = 1;
+            Player.levelDif1 = 1;
+
+            pst.execute();
+            System.out.println("User levels successfully emptied");
+
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(Player.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        for (int i = 1; i <= Player.levelDif1; i++) {
+            if(!playerLevels.contains(i)) playerLevels.add(i);
+        }
+        for (int i = 1; i <= Player.levelDif2; i++) {
+            if(!playerLevels2.contains(i)) playerLevels2.add(i);
+        }
+
+
+    }
+
+    public static int getLevelDif1() {
+
+        return levelDif1;
+    }
+
+    public static int getLevelDif2() {
+        return levelDif2;
     }
 
     public static String getPlayerName() {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
+    public static void setPlayerName(String playerName) {
         Player.playerName = playerName;
     }
 
     public static ObservableList<Integer> getPlayerLevels() {
         return playerLevels;
-
     }
+    public static ObservableList<Integer> getPlayerLevels2() {
+        return playerLevels2;
+    }
+
 
     public static void makeLevelList() throws SQLException {
 
-        String Sql = "Select levels from player where name = ?";
+        String Sql = "Select levels, level2 from player where name = ?";
 
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
@@ -119,16 +188,21 @@ public class Player {
             do  {
                 try (ResultSet resultSet = pst.getResultSet()) {
                     while(resultSet.next()) {
-                        Player.levelsPlayed = pst.getResultSet().getInt(1);
+                        Player.levelDif1 = pst.getResultSet().getInt(1);
+                        Player.levelDif2 = pst.getResultSet().getInt(2);
                     }
                     isResult = pst.getMoreResults();
                 }
             } while(isResult);
 
         }
-        for (int i = 1; i <= Player.getLevelsPlayed(); i++) {
+        for (int i = 1; i <= Player.getLevelDif1(); i++) {
             if(!playerLevels.contains(i)) playerLevels.add(i);
         }
+        for (int i = 1; i <= Player.getLevelDif2(); i++) {
+            if(!playerLevels2.contains(i)) playerLevels2.add(i);
+        }
+
 
     }
 

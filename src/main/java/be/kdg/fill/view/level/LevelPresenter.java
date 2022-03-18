@@ -4,6 +4,10 @@ import be.kdg.fill.model.Move;
 import be.kdg.fill.model.Player;
 import be.kdg.fill.model.bord.Board;
 
+import be.kdg.fill.view.gamecomplete.GameCompletePresenter;
+import be.kdg.fill.view.gamecomplete.GameCompleteView;
+import be.kdg.fill.view.home.HomeView;
+import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.levelcomplete.LevelCompletePresenter;
 import be.kdg.fill.view.levelcomplete.LevelCompleteView;
 import javafx.scene.input.MouseEvent;
@@ -20,10 +24,10 @@ public class LevelPresenter {
         this.board.makePattern();
         this.fillBoard();
         addEventHandlerRestart(this.board.getCurrentLevel());
+        addEventHandlerHome();
 
     }
     private void addEventHandler() {
-
             view.addEventHandler(MouseEvent.MOUSE_DRAGGED, e ->{
                 int moveX = (int) (e.getX()/50);
                 int moveY = (int)(e.getY()/50);
@@ -35,13 +39,17 @@ public class LevelPresenter {
                 board.makeMove(move);
                 if(board.isCompleted()) {
                     board.playSound();
-                    if(this.board.getCurrentLevel() >= Player.getLevelsPlayed()) {
-                        Player.setLevelsPlayed(Player.getPlayerName(),this.board.getCurrentLevel()+1);
+                    if(this.board.getPattern().equals("/maakPatroon.txt")) {
+                        if(this.board.getCurrentLevel() >= Player.getLevelDif1()) {
+                            Player.setLevelsPlayedDif1(Player.getPlayerName(),this.board.getCurrentLevel()+1);
+                        }
+                    } else if(this.board.getPattern().equals("/patroonDif2.txt")) {
+                        if(this.board.getCurrentLevel() >= Player.getLevelDif2()) {
+                            Player.setLevelsPlayedDif2(Player.getPlayerName(), this.board.getCurrentLevel()+1);
+                        }
                     }
-
                     try {
-                        levelComplete();
-
+                    levelComplete();
                     } catch (Exception ex) {
 
 
@@ -52,10 +60,18 @@ public class LevelPresenter {
 
     }
     private void levelComplete() throws Exception {
+        if (board.isGameComplete()){
+            GameCompleteView gameCompleteView = new GameCompleteView();
+            GameCompletePresenter presenter = new GameCompletePresenter(gameCompleteView);
+            view.getScene().setRoot(gameCompleteView);
+            gameCompleteView.getScene().getWindow().sizeToScene();
+        }else {
             LevelCompleteView levelCompleteView = new LevelCompleteView();
             LevelCompletePresenter presenter = new LevelCompletePresenter(levelCompleteView, this.board.getCurrentLevel() + 1);
             view.getScene().setRoot(levelCompleteView);
             levelCompleteView.getScene().getWindow().sizeToScene();
+        }
+
     }
     private void fillBoard(){
         for (int i = 0; i < 6; i++) {
@@ -83,6 +99,16 @@ public class LevelPresenter {
         LevelPresenter presenter = new LevelPresenter(newView, board);
         view.getScene().setRoot(newView);
         newView.getScene().getWindow().sizeToScene();
+    }
+
+    private void addEventHandlerHome() {
+        view.getHomeButton().setOnAction(actionEvent -> {
+            HomeView homeView = new HomeView();
+            HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
+            view.getScene().setRoot(homeView);
+            homeView.getScene().getWindow().sizeToScene();
+
+        });
     }
 
 }

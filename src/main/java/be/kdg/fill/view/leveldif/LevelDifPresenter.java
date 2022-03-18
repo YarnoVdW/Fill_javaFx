@@ -1,15 +1,18 @@
 package be.kdg.fill.view.leveldif;
 
+
+import be.kdg.fill.model.Player;
 import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.levelchoser.LevelChosePresenter;
 import be.kdg.fill.view.levelchoser.LevelChoseView;
-
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
+
 
 public class LevelDifPresenter {
     private final LevelDifChose view;
@@ -19,6 +22,7 @@ public class LevelDifPresenter {
         addEventHandlerHome();
         addEventHandlerToggle();
         addEventHandlerBtn1();
+        addEventHandlerDif2();
 
     }
 
@@ -51,11 +55,34 @@ public class LevelDifPresenter {
             LevelChoseView levelChoseView = null;
             try {
                 levelChoseView = new LevelChoseView();
+                Player.makeLevelList();
+                levelChoseView.getComboBox().setItems(Player.getPlayerLevels());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             try {
-                LevelChosePresenter presenter = new LevelChosePresenter(levelChoseView);
+                LevelChosePresenter presenter = new LevelChosePresenter(levelChoseView, "/maakPatroon.txt");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            view.getScene().setRoot(levelChoseView);
+            levelChoseView.getScene().getWindow().sizeToScene();
+        });
+
+    }
+    private void addEventHandlerDif2() {
+        view.getBtn2().setOnAction(actionEvent -> {
+            LevelChoseView levelChoseView = null;
+            try {
+                levelChoseView = new LevelChoseView();
+                Player.makeLevelList();
+                levelChoseView.getComboBox().setItems(Player.getPlayerLevels2());
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                LevelChosePresenter presenter = new LevelChosePresenter(levelChoseView, "/patroonDif2.txt");
             } catch (Exception e) {
                 e.printStackTrace();
             }

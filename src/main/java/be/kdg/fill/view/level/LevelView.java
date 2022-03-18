@@ -10,7 +10,7 @@ import javafx.scene.layout.RowConstraints;
 
 public class LevelView extends GridPane {
     private Button restart;
-
+    private Button homeButton;
     public LevelView() {
 
         this.initialiseNodes();
@@ -19,16 +19,17 @@ public class LevelView extends GridPane {
     }
 
     private void layoutNodes() {
-
         this.setGridLinesVisible(false);
         for (int i = 0; i <6; i++){
             this.getColumnConstraints().add(new ColumnConstraints(50));
             this.getRowConstraints().add(new RowConstraints(50));
         }
         this.add(restart, 0, 7);
+        this.add(homeButton, 1, 7);
     }
     private void initialiseNodes() {
         this.restart = new Button("", new ImageView("/herstart.png"));
+        this.homeButton = new Button("", new ImageView("/homeButton.png"));
     }
     public void setPosition(Image v, int x, int y) {
 
@@ -40,5 +41,9 @@ public class LevelView extends GridPane {
 
     public Button getRestart() {
         return restart;
+    }
+
+    public Button getHomeButton() {
+        return homeButton;
     }
 }

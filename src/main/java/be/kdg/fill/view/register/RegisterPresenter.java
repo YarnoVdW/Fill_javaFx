@@ -32,11 +32,11 @@ public class RegisterPresenter {
                 alert.setHeaderText("wachtwoord of username mag niet null zijn");
                 alert.show();
             } else {
-
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText("fout wachtwoord");
                 alert.show();
             }
+
         });
     }
 }

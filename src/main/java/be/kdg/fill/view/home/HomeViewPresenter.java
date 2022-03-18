@@ -5,25 +5,20 @@ import be.kdg.fill.view.leveldif.LevelDifPresenter;
 import be.kdg.fill.view.leveldif.LevelDifChose;
 import be.kdg.fill.view.login.LoginPresenter;
 import be.kdg.fill.view.login.LoginView;
-
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class HomeViewPresenter {
     private final HomeView view;
-    private Player player;
 
 
     public HomeViewPresenter(HomeView view) {
         this.view = view;
         addEventHandlerInfo();
         updateView();
-        addEventHandlerToggle();
         addEventHandlerPlay();
         addEventHandlerLogout();
+        addEventHandlerResetLevel();
     }
 
     private void addEventHandlerPlay() {
@@ -41,28 +36,14 @@ public class HomeViewPresenter {
     private void addEventHandlerInfo() {
         view.getInfoButton().setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("hier komt de tekst over de info");
-            alert.setTitle("How to play");
+            alert.setHeaderText("Je begint bij \n" +
+                    "het startblokje en probeert in één beweging alle blokjes van \n" +
+                    "de vorm te bedekken. Dit doe je door met je muis te klikken en te draggen over het volledige bord.");
+            alert.setTitle("Hoe spelen?");
             alert.showAndWait();
         });
     }
-    private void addEventHandlerToggle(){
-        view.getSoundButton().setOnAction(actionEvent -> updateViewSound());
-    }
-    private void updateViewSound() {
-        if(view.getSoundButton().isSelected()){
 
-            Image image = new Image("/soundOff.png");
-            Node node = new ImageView(image);
-            view.getSoundButton().setGraphic(node);
-
-
-        } else {
-            Image image = new Image("/soundOn.png");
-            Node node = new ImageView(image);
-            view.getSoundButton().setGraphic(node);
-        }
-    }
     private void addEventHandlerLogout(){
         view.getLogout().setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -72,13 +53,18 @@ public class HomeViewPresenter {
             ButtonType yes = new ButtonType("Yes");
             alert.getButtonTypes().addAll(no, yes);
             alert.showAndWait();
-
             if (alert.getResult().equals(yes)) {
+                Player.setPlayerName(null);
                 LoginView loginView = new LoginView();
                 LoginPresenter presenter = new LoginPresenter(loginView);
                 view.getScene().setRoot(loginView);
                 loginView.getScene().getWindow().sizeToScene();
             }
+        });
+    }
+    private void addEventHandlerResetLevel() {
+        view.getResetLevel().setOnAction(actionEvent -> {
+            Player.emptyPlayerLevels(Player.getPlayerName());
         });
     }
 

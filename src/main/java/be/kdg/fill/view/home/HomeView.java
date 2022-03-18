@@ -13,10 +13,10 @@ public class HomeView extends GridPane {
 
     private Button playButton;
     private Button infoButton;
-    private ToggleButton soundButton;
     private ImageView imageView;
     private HBox hbtn;
     private Button logout;
+    private Button resetLevel;
 
 
 
@@ -27,10 +27,10 @@ public class HomeView extends GridPane {
     private void initialiseNodes() {
         playButton = new Button("", new ImageView("/playButton.png"));
         infoButton = new Button("", new ImageView("/info.png"));
-        soundButton = new ToggleButton("", new ImageView("/soundOn.png"));
         imageView = new ImageView("/fill_homeScreen.png");
         logout = new Button("", new ImageView("/logout.png"));
         this.hbtn = new HBox(10);
+        this.resetLevel = new Button("", new ImageView("/reset.png"));
     }
     private void layoutNodes() {
 
@@ -43,21 +43,18 @@ public class HomeView extends GridPane {
         this.setMinHeight(GRID_PANE_HEIGHT);
         this.playButton.setMinSize(30, 30);
         this.infoButton.setMinSize(30,30);
-        this.soundButton.setMinSize(30,30);
         this.logout.setMaxSize(25,25);
         this.add(imageView, 1, 0, 3,1);
         this.setPadding(new Insets(20));
-
         this.setAlignment(Pos.CENTER);
         GridPane.setHalignment(playButton, HPos.LEFT);
         GridPane.setHalignment(infoButton, HPos.CENTER);
-        GridPane.setHalignment(soundButton, HPos.RIGHT);
 
         this.hbtn.getChildren().add(playButton);
         this.hbtn.getChildren().add(infoButton);
-        this.hbtn.getChildren().add(soundButton);
         this.hbtn.setAlignment(Pos.BOTTOM_CENTER);
         this.hbtn.getChildren().add(logout);
+        this.hbtn.getChildren().add(resetLevel);
         this.add(hbtn, 1, 4);
         this.setVgap(5);
 
@@ -71,12 +68,11 @@ public class HomeView extends GridPane {
     public Button getInfoButton() {
         return infoButton;
     }
-
-    public ToggleButton getSoundButton() {
-        return soundButton;
-    }
-
     public Button getLogout() {
         return logout;
+    }
+
+    public Button getResetLevel() {
+        return resetLevel;
     }
 }

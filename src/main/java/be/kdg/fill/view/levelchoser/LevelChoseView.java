@@ -1,6 +1,6 @@
 package be.kdg.fill.view.levelchoser;
 
-import be.kdg.fill.model.Player;
+
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
 import java.sql.SQLException;
 
 public class LevelChoseView extends GridPane {
@@ -23,7 +22,6 @@ public class LevelChoseView extends GridPane {
     private HBox hBox2;
     private Button homeButton;
     private HBox hbox3;
-    private ToggleButton soundButton;
     private Label label;
     private ComboBox<Integer> comboBox;
 
@@ -38,13 +36,8 @@ public class LevelChoseView extends GridPane {
 
         this.homeButton = new Button("", new ImageView("/homeButton.png"));
         this.hbox3 = new HBox(10);
-        this.soundButton = new ToggleButton("", new ImageView("/soundOn.png"));
-        this.label = new Label("Chose level");
+        this.label = new Label("Choose level");
         this.comboBox = new ComboBox();
-        Player.makeLevelList();
-        comboBox.setItems(Player.getPlayerLevels());
-
-
     }
 
     private void layoutNodes() {
@@ -64,7 +57,6 @@ public class LevelChoseView extends GridPane {
         this.hbox3.setAlignment(Pos.TOP_RIGHT);
         this.add(hbox3, 0, 1);
         this.homeButton.setMaxSize(5, 5);
-        this.hbox3.getChildren().add(soundButton);
         this.add(label, 0, 0, 3, 1);
         this.label.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         GridPane.setHalignment(label, HPos.CENTER);
@@ -75,13 +67,8 @@ public class LevelChoseView extends GridPane {
         return homeButton;
     }
 
-    public ToggleButton getSoundButton() {
-        return soundButton;
-    }
-
-
-
     public ComboBox<Integer> getComboBox() {
         return comboBox;
     }
+
 }
