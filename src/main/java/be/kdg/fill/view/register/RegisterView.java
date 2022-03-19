@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -22,6 +23,7 @@ public class RegisterView extends GridPane {
     private PasswordField pwField;
     private PasswordField pwFieldRepeat;
     private Label passwordRepeat;
+    private Button backButton;
 
     public RegisterView() {
         this.initialiseNodes();
@@ -32,6 +34,7 @@ public class RegisterView extends GridPane {
         this.add(userName, 0,1);
         this.add(userTextField, 1, 1);
         this.hbtn.getChildren().add(registerButton);
+        this.hbtn.getChildren().add(backButton);
         this.hbtn.setAlignment(Pos.BOTTOM_RIGHT);
         this.add(hbtn, 1, 4);
         this.setAlignment(Pos.CENTER);
@@ -58,6 +61,7 @@ public class RegisterView extends GridPane {
         this.pwField = new PasswordField();
         this.pwFieldRepeat = new PasswordField();
         this.passwordRepeat = new Label("Repeat password:");
+        this.backButton = new Button("", new ImageView("/logout.png"));
     }
 
     public Button getRegisterButton() {
@@ -74,5 +78,9 @@ public class RegisterView extends GridPane {
 
     public PasswordField getPwFieldRepeat() {
         return pwFieldRepeat;
+    }
+
+    public Button getBackButton() {
+        return backButton;
     }
 }

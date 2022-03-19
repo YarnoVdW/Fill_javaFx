@@ -1,4 +1,4 @@
-package be.kdg.fill.model;
+package be.kdg.fill.model.move;
 
 import java.util.Objects;
 

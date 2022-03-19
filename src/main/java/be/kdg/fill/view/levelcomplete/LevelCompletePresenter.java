@@ -30,7 +30,7 @@ public class LevelCompletePresenter {
         });
     }
 
-    private void addEventHandlerRestart(){
+    private void addEventHandlerRestart() {
         view.getRestart().setOnAction(actionEvent -> {
             LevelView levelView = new LevelView();
             try {
@@ -43,7 +43,7 @@ public class LevelCompletePresenter {
         });
     }
 
-    private void addNextLevelHandler(int nextLevel){
+    private void addNextLevelHandler(int nextLevel) {
 
         view.getNextLevel().setOnAction(actionEvent -> {
 

@@ -1,12 +1,13 @@
 package be.kdg.fill.view.home;
 
-import be.kdg.fill.model.Player;
+import be.kdg.fill.model.player.Player;
 import be.kdg.fill.view.leveldif.LevelDifPresenter;
-import be.kdg.fill.view.leveldif.LevelDifChose;
+import be.kdg.fill.view.leveldif.LevelDifChoose;
 import be.kdg.fill.view.login.LoginPresenter;
 import be.kdg.fill.view.login.LoginView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+
 
 public class HomeViewPresenter {
     private final HomeView view;
@@ -23,7 +24,7 @@ public class HomeViewPresenter {
 
     private void addEventHandlerPlay() {
         view.getPlayButton().setOnAction(actionEvent -> {
-            LevelDifChose levelDifChose = new LevelDifChose();
+            LevelDifChoose levelDifChose = new LevelDifChoose();
             LevelDifPresenter presenter = new LevelDifPresenter(levelDifChose);
             view.getScene().setRoot(levelDifChose);
             levelDifChose.getScene().getWindow().sizeToScene();
@@ -36,7 +37,7 @@ public class HomeViewPresenter {
     private void addEventHandlerInfo() {
         view.getInfoButton().setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Je begint bij \n" +
+            alert.setHeaderText("Je begint bij" +
                     "het startblokje en probeert in één beweging alle blokjes van \n" +
                     "de vorm te bedekken. Dit doe je door met je muis te klikken en te draggen over het volledige bord.");
             alert.setTitle("Hoe spelen?");
@@ -63,9 +64,8 @@ public class HomeViewPresenter {
         });
     }
     private void addEventHandlerResetLevel() {
-        view.getResetLevel().setOnAction(actionEvent -> {
-            Player.emptyPlayerLevels(Player.getPlayerName());
-        });
+        /*reset al de levels die gespeeld zijn terug naar hun default waarde, voor de speler die aan het spelen is!*/
+        view.getResetLevel().setOnAction(actionEvent -> Player.emptyPlayerLevels(Player.getPlayerName()));
     }
 
 }

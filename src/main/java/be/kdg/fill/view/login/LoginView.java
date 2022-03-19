@@ -51,11 +51,14 @@ public class LoginView extends GridPane {
         this.title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         this.add(title, 0, 0, 2, 1);
         this.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, CornerRadii.EMPTY, Insets.EMPTY)));
-        //this.setStyle("-fx-background-image: url('/fill-line-game.png')");
         this.setMinSize(200,200);
         this.add(password, 0, 2);
         this.add(pwField,1, 2);
         this.hbtn.getChildren().add(registerBtn);
+
+
+
+
 
     }
     public Button getSingInBtn() {

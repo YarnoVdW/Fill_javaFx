@@ -1,26 +1,21 @@
 package be.kdg.fill.view.leveldif;
 
 
-import be.kdg.fill.model.Player;
+import be.kdg.fill.model.player.Player;
 import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
-import be.kdg.fill.view.levelchoser.LevelChosePresenter;
-import be.kdg.fill.view.levelchoser.LevelChoseView;
-import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import be.kdg.fill.view.levelchooser.LevelChoosePresenter;
+import be.kdg.fill.view.levelchooser.LevelChooseView;
 
 import java.sql.SQLException;
 
 
 public class LevelDifPresenter {
-    private final LevelDifChose view;
+    private final LevelDifChoose view;
 
-    public LevelDifPresenter(LevelDifChose view) {
+    public LevelDifPresenter(LevelDifChoose view) {
         this.view = view;
         addEventHandlerHome();
-        addEventHandlerToggle();
         addEventHandlerBtn1();
         addEventHandlerDif2();
 
@@ -34,34 +29,20 @@ public class LevelDifPresenter {
             homeView.getScene().getWindow().sizeToScene();
         });
     }
-    private void addEventHandlerToggle(){
-        view.getSoundButton().setOnAction(actionEvent -> updateViewSound());
-    }
-    private void updateViewSound() {
-        if(view.getSoundButton().isSelected()){
 
-            Image image = new Image("/soundOff.png");
-            Node node = new ImageView(image);
-            view.getSoundButton().setGraphic(node);
 
-        } else {
-            Image image = new Image("/soundOn.png");
-            Node node = new ImageView(image);
-            view.getSoundButton().setGraphic(node);
-        }
-    }
     private void addEventHandlerBtn1(){
         view.getBtn1().setOnAction(actionEvent -> {
-            LevelChoseView levelChoseView = null;
+            LevelChooseView levelChoseView = null;
             try {
-                levelChoseView = new LevelChoseView();
+                levelChoseView = new LevelChooseView();
                 Player.makeLevelList();
                 levelChoseView.getComboBox().setItems(Player.getPlayerLevels());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             try {
-                LevelChosePresenter presenter = new LevelChosePresenter(levelChoseView, "/maakPatroon.txt");
+                LevelChoosePresenter presenter = new LevelChoosePresenter(levelChoseView, "/maakPatroon.txt");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -72,9 +53,9 @@ public class LevelDifPresenter {
     }
     private void addEventHandlerDif2() {
         view.getBtn2().setOnAction(actionEvent -> {
-            LevelChoseView levelChoseView = null;
+            LevelChooseView levelChoseView = null;
             try {
-                levelChoseView = new LevelChoseView();
+                levelChoseView = new LevelChooseView();
                 Player.makeLevelList();
                 levelChoseView.getComboBox().setItems(Player.getPlayerLevels2());
 
@@ -82,7 +63,7 @@ public class LevelDifPresenter {
                 e.printStackTrace();
             }
             try {
-                LevelChosePresenter presenter = new LevelChosePresenter(levelChoseView, "/patroonDif2.txt");
+                LevelChoosePresenter presenter = new LevelChoosePresenter(levelChoseView, "/patroonDif2.txt");
             } catch (Exception e) {
                 e.printStackTrace();
             }

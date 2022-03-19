@@ -1,4 +1,4 @@
-package be.kdg.fill.model;
+package be.kdg.fill.model.player;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,6 +42,7 @@ public class Player {
     }
 
     public boolean validate(String userName, String pass) {
+        /*Valideren of een speler bestaat, als dit niet is wordt er een foutmelding getoond*/
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
         String password = "student";
@@ -69,6 +70,7 @@ public class Player {
     }
 
     public static void setLevelsPlayedDif1(String userName, int levelsPlayed) {
+        //levels setten van difficulty 1, in het database is dit de table levels
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
         String password = "student";
@@ -90,9 +92,6 @@ public class Player {
             alert.setHeaderText("User name already exists!");
             alert.show();
         }
-
-
-
     }
     public static void setLevelsPlayedDif2(String userName, int levelsPlayed) {
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
@@ -116,7 +115,7 @@ public class Player {
         }
 
     }
-    public static void emptyPlayerLevels(String userName) {
+    public static void emptyPlayerLevels(String userName)  {
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
         String password = "student";
@@ -143,35 +142,7 @@ public class Player {
         for (int i = 1; i <= Player.levelDif2; i++) {
             if(!playerLevels2.contains(i)) playerLevels2.add(i);
         }
-
-
     }
-
-    public static int getLevelDif1() {
-
-        return levelDif1;
-    }
-
-    public static int getLevelDif2() {
-        return levelDif2;
-    }
-
-    public static String getPlayerName() {
-        return playerName;
-    }
-
-    public static void setPlayerName(String playerName) {
-        Player.playerName = playerName;
-    }
-
-    public static ObservableList<Integer> getPlayerLevels() {
-        return playerLevels;
-    }
-    public static ObservableList<Integer> getPlayerLevels2() {
-        return playerLevels2;
-    }
-
-
     public static void makeLevelList() throws SQLException {
 
         String Sql = "Select levels, level2 from player where name = ?";
@@ -204,6 +175,29 @@ public class Player {
         }
 
 
+    }
+
+    public static int getLevelDif1() {
+        return levelDif1;
+    }
+
+    public static int getLevelDif2() {
+        return levelDif2;
+    }
+
+    public static String getPlayerName() {
+        return playerName;
+    }
+
+    public static void setPlayerName(String playerName) {
+        Player.playerName = playerName;
+    }
+
+    public static ObservableList<Integer> getPlayerLevels() {
+        return playerLevels;
+    }
+    public static ObservableList<Integer> getPlayerLevels2() {
+        return playerLevels2;
     }
 
 }

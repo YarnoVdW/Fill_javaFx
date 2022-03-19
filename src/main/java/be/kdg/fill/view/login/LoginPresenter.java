@@ -1,11 +1,10 @@
 package be.kdg.fill.view.login;
 
-import be.kdg.fill.model.Player;
+import be.kdg.fill.model.player.Player;
 import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.register.RegisterView;
 import be.kdg.fill.view.register.RegisterPresenter;
-
 import javafx.scene.control.Alert;
 
 public class LoginPresenter {
@@ -49,7 +48,7 @@ public class LoginPresenter {
                 HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
                 view.getScene().setRoot(homeView);
                 homeView.getScene().getWindow().sizeToScene();
-                player.setPlayerName(view.getUserTextField().getText());
+                Player.setPlayerName(view.getUserTextField().getText());
             }
         });
     }

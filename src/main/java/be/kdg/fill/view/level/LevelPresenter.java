@@ -1,7 +1,7 @@
 package be.kdg.fill.view.level;
 
-import be.kdg.fill.model.Move;
-import be.kdg.fill.model.Player;
+import be.kdg.fill.model.move.Move;
+import be.kdg.fill.model.player.Player;
 import be.kdg.fill.model.bord.Board;
 
 import be.kdg.fill.view.gamecomplete.GameCompletePresenter;
@@ -10,6 +10,9 @@ import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.levelcomplete.LevelCompletePresenter;
 import be.kdg.fill.view.levelcomplete.LevelCompleteView;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 
@@ -25,6 +28,7 @@ public class LevelPresenter {
         this.fillBoard();
         addEventHandlerRestart(this.board.getCurrentLevel());
         addEventHandlerHome();
+        addEventHandlerToggle();
 
     }
     private void addEventHandler() {
@@ -40,7 +44,7 @@ public class LevelPresenter {
                 if(board.isCompleted()) {
                     board.playSound();
                     if(this.board.getPattern().equals("/maakPatroon.txt")) {
-                        if(this.board.getCurrentLevel() >= Player.getLevelDif1()) {
+                        if(this.board.getCurrentLevel() >= Player.getLevelDif1()) { //we moeten enkel updaten als het level nog niet gespeeld is
                             Player.setLevelsPlayedDif1(Player.getPlayerName(),this.board.getCurrentLevel()+1);
                         }
                     } else if(this.board.getPattern().equals("/patroonDif2.txt")) {
@@ -109,6 +113,24 @@ public class LevelPresenter {
             homeView.getScene().getWindow().sizeToScene();
 
         });
+    }
+    private void addEventHandlerToggle(){
+        view.getSoundButton().setOnAction(actionEvent -> updateViewSound());
+    }
+    private void updateViewSound() {
+        if (view.getSoundButton().isSelected()) {
+
+            Image image = new Image("/soundOff.png");
+            Node node = new ImageView(image);
+            view.getSoundButton().setGraphic(node);
+            Board.setVolume(0);
+
+        } else {
+            Image image = new Image("/soundOn.png");
+            Node node = new ImageView(image);
+            view.getSoundButton().setGraphic(node);
+            Board.setVolume(0.5);
+        }
     }
 
 }
