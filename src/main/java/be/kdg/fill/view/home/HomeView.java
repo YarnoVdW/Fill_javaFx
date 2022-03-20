@@ -16,6 +16,7 @@ public class HomeView extends GridPane {
     private HBox hbtn;
     private Button logout;
     private Button resetLevel;
+    private Button highScores;
 
 
 
@@ -28,6 +29,7 @@ public class HomeView extends GridPane {
         infoButton = new Button("", new ImageView("/info.png"));
         imageView = new ImageView("/fill_homeScreen.png");
         logout = new Button("", new ImageView("/logout.png"));
+        highScores = new Button("", new ImageView("/highscore.png"));
         this.hbtn = new HBox(10);
         this.resetLevel = new Button("", new ImageView("/reset.png"));
     }
@@ -44,6 +46,7 @@ public class HomeView extends GridPane {
         this.infoButton.setMinSize(30,30);
         this.logout.setMaxSize(25,25);
         this.add(imageView, 1, 0, 3,1);
+
         this.setPadding(new Insets(20));
         this.setAlignment(Pos.CENTER);
 
@@ -51,7 +54,7 @@ public class HomeView extends GridPane {
         GridPane.setVgrow(this, Priority.ALWAYS);
         GridPane.setHgrow(this, Priority.ALWAYS);
         GridPane.setHgrow(imageView, Priority.ALWAYS);
-
+        GridPane.setHalignment(imageView, HPos.CENTER);
         GridPane.setHalignment(playButton, HPos.LEFT);
         GridPane.setHalignment(infoButton, HPos.CENTER);
 
@@ -62,6 +65,7 @@ public class HomeView extends GridPane {
         this.hbtn.setAlignment(Pos.BOTTOM_CENTER);
         this.hbtn.getChildren().add(logout);
         this.hbtn.getChildren().add(resetLevel);
+        this.hbtn.getChildren().add(highScores);
         this.add(hbtn, 1, 4);
         this.setVgap(5);
 
@@ -82,5 +86,9 @@ public class HomeView extends GridPane {
 
     public Button getResetLevel() {
         return resetLevel;
+    }
+
+    public Button getHighScores() {
+        return highScores;
     }
 }

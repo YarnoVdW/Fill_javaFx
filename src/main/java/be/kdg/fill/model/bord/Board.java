@@ -1,15 +1,14 @@
 package be.kdg.fill.model.bord;
 
 import be.kdg.fill.model.move.Move;
-
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
-
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -18,24 +17,20 @@ import java.util.Scanner;
 public class Board {
 
     private final BoardPiece[][] boardLayout;
-    private final int BOARD_WIDTH = 6;
-    private final int BOARD_HEIGHT = 6;
+    private static final int BOARD_WIDTH = 6;
+    private static final int BOARD_HEIGHT = 6;
     private String pattern = "/maakPatroon.txt";
     private boolean gameComplete = false;
-
-
-
-    private Move lastTurn = new Move(0, 0);
+    private ArrayList<Integer> firstMoveX = new ArrayList<>();
+    private ArrayList<Integer> firstMoveY = new ArrayList<>();
+    private Move lastTurn;
     private int currentLevel = 1;
     private static double volume = 0.5;
 
-    public Board() throws Exception {
+    public Board(String pattern) throws Exception {
         this.boardLayout = new BoardPiece[BOARD_WIDTH][BOARD_HEIGHT];
-        this.makePattern();
-        this.countPatternLines();
+        this.makePattern(pattern);
     }
-
-
 
     public void fillBoard() { //methode om het bord te vullen met allemaal vakjes die mogelijks als patroon gebruikt gaan worden
         for (int i = 0; i < BOARD_WIDTH; i++) {
@@ -45,7 +40,7 @@ public class Board {
         }
     }
 
-    public void makePattern() throws Exception {
+    public void makePattern(String pattern) throws Exception {
         this.fillBoard();
         Image image = new Image("/Oranje.png");
         Image beginImage = new Image("/white.png");
@@ -53,10 +48,8 @@ public class Board {
         assert url != null;
         Path path = Paths.get(url.toURI());
         File file = path.toFile();
-
-        this.boardLayout[0][0].setColor(beginImage);
-        this.boardLayout[0][0].setUsed(true);
         boolean isEmpty;
+
 
 
         try (Scanner scanner = new Scanner(file)) {
@@ -65,34 +58,45 @@ public class Board {
                 String line = scanner.nextLine();
                 if(++i != this.currentLevel) continue;
                 else isEmpty = false;
-               countPatternLines();
                /*in het bestand staan de patronen geschreven als 1,2#. dit is dus x,y
                * We gaan hier alle lijne splitten met de # zodat we enkel de coordinaten over houden, die gaan we vervolgens ook nog eens
                * opdelen in een x en y coordinaat*/
                 String[] coordinateString = line.split("#");
                 for (String number : coordinateString) {
                     String[] split = number.split(",");
-
                     int xCoordinate = Integer.parseInt(split[0].trim()),
                             yCoordinate = Integer.parseInt(split[1].trim());
+                    firstMoveX.add(xCoordinate);
+                    firstMoveY.add(yCoordinate);
+
                     /* de x en y coordinaat vullen we hier in in het boardlayout zodat het model weet dat deze vakjes allemaal deel zijn
                     * van het patroon*/
                     BoardPiece boardPiece = this.boardLayout[xCoordinate][yCoordinate];
                     boardPiece.setColor(image);
                     boardPiece.setUsable(true);
+
                 }
+                this.boardLayout[firstMoveX.get(0)][firstMoveY.get(0)].setColor(beginImage);
+                this.boardLayout[firstMoveX.get(0)][firstMoveY.get(0)].setUsed(true);
+                lastTurn = new Move(firstMoveY.get(0), firstMoveX.get(0));
+                firstMoveY.clear();
+                firstMoveX.clear();
             }
         }
+
     }
-    public void countPatternLines() throws Exception {
+
+    public void countPatternLines(String filePattern) throws Exception {
 
         /*In deze methode tel ik het aantal lijnen in het patroon bestand voor dif 1. Van zodra het aantal gespeelde levels gelijk is
         * aan het aantal lijnen in het bestand is het spel volledig uitgespeeld.*/
-        URL url = getClass().getResource("/maakPatroon.txt");
+        URL url = getClass().getResource(filePattern);
         assert url != null;
         Path path = Paths.get(url.toURI());
         long lineCount = Files.readAllLines(path).size();
-        if(lineCount -2 == this.currentLevel) {
+
+
+        if(lineCount == this.currentLevel) {
             gameComplete = true;
         }
     }
@@ -106,6 +110,8 @@ public class Board {
     }
 
     public boolean isNextTo(Move move) {
+
+
         int rowDiff = Math.abs(this.lastTurn.getRow() - move.getRow());
         int colDiff = Math.abs(this.lastTurn.getColumn() - move.getColumn());
         return (rowDiff == 1 ^ colDiff == 1) && rowDiff + colDiff == 1;
@@ -114,8 +120,6 @@ public class Board {
         * daarom kijk ik ten eerst of dat 1 van de twee 1 is. en dan tel ik deze op want dit moeten uiteraard opgeteld 1 zijn. Als
         * Ze opgeteld zijn en 1 uitkomen weet je dat er één 0 is en de andere 1 (door de xor)*/
     }
-
-
 
     private BoardPiece getBoardPiece(Move move) {
 
@@ -146,7 +150,6 @@ public class Board {
                         .allMatch(BoardPiece::isUsed));
     }
 
-
     public void playSound() {
         if (isCompleted()) {
             AudioClip clip = new AudioClip(Objects.requireNonNull(this.getClass().getResource("/complete.mp3")).toExternalForm());
@@ -157,21 +160,18 @@ public class Board {
     public boolean isGameComplete() {
         return gameComplete;
     }
-
     public static void setVolume(double volume) {
         Board.volume = volume;
     }
     public void setPattern(String pattern) {
         this.pattern = pattern;
     }
-
     public String getPattern() {
         return pattern;
     }
     public int getCurrentLevel() {
         return currentLevel;
     }
-
     public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
     }

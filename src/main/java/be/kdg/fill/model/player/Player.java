@@ -16,6 +16,9 @@ public class Player {
     private static String playerName;
     private static final ObservableList<Integer> playerLevels = FXCollections.observableArrayList();
     private static final ObservableList<Integer> playerLevels2 = FXCollections.observableArrayList();
+    private static String bestPlayer;
+    private static String mediumPlayer;
+    private static String lowerMediumPlayer;
 
     public static void writeToDatabase(String userName, String userPassword) {
         /*Deze methode gaat een speler aanmaken en in het database opslaan */
@@ -120,13 +123,13 @@ public class Player {
         String user = "postgres";
         String password = "student";
 
-        String query = "update player set level2 = 1, levels =1 where name= ?";
+        String query = "update player set level2 = 0, levels =1 where name= ?";
         try (Connection con = DriverManager.getConnection(url, user, password);
              PreparedStatement pst = con.prepareStatement(query)) {
 
 
             pst.setString(1, userName);
-            Player.levelDif2 = 1;
+            Player.levelDif2 = 0;
             Player.levelDif1 = 1;
 
             pst.execute();
@@ -175,6 +178,30 @@ public class Player {
         }
 
 
+    }
+    public static ArrayList<String> getHighScores() throws SQLException {
+        String sql = "select name, levels+level2 from player order by 2 desc nulls last fetch first 3 rows only";
+        String url = "jdbc:postgresql://localhost:5433/JavaFx";
+        String user = "postgres";
+        String password = "student";
+
+        try (Connection con = DriverManager.getConnection(url, user, password);
+             PreparedStatement pst = con.prepareStatement(sql)) {
+
+            ArrayList<String> players = new ArrayList<>();
+            boolean isResult = pst.execute();
+            do  {
+                try (ResultSet resultSet = pst.getResultSet()) {
+                    while(resultSet.next()) {
+                        players.add(resultSet.getString("name"));
+                    }
+                    isResult = pst.getMoreResults();
+                }
+            } while(isResult);
+
+            return players;
+
+        }
     }
 
     public static int getLevelDif1() {

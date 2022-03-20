@@ -19,12 +19,15 @@ import javafx.scene.input.MouseEvent;
 public class LevelPresenter {
     private final LevelView view;
     private final Board board;
+    String pattern;
 
-    public LevelPresenter(LevelView view, Board board) throws Exception {
+    public LevelPresenter(LevelView view, Board board, String pattern) throws Exception {
         this.view = view;
         addEventHandler();
         this.board = board;
-        this.board.makePattern();
+        this.pattern = pattern;
+        this.board.makePattern(pattern);
+        this.board.countPatternLines(pattern);
         this.fillBoard();
         addEventHandlerRestart(this.board.getCurrentLevel());
         addEventHandlerHome();
@@ -44,20 +47,27 @@ public class LevelPresenter {
                 if(board.isCompleted()) {
                     board.playSound();
                     if(this.board.getPattern().equals("/maakPatroon.txt")) {
-                        if(this.board.getCurrentLevel() >= Player.getLevelDif1()) { //we moeten enkel updaten als het level nog niet gespeeld is
-                            Player.setLevelsPlayedDif1(Player.getPlayerName(),this.board.getCurrentLevel()+1);
+                        if(this.board.getCurrentLevel() >= Player.getLevelDif1()) {
+                            if(!this.board.isGameComplete()){
+                                Player.setLevelsPlayedDif1(Player.getPlayerName(),this.board.getCurrentLevel()+1);
+                            }
+                            //we moeten enkel updaten als het level nog niet gespeeld is
                         }
                     } else if(this.board.getPattern().equals("/patroonDif2.txt")) {
                         if(this.board.getCurrentLevel() >= Player.getLevelDif2()) {
-                            Player.setLevelsPlayedDif2(Player.getPlayerName(), this.board.getCurrentLevel()+1);
+                            if(!this.board.isGameComplete()){
+                                Player.setLevelsPlayedDif2(Player.getPlayerName(), this.board.getCurrentLevel()+1);
+                            }
                         }
                     }
+
                     try {
-                    levelComplete();
+                        levelComplete();
                     } catch (Exception ex) {
 
-
                     }
+
+
                 }
             });
 
@@ -65,13 +75,14 @@ public class LevelPresenter {
     }
     private void levelComplete() throws Exception {
         if (board.isGameComplete()){
+            if(pattern.equals("/maakPatroon.txt")) Player.setLevelsPlayedDif2(Player.getPlayerName(), 1);
             GameCompleteView gameCompleteView = new GameCompleteView();
-            GameCompletePresenter presenter = new GameCompletePresenter(gameCompleteView);
+            GameCompletePresenter gameCompletePresenter = new GameCompletePresenter(gameCompleteView);
             view.getScene().setRoot(gameCompleteView);
             gameCompleteView.getScene().getWindow().sizeToScene();
         }else {
             LevelCompleteView levelCompleteView = new LevelCompleteView();
-            LevelCompletePresenter presenter = new LevelCompletePresenter(levelCompleteView, this.board.getCurrentLevel() + 1);
+            LevelCompletePresenter presenter = new LevelCompletePresenter(levelCompleteView, this.board.getCurrentLevel() + 1, board.getPattern());
             view.getScene().setRoot(levelCompleteView);
             levelCompleteView.getScene().getWindow().sizeToScene();
         }
@@ -89,6 +100,7 @@ public class LevelPresenter {
         view.getRestart().setOnAction(actionEvent -> {
             try {
                 restart(nextLevel);
+                board.setPattern(pattern);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -97,10 +109,10 @@ public class LevelPresenter {
     }
     private void restart(int nextLevel) throws Exception {
         LevelView newView = new LevelView();
-        Board board = new Board();
+        Board board = new Board(pattern);
 
         board.setCurrentLevel(nextLevel);
-        LevelPresenter presenter = new LevelPresenter(newView, board);
+        LevelPresenter presenter = new LevelPresenter(newView, board, pattern);
         view.getScene().setRoot(newView);
         newView.getScene().getWindow().sizeToScene();
     }

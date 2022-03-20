@@ -1,6 +1,7 @@
 package be.kdg.fill;
 
 import be.kdg.fill.model.bord.Board;
+import be.kdg.fill.view.highscore.HighScoreView;
 import be.kdg.fill.view.login.LoginPresenter;
 import be.kdg.fill.view.login.LoginView;
 import javafx.application.Application;
@@ -15,7 +16,8 @@ public class Main extends Application {
 
         LoginView view = new LoginView();
         LoginPresenter presenter = new LoginPresenter(view);
-        Board bord = new Board();
+        //HighScoreView view = new HighScoreView();
+
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Fill");
         primaryStage.getIcons().add(new Image("/fill_homeScreen.png"));

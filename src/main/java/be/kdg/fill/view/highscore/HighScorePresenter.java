@@ -1,24 +1,23 @@
-package be.kdg.fill.view.gamecomplete;
+package be.kdg.fill.view.highscore;
 
 import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 
-public class GameCompletePresenter {
-    private GameCompleteView view = new GameCompleteView();
+public class HighScorePresenter {
+    private final HighScoreView view;
 
-    public GameCompletePresenter(GameCompleteView view) {
+    public HighScorePresenter(HighScoreView view) {
         this.view = view;
         addEventHandlerHome();
-
     }
 
     private void addEventHandlerHome() {
-        this.view.getHomeButton().setOnAction(actionEvent -> {
+        view.getHomeButton().setOnAction(actionEvent -> {
             HomeView homeView = new HomeView();
-            HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
+            HomeViewPresenter presenter = new HomeViewPresenter(homeView);
             view.getScene().setRoot(homeView);
             homeView.getScene().getWindow().sizeToScene();
-
         });
     }
+
 }

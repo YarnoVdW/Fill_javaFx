@@ -9,13 +9,17 @@ import be.kdg.fill.view.level.LevelView;
 public class LevelCompletePresenter {
 
     private final LevelCompleteView view;
-    private Board board = new Board();
+    private final String pattern;
+    private Board board;
 
-    public LevelCompletePresenter(LevelCompleteView view, int nextLevel) throws Exception {
+
+    public LevelCompletePresenter(LevelCompleteView view, int nextLevel, String pattern) throws Exception {
         this.view = view;
+        board = new Board(pattern);
         addEventHandlerHome();
         addEventHandlerRestart();
         addNextLevelHandler(nextLevel);
+        this.pattern = pattern;
 
     }
 
@@ -34,7 +38,7 @@ public class LevelCompletePresenter {
         view.getRestart().setOnAction(actionEvent -> {
             LevelView levelView = new LevelView();
             try {
-                LevelPresenter levelPresenter = new LevelPresenter(levelView, board);
+                LevelPresenter levelPresenter = new LevelPresenter(levelView, board, pattern);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -50,9 +54,10 @@ public class LevelCompletePresenter {
             LevelView levelView = new LevelView();
 
             try {
-                board = new Board();
+                board = new Board(pattern);
                 board.setCurrentLevel(nextLevel);
-                LevelPresenter levelPresenter = new LevelPresenter(levelView, board);
+                board.setPattern(pattern);
+                LevelPresenter levelPresenter = new LevelPresenter(levelView, board ,pattern);
             } catch (Exception e) {
                 e.printStackTrace();
             }

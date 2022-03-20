@@ -6,6 +6,7 @@ import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.levelchooser.LevelChoosePresenter;
 import be.kdg.fill.view.levelchooser.LevelChooseView;
+import javafx.application.Platform;
 
 import java.sql.SQLException;
 
