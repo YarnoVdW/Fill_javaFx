@@ -5,11 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Player {
-
 
     private static int levelDif1 =0;
     private static int levelDif2 = 0;
@@ -114,6 +114,7 @@ public class Player {
         }
 
     }
+
     public static void emptyPlayerLevels(String userName)  {
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
@@ -130,20 +131,24 @@ public class Player {
 
             pst.execute();
             System.out.println("User levels successfully emptied");
-
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Player.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
+
+        //Clear all the prev data
+        playerLevels.clear();
+
         for (int i = 1; i <= Player.levelDif1; i++) {
             if(!playerLevels.contains(i)) playerLevels.add(i);
         }
+
         for (int i = 1; i <= Player.levelDif2; i++) {
             if(!playerLevels2.contains(i)) playerLevels2.add(i);
         }
     }
-    public static void makeLevelList() throws SQLException {
 
+    public static void makeLevelList() throws SQLException {
         String Sql = "Select levels, level2 from player where name = ?";
 
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
@@ -219,6 +224,7 @@ public class Player {
     public static ObservableList<Integer> getPlayerLevels() {
         return playerLevels;
     }
+
     public static ObservableList<Integer> getPlayerLevels2() {
         return playerLevels2;
     }

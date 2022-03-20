@@ -32,7 +32,7 @@ public class LevelDifPresenter {
     }
 
 
-    private void addEventHandlerBtn1(){
+    private void addEventHandlerBtn1() {
         view.getBtn1().setOnAction(actionEvent -> {
             LevelChooseView levelChoseView = null;
             try {
@@ -50,8 +50,8 @@ public class LevelDifPresenter {
             view.getScene().setRoot(levelChoseView);
             levelChoseView.getScene().getWindow().sizeToScene();
         });
-
     }
+
     private void addEventHandlerDif2() {
         view.getBtn2().setOnAction(actionEvent -> {
             LevelChooseView levelChoseView = null;
