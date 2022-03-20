@@ -50,7 +50,7 @@ public class GameCompleteView extends BorderPane {
     private void initialiseNodes() {
         this.homeButton = new Button("", new ImageView("/homeButton.png"));
         this.label = new Label("Game Completed!");
-        this.unlockedLabel = new Label("You've unlocked\n difficulty two!");
+        unlockedLabel = new Label("You've unlocked\n difficulty two!");
         this.hbtn = new HBox(10);
     }
 
@@ -58,9 +58,6 @@ public class GameCompleteView extends BorderPane {
         return homeButton;
     }
 
-    public Label getUnlockedLabel() {
-        return unlockedLabel;
-    }
 
     public void setUnlockedLabel(Label unlockedLabel) {
         this.unlockedLabel = unlockedLabel;

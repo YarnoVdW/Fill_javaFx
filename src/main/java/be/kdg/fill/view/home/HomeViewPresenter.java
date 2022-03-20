@@ -74,7 +74,6 @@ public class HomeViewPresenter {
     private void addEventHandlerResetLevel() {
         /*reset al de levels die gespeeld zijn terug naar hun default waarde, voor de speler die aan het spelen is!*/
         view.getResetLevel().setOnAction(actionEvent -> {
-            System.out.println("test");
             Player.emptyPlayerLevels(Player.getPlayerName());
         });
 

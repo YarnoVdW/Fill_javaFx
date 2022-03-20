@@ -10,7 +10,7 @@ public class LevelCompletePresenter {
 
     private final LevelCompleteView view;
     private final String pattern;
-    private Board board;
+    private final Board board;
 
 
     public LevelCompletePresenter(LevelCompleteView view, int nextLevel, String pattern) throws Exception {
@@ -54,7 +54,6 @@ public class LevelCompletePresenter {
             LevelView levelView = new LevelView();
 
             try {
-                board = new Board(pattern);
                 board.setCurrentLevel(nextLevel);
                 board.setPattern(pattern);
                 LevelPresenter levelPresenter = new LevelPresenter(levelView, board ,pattern);

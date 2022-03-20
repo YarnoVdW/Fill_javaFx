@@ -74,7 +74,6 @@ public class Board {
                     BoardPiece boardPiece = this.boardLayout[xCoordinate][yCoordinate];
                     boardPiece.setColor(image);
                     boardPiece.setUsable(true);
-
                 }
                 this.boardLayout[firstMoveX.get(0)][firstMoveY.get(0)].setColor(beginImage);
                 this.boardLayout[firstMoveX.get(0)][firstMoveY.get(0)].setUsed(true);
@@ -96,9 +95,8 @@ public class Board {
         long lineCount = Files.readAllLines(path).size();
 
 
-        if(lineCount == this.currentLevel) {
-            gameComplete = true;
-        }
+        if(lineCount == this.currentLevel) gameComplete = true;
+
     }
 
     public boolean isAllowedMove(Move move) {
@@ -137,9 +135,8 @@ public class Board {
             setLastTurn(move);
             return;
         }
-        if (this.isAllowedMove(move)) {
-            this.isNextTo(move);
-        }
+        if (this.isAllowedMove(move)) this.isNextTo(move);
+
     }
 
     public boolean isCompleted() {

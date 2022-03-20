@@ -16,9 +16,6 @@ public class Player {
     private static String playerName;
     private static final ObservableList<Integer> playerLevels = FXCollections.observableArrayList();
     private static final ObservableList<Integer> playerLevels2 = FXCollections.observableArrayList();
-    private static String bestPlayer;
-    private static String mediumPlayer;
-    private static String lowerMediumPlayer;
 
     public static void writeToDatabase(String userName, String userPassword) {
         /*Deze methode gaat een speler aanmaken en in het database opslaan */
@@ -61,9 +58,8 @@ public class Player {
             System.out.println(pst);
 
             ResultSet resultSet = pst.executeQuery();
-            if (resultSet.next()) {
-                return true;
-            }
+            if (resultSet.next()) return true;
+
         } catch (SQLException e) {
             Logger lgr = Logger.getLogger(Player.class.getName());
             lgr.log(Level.SEVERE, e.getMessage(), e);
