@@ -45,7 +45,7 @@ public class HomeViewPresenter {
     private void addEventHandlerInfo() {
         view.getInfoButton().setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Je begint bij" +
+            alert.setHeaderText("Je begint bij " +
                     "het startblokje en probeert in één beweging alle blokjes van \n" +
                     "de vorm te bedekken. Dit doe je door met je muis te klikken en te draggen over het volledige bord.");
             alert.setTitle("Hoe spelen?");

@@ -13,9 +13,11 @@ import javafx.scene.text.FontWeight;
 
 public class GameCompleteView extends BorderPane {
     private Label label;
-    private Label unlockedLabel;
+
     private Button homeButton;
     private HBox hbtn;
+    public Label unlockedLabel;
+
 
 
     public GameCompleteView() {
@@ -24,15 +26,15 @@ public class GameCompleteView extends BorderPane {
     }
 
     private void layoutNodes() {
-        int GRID_PANE_HEIGTH = 250;
+        int GRID_PANE_HEIGHT = 250;
         int GRID_PANE_WIDTH = 350;
-        this.setMinSize(GRID_PANE_HEIGTH, GRID_PANE_WIDTH);
+        this.setMinSize(GRID_PANE_HEIGHT, GRID_PANE_WIDTH);
 
 
 
         this.homeButton.setMinSize(30, 30);
 
-        this.setPrefSize(GRID_PANE_HEIGTH, GRID_PANE_WIDTH);
+        this.setPrefSize(GRID_PANE_HEIGHT, GRID_PANE_WIDTH);
         this.setCenter(label);
         this.setTop(unlockedLabel);
         this.hbtn.getChildren().add(homeButton);
@@ -50,7 +52,8 @@ public class GameCompleteView extends BorderPane {
     private void initialiseNodes() {
         this.homeButton = new Button("", new ImageView("/homeButton.png"));
         this.label = new Label("Game Completed!");
-        unlockedLabel = new Label("You've unlocked\n difficulty two!");
+        this.unlockedLabel = new Label("You've unlocked\ndifficulty two!");
+
         this.hbtn = new HBox(10);
     }
 

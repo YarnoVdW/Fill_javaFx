@@ -23,6 +23,7 @@ public class HomeView extends GridPane {
     public HomeView () {
         this.initialiseNodes();
         this.layoutNodes();
+        this.getStylesheets().add("style.css");
     }
     private void initialiseNodes() {
         playButton = new Button("", new ImageView("/playButton.png"));
@@ -68,6 +69,12 @@ public class HomeView extends GridPane {
         this.hbtn.getChildren().add(highScores);
         this.add(hbtn, 1, 4);
         this.setVgap(5);
+
+        this.playButton.setId("playButton");
+        this.infoButton.setId("infoButton");
+        this.logout.setId("logoutButton");
+
+
 
 
 

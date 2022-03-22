@@ -21,7 +21,7 @@ public class HighScoreView extends GridPane {
 
 
     private Label firstLabel;
-    private Label seconLabel;
+    private Label secondLabel;
     private Label thirdLabel;
 
     private Button homeButton;
@@ -37,7 +37,7 @@ public class HighScoreView extends GridPane {
 
     private void initialiseNodes() {
         this.firstLabel = new Label(players.get(0));
-        this.seconLabel = new Label(players.get(1));
+        this.secondLabel = new Label(players.get(1));
         this.thirdLabel = new Label(players.get(2));
         this.homeButton = new Button("", new ImageView("/homeButton.png"));
         this.hBox = new HBox();
@@ -64,17 +64,17 @@ public class HighScoreView extends GridPane {
         this.setPrefSize(300, 300);
         this.add(firstLabel, 2, 0, 3 ,1);
 
-        this.add(seconLabel, 1, 1, 3, 1);
+        this.add(secondLabel, 1, 1, 3, 1);
 
         this.add(thirdLabel, 3,2, 3, 1);
         this.firstLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
-        this.seconLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
+        this.secondLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
         this.thirdLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
         this.setBackground(new Background(bImg));
 
         GridPane.setHalignment(firstLabel, HPos.LEFT);
-        GridPane.setHalignment(seconLabel, HPos.LEFT);
-        GridPane.setValignment(seconLabel, VPos.BOTTOM);
+        GridPane.setHalignment(secondLabel, HPos.LEFT);
+        GridPane.setValignment(secondLabel, VPos.BOTTOM);
         GridPane.setValignment(thirdLabel, VPos.BOTTOM);
 
 

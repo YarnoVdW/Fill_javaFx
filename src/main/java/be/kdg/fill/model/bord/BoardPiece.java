@@ -3,6 +3,8 @@ package be.kdg.fill.model.bord;
 
 import javafx.scene.image.Image;
 
+import java.util.Objects;
+
 public class BoardPiece {
 
     private boolean isUsable = false, used = false;
@@ -21,7 +23,8 @@ public class BoardPiece {
         return used;
     }
 
-    public Image makeColor() {
+
+    public Image getColor() {
         return this.color;
     }
 
@@ -32,7 +35,6 @@ public class BoardPiece {
     public void setUsable(boolean bruikbaar) {
         isUsable = bruikbaar;
     }
-
     @Override
     public String toString() {
         return "BoardPiece{" +
@@ -44,5 +46,18 @@ public class BoardPiece {
 
     public void setUsed(boolean used) {
         this.used = used;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BoardPiece that = (BoardPiece) o;
+        return getColor() == that.getColor();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isUsable, used, color);
     }
 }

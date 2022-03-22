@@ -1,7 +1,7 @@
 package be.kdg.fill;
 
-import be.kdg.fill.model.bord.Board;
-import be.kdg.fill.view.highscore.HighScoreView;
+
+import be.kdg.fill.model.timer.Timer;
 import be.kdg.fill.view.login.LoginPresenter;
 import be.kdg.fill.view.login.LoginView;
 import javafx.application.Application;
@@ -9,11 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        Timer timer = new Timer();
+        timer.schedule();
         LoginView view = new LoginView();
         LoginPresenter presenter = new LoginPresenter(view);
         //HighScoreView view = new HighScoreView();

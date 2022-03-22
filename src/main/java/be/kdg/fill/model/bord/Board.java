@@ -1,6 +1,8 @@
 package be.kdg.fill.model.bord;
 
 import be.kdg.fill.model.move.Move;
+import be.kdg.fill.model.player.Player;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import java.io.File;
@@ -21,11 +23,13 @@ public class Board {
     private static final int BOARD_HEIGHT = 6;
     private String pattern = "/maakPatroon.txt";
     private boolean gameComplete = false;
-    private ArrayList<Integer> firstMoveX = new ArrayList<>();
-    private ArrayList<Integer> firstMoveY = new ArrayList<>();
+    private final ArrayList<Integer> firstMoveX = new ArrayList<>();
+    private final ArrayList<Integer> firstMoveY = new ArrayList<>();
     private Move lastTurn;
     private int currentLevel = 1;
-    private static double volume = 0.5;
+    private static double volume = 0.25;
+    private final Image imageOrange = new Image("/Oranje.png");
+
 
     public Board(String pattern) throws Exception {
         this.boardLayout = new BoardPiece[BOARD_WIDTH][BOARD_HEIGHT];
@@ -42,7 +46,7 @@ public class Board {
 
     public void makePattern(String pattern) throws Exception {
         this.fillBoard();
-        Image image = new Image("/Oranje.png");
+
         Image beginImage = new Image("/white.png");
         URL url = getClass().getResource(pattern);
         assert url != null;
@@ -72,12 +76,12 @@ public class Board {
                     /* de x en y coordinaat vullen we hier in in het boardlayout zodat het model weet dat deze vakjes allemaal deel zijn
                     * van het patroon*/
                     BoardPiece boardPiece = this.boardLayout[xCoordinate][yCoordinate];
-                    boardPiece.setColor(image);
+                    boardPiece.setColor(imageOrange);
                     boardPiece.setUsable(true);
                 }
                 this.boardLayout[firstMoveX.get(0)][firstMoveY.get(0)].setColor(beginImage);
                 this.boardLayout[firstMoveX.get(0)][firstMoveY.get(0)].setUsed(true);
-                lastTurn = new Move(firstMoveY.get(0), firstMoveX.get(0));
+                lastTurn = new Move(firstMoveX.get(0), firstMoveY.get(0));
                 firstMoveY.clear();
                 firstMoveX.clear();
             }
@@ -107,9 +111,8 @@ public class Board {
         return boardPiece.isUsable();
     }
 
+
     public boolean isNextTo(Move move) {
-
-
         int rowDiff = Math.abs(this.lastTurn.getRow() - move.getRow());
         int colDiff = Math.abs(this.lastTurn.getColumn() - move.getColumn());
         return (rowDiff == 1 ^ colDiff == 1) && rowDiff + colDiff == 1;
@@ -128,8 +131,8 @@ public class Board {
     }
 
     public void makeMove(Move move) {
+        if(move == this.lastTurn)  goBack(move);
         if (this.isAllowedMove(move) && this.isNextTo(move)) {
-
             this.boardLayout[move.getColumn()][move.getRow()].giveColor();
             this.boardLayout[move.getColumn()][move.getRow()].setUsable(false);
             setLastTurn(move);
@@ -139,19 +142,48 @@ public class Board {
 
     }
 
+
+    public void goBack(Move move){
+            this.boardLayout[move.getColumn()][move.getRow()].setColor(imageOrange);
+            this.boardLayout[move.getColumn()][move.getRow()].setUsable(true);
+            setLastTurn(move);
+            System.out.println("terug");
+
+    }
+
     public boolean isCompleted() {
         /*Methode om te checken wanneer al de vakjes ingekleurd zijn*/
         return Arrays.stream(this.boardLayout)
                 .allMatch(boardPieces -> Arrays.stream(boardPieces)
-                        .filter(vakje -> vakje.makeColor() != null)
+                        .filter(boardPiece -> boardPiece.getColor() != null)
                         .allMatch(BoardPiece::isUsed));
     }
 
     public void playSound() {
         if (isCompleted()) {
             AudioClip clip = new AudioClip(Objects.requireNonNull(this.getClass().getResource("/complete.mp3")).toExternalForm());
+
+            clip.setCycleCount(Timeline.INDEFINITE);
+
             clip.play(volume);
         }
+
+    }
+
+    public void setPlayerLevel() {
+        if(this.getPattern().equals("/maakPatroon.txt")) {
+            if(this.getCurrentLevel() >= Player.getLevelDif1()) {//we moeten enkel updaten als het level nog niet gespeeld is
+                if(!this.isGameComplete()) Player.setLevelsPlayedDif1(Player.getPlayerName(),this.getCurrentLevel()+1);
+
+            }
+        } else if(this.getPattern().equals("/patroonDif2.txt")) {
+            if(this.getCurrentLevel() >= Player.getLevelDif2()) {
+                if(!this.isGameComplete()) Player.setLevelsPlayedDif2(Player.getPlayerName(), this.getCurrentLevel()+1);
+
+
+            }
+        }
+
     }
 
     public boolean isGameComplete() {

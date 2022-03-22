@@ -20,7 +20,7 @@ import javafx.scene.input.MouseEvent;
 public class LevelPresenter {
     private final LevelView view;
     private final Board board;
-    String pattern;
+    private String pattern;
 
     public LevelPresenter(LevelView view, Board board, String pattern) throws Exception {
         this.view = view;
@@ -34,32 +34,22 @@ public class LevelPresenter {
         addEventHandlerHome();
         addEventHandlerToggle();
 
+
+
     }
     private void addEventHandler() {
             view.addEventHandler(MouseEvent.MOUSE_DRAGGED, e ->{
                 int moveX = (int) (e.getX()/50);
                 int moveY = (int)(e.getY()/50);
-                Move move = new Move(moveY, moveX);
+                Move move = new Move(moveX, moveY);
 
-                if(board.isAllowedMove(move) && board.isNextTo(move)) view.setPosition(board.getBoardLayout()[moveY][moveX].giveColor(), moveX, moveY);
+                if(board.isAllowedMove(move) && board.isNextTo(move)) view.setPosition(board.getBoardLayout()[moveX][moveY].giveColor(), moveX, moveY);
 
                 board.makeMove(move);
 
                 if(board.isCompleted()) {
                     board.playSound();
-                    if(this.board.getPattern().equals("/maakPatroon.txt")) {
-                        if(this.board.getCurrentLevel() >= Player.getLevelDif1()) {
-                            if(!this.board.isGameComplete()) Player.setLevelsPlayedDif1(Player.getPlayerName(),this.board.getCurrentLevel()+1);
-
-                            //we moeten enkel updaten als het level nog niet gespeeld is
-                        }
-                    } else if(this.board.getPattern().equals("/patroonDif2.txt")) {
-                        if(this.board.getCurrentLevel() >= Player.getLevelDif2()) {
-                            if(!this.board.isGameComplete()) Player.setLevelsPlayedDif2(Player.getPlayerName(), this.board.getCurrentLevel()+1);
-
-                        }
-                    }
-
+                    board.setPlayerLevel();
                     try {
                         levelComplete();
                     } catch (Exception ex) {
@@ -74,13 +64,13 @@ public class LevelPresenter {
     }
     private void levelComplete() throws Exception {
         if (board.isGameComplete()){
-            if(pattern.equals("/maakPatroon.txt")) {
-                Player.setLevelsPlayedDif2(Player.getPlayerName(), 1);
-                System.out.println("mtis omzeer");
 
+            if(pattern.equals("/maakPatroon.txt") && Player.getPlayerLevels2().isEmpty()) {
+                Player.setLevelsPlayedDif2(Player.getPlayerName(), 1);
             }
             GameCompleteView gameCompleteView = new GameCompleteView();
             if(pattern.equals("/patroonDif2.txt")) gameCompleteView.setUnlockedLabel(new Label(""));
+
             GameCompletePresenter gameCompletePresenter = new GameCompletePresenter(gameCompleteView);
             view.getScene().setRoot(gameCompleteView);
             gameCompleteView.getScene().getWindow().sizeToScene();
@@ -95,7 +85,7 @@ public class LevelPresenter {
     private void fillBoard(){
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
-                view.setPosition(board.getBoardLayout()[i][j].makeColor(), i, j);
+                view.setPosition(board.getBoardLayout()[i][j].getColor(), i, j);
             }
         }
     }
@@ -145,7 +135,7 @@ public class LevelPresenter {
             Image image = new Image("/soundOn.png");
             Node node = new ImageView(image);
             view.getSoundButton().setGraphic(node);
-            Board.setVolume(0.5);
+            Board.setVolume(0.25);
         }
     }
 

@@ -25,6 +25,7 @@ public class LevelDifChoose extends GridPane {
     public LevelDifChoose(){
         this.initialiseNodes();
         this.layoutNodes();
+        this.getStylesheets().add("style.css");
     }
 
     private void initialiseNodes() {
