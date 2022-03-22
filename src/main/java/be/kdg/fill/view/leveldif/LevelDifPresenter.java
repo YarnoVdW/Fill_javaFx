@@ -6,15 +6,14 @@ import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.levelchooser.LevelChoosePresenter;
 import be.kdg.fill.view.levelchooser.LevelChooseView;
-import javafx.application.Platform;
 
 import java.sql.SQLException;
 
 
 public class LevelDifPresenter {
-    private final LevelDifChoose view;
+    private final LevelDifView view;
 
-    public LevelDifPresenter(LevelDifChoose view) {
+    public LevelDifPresenter(LevelDifView view) {
         this.view = view;
         addEventHandlerHome();
         addEventHandlerBtn1();

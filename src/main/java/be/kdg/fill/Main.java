@@ -2,6 +2,8 @@ package be.kdg.fill;
 
 
 import be.kdg.fill.model.timer.Timer;
+import be.kdg.fill.view.highscore.HighScorePresenter;
+import be.kdg.fill.view.highscore.HighScoreView;
 import be.kdg.fill.view.login.LoginPresenter;
 import be.kdg.fill.view.login.LoginView;
 import javafx.application.Application;
@@ -18,13 +20,13 @@ public class Main extends Application {
         Timer timer = new Timer();
         timer.schedule();
         LoginView view = new LoginView();
-        LoginPresenter presenter = new LoginPresenter(view);
         //HighScoreView view = new HighScoreView();
-
+        //HighScorePresenter presenter = new HighScorePresenter(new HighScoreView());
+        LoginPresenter presenter = new LoginPresenter(view);
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Fill");
         primaryStage.getIcons().add(new Image("/fill_homeScreen.png"));
-
         primaryStage.show();
 
     }

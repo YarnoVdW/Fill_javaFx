@@ -51,10 +51,10 @@ public class HighScoreView extends GridPane {
     }
     private void layoutNodes() {
         for(int i =0; i < 5; i++){
-            this.getColumnConstraints().add(new ColumnConstraints(75));
+            this.getColumnConstraints().add(new ColumnConstraints(80));
         }
-        for (int i = 0; i < 7; i++) {
-            this.getRowConstraints().add(new RowConstraints(40));
+        for (int i = 0; i < 8; i++) {
+            this.getRowConstraints().add(new RowConstraints(55));
 
         }
 
@@ -62,20 +62,24 @@ public class HighScoreView extends GridPane {
         this.setGridLinesVisible(false);
 
         this.setPrefSize(300, 300);
-        this.add(firstLabel, 2, 0, 3 ,1);
+        this.add(firstLabel, 2, 1, 3 ,1);
 
-        this.add(secondLabel, 1, 1, 3, 1);
+        this.add(secondLabel, 1, 2, 3, 1);
 
-        this.add(thirdLabel, 3,2, 3, 1);
+        this.add(thirdLabel, 3,3, 3, 1);
         this.firstLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
         this.secondLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
         this.thirdLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
         this.setBackground(new Background(bImg));
+        GridPane.setFillWidth(firstLabel, true);
+        GridPane.setFillWidth(thirdLabel, true);
 
         GridPane.setHalignment(firstLabel, HPos.LEFT);
+        GridPane.setValignment(firstLabel, VPos.TOP);
+
         GridPane.setHalignment(secondLabel, HPos.LEFT);
         GridPane.setValignment(secondLabel, VPos.BOTTOM);
-        GridPane.setValignment(thirdLabel, VPos.BOTTOM);
+        GridPane.setValignment(thirdLabel, VPos.TOP);
 
 
 

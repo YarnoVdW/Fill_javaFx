@@ -15,7 +15,7 @@ public class GameCompleteView extends BorderPane {
     private Label label;
 
     private Button homeButton;
-    private HBox hbtn;
+    private HBox hBoxHome;
     public Label unlockedLabel;
 
 
@@ -37,15 +37,15 @@ public class GameCompleteView extends BorderPane {
         this.setPrefSize(GRID_PANE_HEIGHT, GRID_PANE_WIDTH);
         this.setCenter(label);
         this.setTop(unlockedLabel);
-        this.hbtn.getChildren().add(homeButton);
+        this.hBoxHome.getChildren().add(homeButton);
 
-        this.hbtn.setAlignment(Pos.BOTTOM_CENTER);
-        this.setBottom(hbtn);
+        this.hBoxHome.setAlignment(Pos.BOTTOM_CENTER);
+        this.setBottom(hBoxHome);
         this.setPadding(new Insets(20));
         this.label.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
         this.unlockedLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
 
-        this.setBackground(new Background(new BackgroundFill(Color.BLUEVIOLET, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, CornerRadii.EMPTY, Insets.EMPTY)));
 
     }
 
@@ -54,7 +54,7 @@ public class GameCompleteView extends BorderPane {
         this.label = new Label("Game Completed!");
         this.unlockedLabel = new Label("You've unlocked\ndifficulty two!");
 
-        this.hbtn = new HBox(10);
+        this.hBoxHome = new HBox(10);
     }
 
     public Button getHomeButton() {

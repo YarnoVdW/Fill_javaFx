@@ -138,6 +138,7 @@ public class Player {
 
         //Clear all the prev data
         playerLevels.clear();
+        playerLevels2.clear();
 
         for (int i = 1; i <= Player.levelDif1; i++) {
             if(!playerLevels.contains(i)) playerLevels.add(i);

@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Popup;
 
 public class HomeView extends GridPane {
 
@@ -32,7 +33,7 @@ public class HomeView extends GridPane {
         logout = new Button("", new ImageView("/logout.png"));
         highScores = new Button("", new ImageView("/highscore.png"));
         this.hbtn = new HBox(10);
-        this.resetLevel = new Button("", new ImageView("/reset.png"));
+        this.resetLevel = new Button("", new ImageView("/resetbutton.png"));
     }
     private void layoutNodes() {
 
@@ -46,6 +47,7 @@ public class HomeView extends GridPane {
         this.playButton.setMinSize(30, 30);
         this.infoButton.setMinSize(30,30);
         this.logout.setMaxSize(25,25);
+
         this.add(imageView, 1, 0, 3,1);
 
         this.setPadding(new Insets(20));

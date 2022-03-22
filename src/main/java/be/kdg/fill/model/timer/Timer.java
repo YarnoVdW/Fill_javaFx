@@ -2,7 +2,6 @@ package be.kdg.fill.model.timer;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
-
 import java.util.TimerTask;
 
 public class Timer {
@@ -13,7 +12,7 @@ public class Timer {
         public void run() {
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("The sun is shining!");
+                alert.setHeaderText("The sun is shining! Go play outside.");
                 alert.show();
             });
 

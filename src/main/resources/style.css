@@ -4,27 +4,21 @@
        -fx-color: aquamarine;
        -fx-border: 1px;
 
+
+}
+.button :hover {
+       -fx-color: blue;
 }
 .label {
        -fx-font-size: 40px;
        -fx-font-weight: bold;
-       -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,8,8 );
-
 }
 #podium {
        -fx-max-width: 250px;
        -fx-max-height: 250px;
 }
-#playButton {
-       -fx-color: aquamarine;
 
-}
-#infoButton {
-       -fx-color: lawngreen;
-}
-#logoutButton {
-       -fx-color: crimson;
-}
-.backgroundColor {
+#backgroundColor {
        -fx-background-color: aquamarine;
+
 }

@@ -11,46 +11,46 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class LevelDifChoose extends GridPane {
+public class LevelDifView extends GridPane {
     private Button btn1;
     private Button btn2;
 
 
-    private HBox hBox;
-    private HBox hBox2;
+    private HBox hBoxLabel;
+    private HBox hBoxButtons;
     private Button homeButton;
-    private HBox hbox3;
+    private HBox hboxHome;
     private Label label;
 
-    public LevelDifChoose(){
+    public LevelDifView(){
         this.initialiseNodes();
         this.layoutNodes();
         this.getStylesheets().add("style.css");
     }
 
     private void initialiseNodes() {
-        this.hBox = new HBox(10);
-        this.hBox2 = new HBox(10);
+        this.hBoxLabel = new HBox(10);
+        this.hBoxButtons = new HBox(10);
         this.btn1 = new Button("1");
         this.btn2 = new Button("2");
 
         this.homeButton = new Button("",new ImageView("/homeButton.png"));
-        this.hbox3 = new HBox(10);
+        this.hboxHome = new HBox(10);
         this.label = new Label("Choose difficulty");
     }
 
     private void layoutNodes() {
         int GRID_PANE_HEIGTH = 250;
         int GRID_PANE_WIDTH = 250;
-        this.hBox2.getChildren().add(btn1);
-        this.hBox2.getChildren().add(btn2);
-        this.hBox.setAlignment(Pos.CENTER);
+        this.hBoxButtons.getChildren().add(btn1);
+        this.hBoxButtons.getChildren().add(btn2);
+        this.hBoxLabel.setAlignment(Pos.CENTER);
 
-        this.hBox2.setAlignment(Pos.CENTER );
-        this.hBox.getChildren().add(label);
+        this.hBoxButtons.setAlignment(Pos.CENTER );
+        this.hBoxLabel.getChildren().add(label);
 
-        this.add(hBox, 0,2);
-        this.add(hBox2,0,3);
+        this.add(hBoxLabel, 0,1);
+        this.add(hBoxButtons,0,3);
 
         this.setVgap(15);
         this.setHgap(10);
@@ -58,9 +58,9 @@ public class LevelDifChoose extends GridPane {
         this.setPadding(new Insets(20,20,20,20));
 
         this.setMinSize(GRID_PANE_WIDTH, GRID_PANE_HEIGTH);
-        this.hbox3.getChildren().add(homeButton);
-        this.hbox3.setAlignment(Pos.TOP_RIGHT);
-        this.add(hbox3, 0,1);
+        this.hboxHome.getChildren().add(homeButton);
+        this.hboxHome.setAlignment(Pos.TOP_RIGHT);
+        this.add(hboxHome, 0,2);
         this.homeButton.setMaxSize(5,5);
 
         this.label.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));

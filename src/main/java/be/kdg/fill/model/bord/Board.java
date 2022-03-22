@@ -162,9 +162,7 @@ public class Board {
     public void playSound() {
         if (isCompleted()) {
             AudioClip clip = new AudioClip(Objects.requireNonNull(this.getClass().getResource("/complete.mp3")).toExternalForm());
-
-            clip.setCycleCount(Timeline.INDEFINITE);
-
+            clip.setCycleCount(5);
             clip.play(volume);
         }
 

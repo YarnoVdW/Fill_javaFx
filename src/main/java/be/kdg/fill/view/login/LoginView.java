@@ -25,6 +25,7 @@ public class LoginView extends GridPane {
     public LoginView () {
         this.initialiseNodes();
         this.layoutNodes();
+
     }
 
     public void initialiseNodes(){
@@ -55,6 +56,7 @@ public class LoginView extends GridPane {
         this.add(password, 0, 2);
         this.add(pwField,1, 2);
         this.hbtn.getChildren().add(registerBtn);
+
 
 
 
