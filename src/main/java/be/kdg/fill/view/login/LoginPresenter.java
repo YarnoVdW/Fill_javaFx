@@ -1,3 +1,5 @@
+/**Presenter van het login view, met een aantal methodes om in te loggen en gegevens uit de database te halen*/
+
 package be.kdg.fill.view.login;
 
 import be.kdg.fill.model.player.Player;

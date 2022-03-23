@@ -1,3 +1,5 @@
+/**Registreer presenter, heeft methodes om in het database nieuwe spelers aan te maken*/
+
 package be.kdg.fill.view.register;
 
 import be.kdg.fill.model.player.Player;
@@ -28,9 +30,9 @@ public class RegisterPresenter {
         view.getRegisterButton().setOnAction(actionEvent -> {
             String user = view.getUserTextField().getText();
             String pass = view.getPwField().getText();
-            String passherhaal = view.getPwFieldRepeat().getText();
+            String passHerhaal = view.getPwFieldRepeat().getText();
 
-            if (pass.equals(passherhaal)) {
+            if (pass.equals(passHerhaal)) {
                 Player.writeToDatabase(user, pass);
                 LoginView loginView = new LoginView();
                 LoginPresenter presenter = new LoginPresenter(loginView);

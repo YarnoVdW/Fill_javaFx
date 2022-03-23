@@ -1,7 +1,9 @@
+/**De klasse move, elke move heeft een colom en een rij
+ *
+ */
 package be.kdg.fill.model.move;
 
 import java.util.Objects;
-
 public class Move {
 
     public int row;

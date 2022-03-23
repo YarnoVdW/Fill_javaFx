@@ -1,3 +1,5 @@
+/**View om te registreren*/
+
 package be.kdg.fill.view.register;
 
 import javafx.geometry.Insets;
@@ -17,7 +19,7 @@ public class RegisterView extends GridPane {
     private Label userName;
     private TextField userTextField;
     private Button registerButton;
-    private HBox hbtn;  
+    private HBox hBox;
     private Text title;
     private Label password;
     private PasswordField pwField;
@@ -33,10 +35,10 @@ public class RegisterView extends GridPane {
     private void layoutNodes() {
         this.add(userName, 0,1);
         this.add(userTextField, 1, 1);
-        this.hbtn.getChildren().add(registerButton);
-        this.hbtn.getChildren().add(backButton);
-        this.hbtn.setAlignment(Pos.BOTTOM_RIGHT);
-        this.add(hbtn, 1, 4);
+        this.hBox.getChildren().add(registerButton);
+        this.hBox.getChildren().add(backButton);
+        this.hBox.setAlignment(Pos.BOTTOM_RIGHT);
+        this.add(hBox, 1, 4);
         this.setAlignment(Pos.CENTER);
         this.setHgap(10);
         this.setVgap(10);
@@ -55,7 +57,7 @@ public class RegisterView extends GridPane {
         this.userName = new Label("User name:");
         this.userTextField = new TextField();
         this.registerButton = new Button("Register");
-        this.hbtn = new HBox(10);
+        this.hBox = new HBox(10);
         this.title = new Text("Welcome to Fill");
         this.password = new Label("Password:");
         this.pwField = new PasswordField();

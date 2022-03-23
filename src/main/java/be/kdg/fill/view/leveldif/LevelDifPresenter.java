@@ -1,7 +1,10 @@
+/**Presenter voor het kiezen van één van de twee difficulty's*/
+
 package be.kdg.fill.view.leveldif;
 
 
 import be.kdg.fill.model.player.Player;
+import be.kdg.fill.model.utilities.FillGameException;
 import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.levelchooser.LevelChoosePresenter;
@@ -43,7 +46,7 @@ public class LevelDifPresenter {
             }
             try {
                 LevelChoosePresenter presenter = new LevelChoosePresenter(levelChoseView, "/maakPatroon.txt");
-            } catch (Exception e) {
+            } catch (FillGameException e) {
                 e.printStackTrace();
             }
             view.getScene().setRoot(levelChoseView);
@@ -64,7 +67,7 @@ public class LevelDifPresenter {
             }
             try {
                 LevelChoosePresenter presenter = new LevelChoosePresenter(levelChoseView, "/patroonDif2.txt");
-            } catch (Exception e) {
+            } catch (FillGameException e) {
                 e.printStackTrace();
             }
             view.getScene().setRoot(levelChoseView);

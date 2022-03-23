@@ -1,3 +1,5 @@
+/** Presenter voor wanneer een difficulty is uitgespeeld*/
+
 package be.kdg.fill.view.gamecomplete;
 
 import be.kdg.fill.view.home.HomeView;

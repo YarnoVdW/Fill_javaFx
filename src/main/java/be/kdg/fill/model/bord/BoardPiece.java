@@ -1,8 +1,9 @@
+/**Elke coordinaat van het bord heeft zijn eigen BoardPiece, dit piece hoort bij deze klasse.
+ */
 package be.kdg.fill.model.bord;
 
 
 import javafx.scene.image.Image;
-
 import java.util.Objects;
 
 public class BoardPiece {

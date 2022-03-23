@@ -1,3 +1,5 @@
+/**Deze klasse bepaalt hoe de view eruit ziet van het kiezen van een difficulty*/
+
 package be.kdg.fill.view.leveldif;
 
 import javafx.geometry.HPos;

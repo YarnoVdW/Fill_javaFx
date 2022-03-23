@@ -1,11 +1,19 @@
+/**De klasse board staat in voor het maken en vullen van het bord maar ook het maken van het patroon
+ */
+
 package be.kdg.fill.model.bord;
 
 import be.kdg.fill.model.move.Move;
 import be.kdg.fill.model.player.Player;
-import javafx.animation.Timeline;
+import be.kdg.fill.model.utilities.FillGameException;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,11 +35,11 @@ public class Board {
     private final ArrayList<Integer> firstMoveY = new ArrayList<>();
     private Move lastTurn;
     private int currentLevel = 1;
-    private static double volume = 0.25;
     private final Image imageOrange = new Image("/Oranje.png");
+    private double volume = 1;
 
 
-    public Board(String pattern) throws Exception {
+    public Board(String pattern) throws FillGameException {
         this.boardLayout = new BoardPiece[BOARD_WIDTH][BOARD_HEIGHT];
         this.makePattern(pattern);
     }
@@ -44,16 +52,19 @@ public class Board {
         }
     }
 
-    public void makePattern(String pattern) throws Exception {
+    public void makePattern(String pattern) throws FillGameException {
         this.fillBoard();
 
         Image beginImage = new Image("/white.png");
         URL url = getClass().getResource(pattern);
         assert url != null;
-        Path path = Paths.get(url.toURI());
+        Path path = null;
+        try {
+            path = Paths.get(url.toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         File file = path.toFile();
-        boolean isEmpty;
-
 
 
         try (Scanner scanner = new Scanner(file)) {
@@ -61,8 +72,7 @@ public class Board {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 if(++i != this.currentLevel) continue;
-                else isEmpty = false;
-               /*in het bestand staan de patronen geschreven als 1,2#. dit is dus x,y
+                /*in het bestand staan de patronen geschreven als 1,2#. dit is dus x,y
                * We gaan hier alle lijne splitten met de # zodat we enkel de coordinaten over houden, die gaan we vervolgens ook nog eens
                * opdelen in een x en y coordinaat*/
                 String[] coordinateString = line.split("#");
@@ -85,18 +95,27 @@ public class Board {
                 firstMoveY.clear();
                 firstMoveX.clear();
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
 
-    public void countPatternLines(String filePattern) throws Exception {
+    public void countPatternLines(String filePattern) throws FillGameException {
 
         /*In deze methode tel ik het aantal lijnen in het patroon bestand voor dif 1. Van zodra het aantal gespeelde levels gelijk is
         * aan het aantal lijnen in het bestand is het spel volledig uitgespeeld.*/
         URL url = getClass().getResource(filePattern);
         assert url != null;
-        Path path = Paths.get(url.toURI());
-        long lineCount = Files.readAllLines(path).size();
+        Path path = null;
+        long lineCount = 0;
+        try {
+            path = Paths.get(url.toURI());
+            lineCount = Files.readAllLines(path).size();
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+
+        }
 
 
         if(lineCount == this.currentLevel) gameComplete = true;
@@ -131,23 +150,14 @@ public class Board {
     }
 
     public void makeMove(Move move) {
-        if(move == this.lastTurn)  goBack(move);
         if (this.isAllowedMove(move) && this.isNextTo(move)) {
             this.boardLayout[move.getColumn()][move.getRow()].giveColor();
             this.boardLayout[move.getColumn()][move.getRow()].setUsable(false);
             setLastTurn(move);
             return;
         }
+
         if (this.isAllowedMove(move)) this.isNextTo(move);
-
-    }
-
-
-    public void goBack(Move move){
-            this.boardLayout[move.getColumn()][move.getRow()].setColor(imageOrange);
-            this.boardLayout[move.getColumn()][move.getRow()].setUsable(true);
-            setLastTurn(move);
-            System.out.println("terug");
 
     }
 
@@ -159,14 +169,7 @@ public class Board {
                         .allMatch(BoardPiece::isUsed));
     }
 
-    public void playSound() {
-        if (isCompleted()) {
-            AudioClip clip = new AudioClip(Objects.requireNonNull(this.getClass().getResource("/complete.mp3")).toExternalForm());
-            clip.setCycleCount(5);
-            clip.play(volume);
-        }
 
-    }
 
     public void setPlayerLevel() {
         if(this.getPattern().equals("/maakPatroon.txt")) {
@@ -183,12 +186,20 @@ public class Board {
         }
 
     }
+    public void playSound() {
+        if(isCompleted()) {
+            Media media = new Media(Objects.requireNonNull(this.getClass().getResource("/complete.mp3")).toExternalForm());
+            MediaPlayer player = new MediaPlayer(media);
+            player.seek(Duration.ZERO);
+            player.setVolume(volume);
+            player.play();
+
+        }
+
+    }
 
     public boolean isGameComplete() {
         return gameComplete;
-    }
-    public static void setVolume(double volume) {
-        Board.volume = volume;
     }
     public void setPattern(String pattern) {
         this.pattern = pattern;
@@ -207,5 +218,9 @@ public class Board {
     }
     public BoardPiece[][] getBoardLayout() {
         return boardLayout;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 }

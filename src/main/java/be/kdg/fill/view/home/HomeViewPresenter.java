@@ -1,3 +1,6 @@
+/**De presenter van de Homeview, deze heeft een aantal methodes, en roept ook methodes op uit de klasse speler*/
+
+
 package be.kdg.fill.view.home;
 
 import be.kdg.fill.model.player.Player;
@@ -20,7 +23,6 @@ public class HomeViewPresenter {
     public HomeViewPresenter(HomeView view) {
         this.view = view;
         addEventHandlerInfo();
-        updateView();
         addEventHandlerPlay();
         addEventHandlerLogout();
         addEventHandlerResetLevel();
@@ -36,9 +38,6 @@ public class HomeViewPresenter {
         });
     }
 
-    private void updateView() {
-    }
-
     private void addEventHandlerInfo() {
         view.getInfoButton().setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -52,23 +51,29 @@ public class HomeViewPresenter {
 
     private void addEventHandlerLogout(){
         view.getLogout().setOnAction(actionEvent -> {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("Are you sure?");
-            alert.getButtonTypes().clear();
-            ButtonType no = new ButtonType("No");
-            ButtonType yes = new ButtonType("Yes");
-            alert.getButtonTypes().addAll(no, yes);
-            alert.showAndWait();
-            if (alert.getResult().equals(yes)) {
-                Player.setPlayerName(null);
-                LoginView loginView = new LoginView();
-                LoginPresenter presenter = new LoginPresenter(loginView);
-                view.getScene().setRoot(loginView);
-                loginView.getScene().getWindow().sizeToScene();
-            }
+            updateViewLogout();
         });
     }
+    private void updateViewLogout() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText("Are you sure?");
+        alert.getButtonTypes().clear();
+        ButtonType no = new ButtonType("No");
+        ButtonType yes = new ButtonType("Yes");
+        alert.getButtonTypes().addAll(no, yes);
+        alert.showAndWait();
+        if (alert.getResult().equals(yes)) {
+            Player.setPlayerName(null);
+            Player.emptyPlayerLevels(null);//deze twee waarden op null zetten zodat de levels van de vorige speler niet zichtbaar zijn
+            LoginView loginView = new LoginView();
+            LoginPresenter presenter = new LoginPresenter(loginView);
+            view.getScene().setRoot(loginView);
+            loginView.getScene().getWindow().sizeToScene();
+        }
+    }
     private void addEventHandlerResetLevel() {
+        /*reset al de levels die gespeeld zijn terug naar hun default waarde, voor de speler die aan het spelen is!*/
+
         view.getResetLevel().setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText("Are you sure you want to reset your levels?");
@@ -79,7 +84,6 @@ public class HomeViewPresenter {
         });
 
 
-        /*reset al de levels die gespeeld zijn terug naar hun default waarde, voor de speler die aan het spelen is!*/
 
     }
     private void addEventHandlerScores() {

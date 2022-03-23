@@ -1,13 +1,14 @@
+/**Home view klasse*/
+
 package be.kdg.fill.view.home;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.stage.Popup;
+
 
 public class HomeView extends GridPane {
 
@@ -37,8 +38,6 @@ public class HomeView extends GridPane {
     }
     private void layoutNodes() {
 
-
-
         this.setGridLinesVisible(false);
         int GRID_PANE_WIDTH = 250;
         this.setMinWidth(GRID_PANE_WIDTH);
@@ -62,7 +61,6 @@ public class HomeView extends GridPane {
         GridPane.setHalignment(infoButton, HPos.CENTER);
 
 
-
         this.hbtn.getChildren().add(playButton);
         this.hbtn.getChildren().add(infoButton);
         this.hbtn.setAlignment(Pos.BOTTOM_CENTER);
@@ -75,10 +73,6 @@ public class HomeView extends GridPane {
         this.playButton.setId("playButton");
         this.infoButton.setId("infoButton");
         this.logout.setId("logoutButton");
-
-
-
-
 
     }
 

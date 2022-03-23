@@ -1,9 +1,7 @@
 package be.kdg.fill;
 
 
-import be.kdg.fill.model.timer.Timer;
-import be.kdg.fill.view.highscore.HighScorePresenter;
-import be.kdg.fill.view.highscore.HighScoreView;
+import be.kdg.fill.model.utilities.Timer;
 import be.kdg.fill.view.login.LoginPresenter;
 import be.kdg.fill.view.login.LoginView;
 import javafx.application.Application;
@@ -23,6 +21,7 @@ public class Main extends Application {
         //HighScoreView view = new HighScoreView();
         //HighScorePresenter presenter = new HighScorePresenter(new HighScoreView());
         LoginPresenter presenter = new LoginPresenter(view);
+        //GameCompleteView view = new GameCompleteView();
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Fill");

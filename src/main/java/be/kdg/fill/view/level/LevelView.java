@@ -1,3 +1,5 @@
+/**Levelview klasse, deze bepaalt hoe het spel eruit ziet als het spel gespeeld wordt*/
+
 package be.kdg.fill.view.level;
 
 import javafx.geometry.HPos;

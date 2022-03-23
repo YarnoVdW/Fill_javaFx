@@ -1,6 +1,6 @@
+/**LevelChooseView klasse, bepaalt hoe de view er moet uitzien wanneer men een level kiest*/
+
 package be.kdg.fill.view.levelchooser;
-
-
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;

@@ -1,3 +1,5 @@
+/**View voor wanneer een speler een level heeft uitgespeeld*/
+
 package be.kdg.fill.view.levelcomplete;
 
 import javafx.geometry.Insets;
@@ -16,7 +18,7 @@ public class LevelCompleteView extends BorderPane {
     private Button homeButton;
     private Button restart;
     private Button nextLevel;
-    private HBox hbtn;
+    private HBox hBox;
 
 
     public LevelCompleteView() {
@@ -36,11 +38,11 @@ public class LevelCompleteView extends BorderPane {
         this.nextLevel.setMinSize(30,30);
         this.setPrefSize(GRID_PANE_HEIGTH, GRID_PANE_WIDTH);
         this.setCenter(label);
-        this.hbtn.getChildren().add(homeButton);
-        this.hbtn.getChildren().add(restart);
-        this.hbtn.getChildren().add(nextLevel);
-        this.hbtn.setAlignment(Pos.BOTTOM_CENTER);
-        this.setBottom(hbtn);
+        this.hBox.getChildren().add(homeButton);
+        this.hBox.getChildren().add(restart);
+        this.hBox.getChildren().add(nextLevel);
+        this.hBox.setAlignment(Pos.BOTTOM_CENTER);
+        this.setBottom(hBox);
         this.setPadding(new Insets(20));
         this.label.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
         this.setBackground(new Background(new BackgroundFill(Color.BLUEVIOLET, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -52,7 +54,7 @@ public class LevelCompleteView extends BorderPane {
         this.restart = new Button("", new ImageView("/herstart.png"));
         this.nextLevel = new Button("", new ImageView("/playButton.png"));
         this.label = new Label("Level Completed!");
-        this.hbtn = new HBox(10);
+        this.hBox = new HBox(10);
     }
 
     public Button getHomeButton() {

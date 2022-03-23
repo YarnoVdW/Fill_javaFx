@@ -1,4 +1,6 @@
-package be.kdg.fill.model.timer;
+/**Het spel bevat een timer die ge-scheduled is om na 5minuten een alert te geven dat de speler wat lang aan het spelen is*/
+
+package be.kdg.fill.model.utilities;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;

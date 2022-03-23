@@ -1,7 +1,8 @@
+/**Highscore view klasse, deze bevat een array list met spelers, de 0e is de speler met het meeste levels gespeeld*/
+
 package be.kdg.fill.view.highscore;
 
 import be.kdg.fill.model.player.Player;
-
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -12,8 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,7 +26,7 @@ public class HighScoreView extends GridPane {
     private Button homeButton;
     private HBox hBox;
     private final ArrayList<String> players = Player.getHighScores();
-    BackgroundImage bImg;
+    private BackgroundImage bImg;
 
     public HighScoreView() throws SQLException {
         this.initialiseNodes();

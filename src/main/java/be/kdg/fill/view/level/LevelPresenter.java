@@ -1,17 +1,19 @@
+/**Deze klasse zorgt voor de juiste werking van het level. Met onder andere de dragger om het patroon te kunnen "draggen"
+ */
 package be.kdg.fill.view.level;
 
 import be.kdg.fill.model.move.Move;
 import be.kdg.fill.model.player.Player;
 import be.kdg.fill.model.bord.Board;
-
+import be.kdg.fill.model.utilities.FillGameException;
 import be.kdg.fill.view.gamecomplete.GameCompletePresenter;
 import be.kdg.fill.view.gamecomplete.GameCompleteView;
 import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.levelcomplete.LevelCompletePresenter;
 import be.kdg.fill.view.levelcomplete.LevelCompleteView;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,26 +21,24 @@ import javafx.scene.input.MouseEvent;
 
 public class LevelPresenter {
     private final LevelView view;
-    private final Board board;
-    private String pattern;
 
-    public LevelPresenter(LevelView view, Board board, String pattern) throws Exception {
+
+
+    public LevelPresenter(LevelView view, Board board, String pattern) throws FillGameException {
         this.view = view;
-        addEventHandler();
-        this.board = board;
-        this.pattern = pattern;
-        this.board.makePattern(pattern);
-        this.board.countPatternLines(pattern);
-        this.fillBoard();
-        addEventHandlerRestart(this.board.getCurrentLevel());
+        addEventHandler(pattern, board);
+        board.makePattern(pattern);
+        board.countPatternLines(pattern);
+        this.fillBoard(board);
+        addEventHandlerRestart(board.getCurrentLevel(), pattern);
         addEventHandlerHome();
-        addEventHandlerToggle();
-
-
+        addEventHandlerToggle(board);
 
     }
-    private void addEventHandler() {
+    private void addEventHandler(String pattern, Board board) {
+
             view.addEventHandler(MouseEvent.MOUSE_DRAGGED, e ->{
+                view.setCursor(Cursor.CROSSHAIR);
                 int moveX = (int) (e.getX()/50);
                 int moveY = (int)(e.getY()/50);
                 Move move = new Move(moveX, moveY);
@@ -51,9 +51,10 @@ public class LevelPresenter {
                     board.playSound();
                     board.setPlayerLevel();
                     try {
-                        levelComplete();
+                        levelComplete(pattern, board);
                     } catch (Exception ex) {
-
+                        /*lege catch, de mouse dragger zorgt voor een exception wanneer de volgende scene wordt opgeroepen
+                        * ik denk dat deze gewoon te sensitive is en iets te vlug zijn exception werpt*/
                     }
 
 
@@ -62,27 +63,28 @@ public class LevelPresenter {
 
 
     }
-    private void levelComplete() throws Exception {
+    private void levelComplete(String pattern, Board board) throws FillGameException {
         if (board.isGameComplete()){
 
             if(pattern.equals("/maakPatroon.txt") && Player.getPlayerLevels2().isEmpty()) {
                 Player.setLevelsPlayedDif2(Player.getPlayerName(), 1);
             }
             GameCompleteView gameCompleteView = new GameCompleteView();
-            if(pattern.equals("/patroonDif2.txt")) gameCompleteView.setUnlockedLabel(new Label(""));
+            if(pattern.equals("/patroonDif2.txt")) gameCompleteView.getLabel().setText("");
 
             GameCompletePresenter gameCompletePresenter = new GameCompletePresenter(gameCompleteView);
             view.getScene().setRoot(gameCompleteView);
             gameCompleteView.getScene().getWindow().sizeToScene();
         }else {
             LevelCompleteView levelCompleteView = new LevelCompleteView();
-            LevelCompletePresenter presenter = new LevelCompletePresenter(levelCompleteView, this.board.getCurrentLevel() + 1, board.getPattern());
+            LevelCompletePresenter presenter = new LevelCompletePresenter(levelCompleteView, board.getCurrentLevel() + 1, board.getPattern());
+
             view.getScene().setRoot(levelCompleteView);
             levelCompleteView.getScene().getWindow().sizeToScene();
         }
 
     }
-    private void fillBoard(){
+    private void fillBoard(Board board){
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
                 view.setPosition(board.getBoardLayout()[i][j].getColor(), i, j);
@@ -90,18 +92,17 @@ public class LevelPresenter {
         }
     }
 
-    private void addEventHandlerRestart(int nextLevel){
+    private void addEventHandlerRestart(int nextLevel, String pattern){
         view.getRestart().setOnAction(actionEvent -> {
             try {
-                restart(nextLevel);
-                board.setPattern(pattern);
-            } catch (Exception e) {
+                restart(nextLevel, pattern);
+            } catch (FillGameException e) {
                 e.printStackTrace();
             }
 
         });
     }
-    private void restart(int nextLevel) throws Exception {
+    private void restart(int nextLevel, String pattern) throws FillGameException {
         LevelView newView = new LevelView();
         Board board = new Board(pattern);
 
@@ -120,22 +121,21 @@ public class LevelPresenter {
 
         });
     }
-    private void addEventHandlerToggle(){
-        view.getSoundButton().setOnAction(actionEvent -> updateViewSound());
+    private void addEventHandlerToggle(Board board){
+        view.getSoundButton().setOnAction(actionEvent -> updateViewSound(board));
     }
-    private void updateViewSound() {
+    private void updateViewSound(Board board) {
         if (view.getSoundButton().isSelected()) {
 
             Image image = new Image("/soundOff.png");
             Node node = new ImageView(image);
             view.getSoundButton().setGraphic(node);
-            Board.setVolume(0);
-
+            board.setVolume(0);
         } else {
             Image image = new Image("/soundOn.png");
             Node node = new ImageView(image);
             view.getSoundButton().setGraphic(node);
-            Board.setVolume(0.25);
+            board.setVolume(0.25);
         }
     }
 

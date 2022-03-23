@@ -1,3 +1,6 @@
+/**De presenter voor de highscore view, deze heeft enkel een home button*/
+
+
 package be.kdg.fill.view.highscore;
 
 import be.kdg.fill.view.home.HomeView;

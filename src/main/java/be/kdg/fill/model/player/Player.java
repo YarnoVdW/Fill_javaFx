@@ -1,9 +1,11 @@
+/**Player klasse, deze klasse praat vooral met de database om zo spelers te schrijven en levels op te slaan..
+ */
+
 package be.kdg.fill.model.player;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;

@@ -1,3 +1,5 @@
+/**Bijhorende view van de login presenter, laat een simpel login form zien*/
+
 package be.kdg.fill.view.login;
 
 import javafx.geometry.Insets;
@@ -16,7 +18,7 @@ public class LoginView extends GridPane {
     private Label userName;
     private TextField userTextField;
     private Button singInBtn;
-    private HBox hbtn;
+    private HBox hBox;
     private Text title;
     private Label password;
     private PasswordField pwField;
@@ -32,7 +34,7 @@ public class LoginView extends GridPane {
         this.userName = new Label("User name:");
         this.userTextField = new TextField();
         this.singInBtn = new Button("Sign in");
-        this.hbtn = new HBox(10);
+        this.hBox = new HBox(10);
         this.title = new Text("Welcome to Fill");
         this.password = new Label("Password:");
         this.pwField = new PasswordField();
@@ -42,9 +44,9 @@ public class LoginView extends GridPane {
     public void layoutNodes(){
         this.add(userName, 0,1);
         this.add(userTextField, 1, 1);
-        this.hbtn.getChildren().add(singInBtn);
-        this.hbtn.setAlignment(Pos.BOTTOM_RIGHT);
-        this.add(hbtn, 1, 4);
+        this.hBox.getChildren().add(singInBtn);
+        this.hBox.setAlignment(Pos.BOTTOM_RIGHT);
+        this.add(hBox, 1, 4);
         this.setAlignment(Pos.CENTER);
         this.setHgap(10);
         this.setVgap(10);
@@ -55,11 +57,7 @@ public class LoginView extends GridPane {
         this.setMinSize(200,200);
         this.add(password, 0, 2);
         this.add(pwField,1, 2);
-        this.hbtn.getChildren().add(registerBtn);
-
-
-
-
+        this.hBox.getChildren().add(registerBtn);
 
 
     }
