@@ -34,7 +34,6 @@ public class Player {
             pst.setString(2, userPassword);
 
             pst.executeUpdate();
-            System.out.println("User successfully created");
 
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -56,9 +55,6 @@ public class Player {
             pst.setString(2, pass);
 
             playerName = userName;
-
-            System.out.println(pst);
-
             ResultSet resultSet = pst.executeQuery();
             if (resultSet.next()) return true;
 
@@ -85,7 +81,6 @@ public class Player {
             Player.levelDif1 = levelsPlayed;
 
             pst.execute();
-            System.out.println("User level successfully updated");
 
         } catch (SQLException ex) {
 
@@ -108,7 +103,6 @@ public class Player {
             Player.levelDif2 = levelsPlayed;
 
             pst.execute();
-            System.out.println("User level2 successfully updated");
 
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Player.class.getName());
@@ -132,7 +126,6 @@ public class Player {
             Player.levelDif1 = 1;
 
             pst.execute();
-            System.out.println("User levels successfully emptied");
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Player.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);

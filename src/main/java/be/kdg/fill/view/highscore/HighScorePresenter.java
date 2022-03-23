@@ -13,14 +13,14 @@ public class HighScorePresenter {
         this.view = view;
         addEventHandlerHome();
     }
-
     private void addEventHandlerHome() {
-        view.getHomeButton().setOnAction(actionEvent -> {
-            HomeView homeView = new HomeView();
-            HomeViewPresenter presenter = new HomeViewPresenter(homeView);
-            view.getScene().setRoot(homeView);
-            homeView.getScene().getWindow().sizeToScene();
-        });
+        view.getHomeButton().setOnAction(actionEvent -> updateViewHome());
+    }
+    private void updateViewHome() {
+        HomeView homeView = new HomeView();
+        HomeViewPresenter presenter = new HomeViewPresenter(homeView);
+        view.getScene().setRoot(homeView);
+        homeView.getScene().getWindow().sizeToScene();
     }
 
 }

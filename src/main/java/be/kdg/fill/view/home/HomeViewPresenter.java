@@ -28,31 +28,34 @@ public class HomeViewPresenter {
         addEventHandlerResetLevel();
         addEventHandlerScores();
     }
-
+    //event-handlers
     private void addEventHandlerPlay() {
-        view.getPlayButton().setOnAction(actionEvent -> {
-            LevelDifView levelDifChose = new LevelDifView();
-            LevelDifPresenter presenter = new LevelDifPresenter(levelDifChose);
-            view.getScene().setRoot(levelDifChose);
-            levelDifChose.getScene().getWindow().sizeToScene();
-        });
+        view.getPlayButton().setOnAction(actionEvent -> updateLevelDif());
     }
 
     private void addEventHandlerInfo() {
-        view.getInfoButton().setOnAction(actionEvent -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Je begint bij " +
-                    "het startblokje en probeert in één beweging alle blokjes van \n" +
-                    "de vorm te bedekken. Dit doe je door met je muis te klikken en te draggen over het volledige bord.");
-            alert.setTitle("Hoe spelen?");
-            alert.showAndWait();
-        });
+        view.getInfoButton().setOnAction(actionEvent -> showAlertInfo());
     }
-
     private void addEventHandlerLogout(){
-        view.getLogout().setOnAction(actionEvent -> {
-            updateViewLogout();
-        });
+        view.getLogout().setOnAction(actionEvent -> updateViewLogout());
+    }
+    private void addEventHandlerResetLevel() {
+        /*reset al de levels die gespeeld zijn terug naar hun default waarde, voor de speler die aan het spelen is!*/
+        view.getResetLevel().setOnAction(actionEvent -> updateViewResetAlert());
+    }
+    private void addEventHandlerScores() {
+        view.getHighScores().setOnAction(actionEvent -> updateHighscores());
+    }
+    //view updaters
+    private void updateHighscores() {
+        try {
+            HighScoreView view = new HighScoreView();
+            HighScorePresenter presenter = new HighScorePresenter(view);
+            this.view.getScene().setRoot(view);
+            view.getScene().getWindow().sizeToScene();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     private void updateViewLogout() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -71,33 +74,30 @@ public class HomeViewPresenter {
             loginView.getScene().getWindow().sizeToScene();
         }
     }
-    private void addEventHandlerResetLevel() {
-        /*reset al de levels die gespeeld zijn terug naar hun default waarde, voor de speler die aan het spelen is!*/
 
-        view.getResetLevel().setOnAction(actionEvent -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Are you sure you want to reset your levels?");
-            alert.showAndWait();
-            if(alert.getResult() == ButtonType.OK) {
-                Player.emptyPlayerLevels(Player.getPlayerName());
-            }
-        });
-
-
-
+    private void updateLevelDif() {
+        LevelDifView levelDifChose = new LevelDifView();
+        LevelDifPresenter presenter = new LevelDifPresenter(levelDifChose);
+        view.getScene().setRoot(levelDifChose);
+        levelDifChose.getScene().getWindow().sizeToScene();
     }
-    private void addEventHandlerScores() {
-        view.getHighScores().setOnAction(actionEvent -> {
-            try {
-                HighScoreView view = new HighScoreView();
-                HighScorePresenter presenter = new HighScorePresenter(view);
-                this.view.getScene().setRoot(view);
-                view.getScene().getWindow().sizeToScene();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
 
-        });
+    private void showAlertInfo() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Je begint bij " +
+                "het startblokje en probeert in één beweging alle blokjes van \n" +
+                "de vorm te bedekken. Dit doe je door met je muis te klikken en te draggen over het volledige bord.");
+        alert.setTitle("Hoe spelen?");
+        alert.showAndWait();
+    }
+
+    private void updateViewResetAlert() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Are you sure you want to reset your levels?");
+        alert.showAndWait();
+        if(alert.getResult() == ButtonType.OK) {
+            Player.emptyPlayerLevels(Player.getPlayerName());
+        }
     }
 
 }

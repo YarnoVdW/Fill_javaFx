@@ -24,47 +24,50 @@ public class LevelCompletePresenter {
 
 
     }
-
+    //event-handlers
     private void addEventHandlerHome() {
-        view.getHomeButton().setOnAction(actionEvent -> {
-
-            HomeView homeView = new HomeView();
-            HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
-            view.getScene().setRoot(homeView);
-            homeView.getScene().getWindow().sizeToScene();
-
-
-        });
+        view.getHomeButton().setOnAction(actionEvent -> updateViewHome());
     }
 
     private void addEventHandlerRestart(int nextLevel, String pattern) {
-        view.getRestart().setOnAction(actionEvent -> {
-            LevelView levelView = new LevelView();
-            try {
-                board.setCurrentLevel(nextLevel-1);
-                LevelPresenter levelPresenter = new LevelPresenter(levelView, board, pattern);
-            } catch (FillGameException e) {
-                e.printStackTrace();
-            }
-            view.getScene().setRoot(levelView);
-            levelView.getScene().getWindow().sizeToScene();
-        });
+        view.getRestart().setOnAction(actionEvent -> updateViewRestartLevel(nextLevel, pattern));
     }
 
     private void addNextLevelHandler(int nextLevel, String pattern) {
-        view.getNextLevel().setOnAction(actionEvent -> {
-            LevelView levelView = new LevelView();
+        view.getNextLevel().setOnAction(actionEvent -> updateViewNextLevel(nextLevel, pattern));
+    }
 
-            try {
-                board.setCurrentLevel(nextLevel);
-                board.setPattern(pattern);
-                LevelPresenter levelPresenter = new LevelPresenter(levelView, board ,pattern);
-            } catch (FillGameException e) {
-                e.printStackTrace();
-            }
-            view.getScene().setRoot(levelView);
-            levelView.getScene().getWindow().sizeToScene();
-        });
+    //view updaters
+    private void updateViewNextLevel(int nextLevel, String pattern) {
+        LevelView levelView = new LevelView();
+        try {
+            board.setCurrentLevel(nextLevel);
+            board.setPattern(pattern);
+            LevelPresenter levelPresenter = new LevelPresenter(levelView, board ,pattern);
+        } catch (FillGameException e) {
+            e.printStackTrace();
+            System.out.println("There seems to be a problem at the next level handler in the level complete presenter");
+        }
+        view.getScene().setRoot(levelView);
+        levelView.getScene().getWindow().sizeToScene();
+    }
+    private void updateViewRestartLevel(int nextLevel, String pattern) {
+        LevelView levelView = new LevelView();
+        try {
+            board.setCurrentLevel(nextLevel-1);
+            LevelPresenter levelPresenter = new LevelPresenter(levelView, board, pattern);
+        } catch (FillGameException e) {
+            e.printStackTrace();
+            System.out.println("There seems to be a problem at the restart handler in the level complete presenter");
+        }
+        view.getScene().setRoot(levelView);
+        levelView.getScene().getWindow().sizeToScene();
+    }
+    private void updateViewHome() {
+        HomeView homeView = new HomeView();
+        HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
+        view.getScene().setRoot(homeView);
+        homeView.getScene().getWindow().sizeToScene();
     }
 
 }

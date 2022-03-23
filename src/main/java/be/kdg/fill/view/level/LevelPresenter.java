@@ -18,51 +18,31 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class LevelPresenter {
     private final LevelView view;
-
-
 
     public LevelPresenter(LevelView view, Board board, String pattern) throws FillGameException {
         this.view = view;
         addEventHandler(pattern, board);
         board.makePattern(pattern);
-        board.countPatternLines(pattern);
+
+        try {
+            board.countPatternLines(pattern);
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+            System.out.println("there seems to be a problem at the level presenter");
+        }
+
         this.fillBoard(board);
         addEventHandlerRestart(board.getCurrentLevel(), pattern);
         addEventHandlerHome();
         addEventHandlerToggle(board);
 
     }
-    private void addEventHandler(String pattern, Board board) {
 
-            view.addEventHandler(MouseEvent.MOUSE_DRAGGED, e ->{
-                view.setCursor(Cursor.CROSSHAIR);
-                int moveX = (int) (e.getX()/50);
-                int moveY = (int)(e.getY()/50);
-                Move move = new Move(moveX, moveY);
-
-                if(board.isAllowedMove(move) && board.isNextTo(move)) view.setPosition(board.getBoardLayout()[moveX][moveY].giveColor(), moveX, moveY);
-
-                board.makeMove(move);
-
-                if(board.isCompleted()) {
-                    board.playSound();
-                    board.setPlayerLevel();
-                    try {
-                        levelComplete(pattern, board);
-                    } catch (Exception ex) {
-                        /*lege catch, de mouse dragger zorgt voor een exception wanneer de volgende scene wordt opgeroepen
-                        * ik denk dat deze gewoon te sensitive is en iets te vlug zijn exception werpt*/
-                    }
-
-
-                }
-            });
-
-
-    }
     private void levelComplete(String pattern, Board board) throws FillGameException {
         if (board.isGameComplete()){
 
@@ -91,18 +71,56 @@ public class LevelPresenter {
             }
         }
     }
+    //event-handlers
+    private void addEventHandler(String pattern, Board board) throws ArrayIndexOutOfBoundsException{
+
+        view.addEventHandler(MouseEvent.MOUSE_DRAGGED, e ->{
+            view.setCursor(Cursor.CROSSHAIR);
+            int moveX = (int) (e.getX()/50);
+            int moveY = (int)(e.getY()/50);
+            Move move = new Move(moveX, moveY);
+
+            if(board.isAllowedMove(move) && board.isNextTo(move)) view.setPosition(board.getBoardLayout()[moveX][moveY].giveColor(), moveX, moveY);
+
+            board.makeMove(move);
+
+            if(board.isCompleted()) {
+                board.playSound();
+                board.setPlayerLevel();
+                try {
+                    levelComplete(pattern, board);
+                } catch (Exception ex) {
+                    /*lege catch, de mouse dragger zorgt voor een exception wanneer de volgende scene wordt opgeroepen
+                     * ik denk dat deze gewoon te sensitive is en iets te vlug zijn exception werpt*/
+                }
+
+
+            }
+        });
+
+
+    }
 
     private void addEventHandlerRestart(int nextLevel, String pattern){
         view.getRestart().setOnAction(actionEvent -> {
             try {
-                restart(nextLevel, pattern);
+                updateViewRestart(nextLevel, pattern);
             } catch (FillGameException e) {
                 e.printStackTrace();
             }
 
         });
     }
-    private void restart(int nextLevel, String pattern) throws FillGameException {
+
+
+    private void addEventHandlerHome() {
+        view.getHomeButton().setOnAction(actionEvent -> updateViewHome());
+    }
+    private void addEventHandlerToggle(Board board){
+        view.getSoundButton().setOnAction(actionEvent -> updateViewSound(board));
+    }
+    //view updaters
+    private void updateViewRestart(int nextLevel, String pattern) throws FillGameException {
         LevelView newView = new LevelView();
         Board board = new Board(pattern);
 
@@ -112,18 +130,13 @@ public class LevelPresenter {
         newView.getScene().getWindow().sizeToScene();
     }
 
-    private void addEventHandlerHome() {
-        view.getHomeButton().setOnAction(actionEvent -> {
-            HomeView homeView = new HomeView();
-            HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
-            view.getScene().setRoot(homeView);
-            homeView.getScene().getWindow().sizeToScene();
+    private void updateViewHome() {
+        HomeView homeView = new HomeView();
+        HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
+        view.getScene().setRoot(homeView);
+        homeView.getScene().getWindow().sizeToScene();
+    }
 
-        });
-    }
-    private void addEventHandlerToggle(Board board){
-        view.getSoundButton().setOnAction(actionEvent -> updateViewSound(board));
-    }
     private void updateViewSound(Board board) {
         if (view.getSoundButton().isSelected()) {
 

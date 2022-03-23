@@ -15,12 +15,12 @@ public class GameCompletePresenter {
     }
 
     private void addEventHandlerHome() {
-        this.view.getHomeButton().setOnAction(actionEvent -> {
-            HomeView homeView = new HomeView();
-            HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
-            view.getScene().setRoot(homeView);
-            homeView.getScene().getWindow().sizeToScene();
-
-        });
+        this.view.getHomeButton().setOnAction(actionEvent -> updateViewHome());
+    }
+    private void updateViewHome() {
+        HomeView homeView = new HomeView();
+        HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
+        view.getScene().setRoot(homeView);
+        homeView.getScene().getWindow().sizeToScene();
     }
 }

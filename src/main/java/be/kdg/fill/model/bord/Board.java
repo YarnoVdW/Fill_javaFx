@@ -44,7 +44,7 @@ public class Board {
         this.makePattern(pattern);
     }
 
-    public void fillBoard() { //methode om het bord te vullen met allemaal vakjes die mogelijks als patroon gebruikt gaan worden
+    private void fillBoard() { //methode om het bord te vullen met allemaal vakjes die mogelijks als patroon gebruikt gaan worden
         for (int i = 0; i < BOARD_WIDTH; i++) {
             for (int j = 0; j < BOARD_HEIGHT; j++) {
                 this.boardLayout[i][j] = new BoardPiece();
@@ -97,27 +97,21 @@ public class Board {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.out.println("Oops, there is no file found..");
         }
 
     }
 
-    public void countPatternLines(String filePattern) throws FillGameException {
+    public void countPatternLines(String filePattern) throws URISyntaxException, IOException {
 
         /*In deze methode tel ik het aantal lijnen in het patroon bestand voor dif 1. Van zodra het aantal gespeelde levels gelijk is
         * aan het aantal lijnen in het bestand is het spel volledig uitgespeeld.*/
         URL url = getClass().getResource(filePattern);
         assert url != null;
-        Path path = null;
-        long lineCount = 0;
-        try {
-            path = Paths.get(url.toURI());
-            lineCount = Files.readAllLines(path).size();
-        } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
-
-        }
-
-
+        Path path;
+        long lineCount;
+        path = Paths.get(url.toURI());
+        lineCount = Files.readAllLines(path).size();
         if(lineCount == this.currentLevel) gameComplete = true;
 
     }
@@ -168,8 +162,6 @@ public class Board {
                         .filter(boardPiece -> boardPiece.getColor() != null)
                         .allMatch(BoardPiece::isUsed));
     }
-
-
 
     public void setPlayerLevel() {
         if(this.getPattern().equals("/maakPatroon.txt")) {

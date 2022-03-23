@@ -9,6 +9,7 @@ import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.levelchooser.LevelChoosePresenter;
 import be.kdg.fill.view.levelchooser.LevelChooseView;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 
@@ -23,55 +24,39 @@ public class LevelDifPresenter {
         addEventHandlerDif2();
 
     }
-
+    //event-handlers
     private void addEventHandlerHome() {
-        view.getHomeButton().setOnAction(actionEvent -> {
-            HomeView homeView = new HomeView();
-            HomeViewPresenter presenter = new HomeViewPresenter(homeView);
-            view.getScene().setRoot(homeView);
-            homeView.getScene().getWindow().sizeToScene();
-        });
+        view.getHomeButton().setOnAction(actionEvent -> updateViewHome());
     }
 
-
     private void addEventHandlerBtn1() {
-        view.getBtn1().setOnAction(actionEvent -> {
-            LevelChooseView levelChoseView = null;
-            try {
-                levelChoseView = new LevelChooseView();
-                Player.makeLevelList();
-                levelChoseView.getComboBox().setItems(Player.getPlayerLevels());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                LevelChoosePresenter presenter = new LevelChoosePresenter(levelChoseView, "/maakPatroon.txt");
-            } catch (FillGameException e) {
-                e.printStackTrace();
-            }
-            view.getScene().setRoot(levelChoseView);
-            levelChoseView.getScene().getWindow().sizeToScene();
-        });
+        view.getBtn1().setOnAction(actionEvent -> updateViewDifficulty("/maakPatroon.txt", Player.getPlayerLevels()));
     }
 
     private void addEventHandlerDif2() {
-        view.getBtn2().setOnAction(actionEvent -> {
-            LevelChooseView levelChoseView = null;
-            try {
-                levelChoseView = new LevelChooseView();
-                Player.makeLevelList();
-                levelChoseView.getComboBox().setItems(Player.getPlayerLevels2());
+        view.getBtn2().setOnAction(actionEvent -> updateViewDifficulty("/patroonDif2.txt", Player.getPlayerLevels2()));
+    }
+    // view updaters
+    private void updateViewDifficulty(String pattern, ObservableList<Integer> levels) {
+        LevelChooseView levelChoseView = null;
+        try {
+            levelChoseView = new LevelChooseView();
+            Player.makeLevelList();
+            levelChoseView.getComboBox().setItems(levels);
+            LevelChoosePresenter presenter = new LevelChoosePresenter(levelChoseView, pattern);
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                LevelChoosePresenter presenter = new LevelChoosePresenter(levelChoseView, "/patroonDif2.txt");
-            } catch (FillGameException e) {
-                e.printStackTrace();
-            }
-            view.getScene().setRoot(levelChoseView);
-            levelChoseView.getScene().getWindow().sizeToScene();
-        });
+        } catch (SQLException  | FillGameException e) {
+            e.printStackTrace();
+            System.out.println("There seems to be a problem at the buttons in levelDif presenter");
+        }
+        view.getScene().setRoot(levelChoseView);
+        levelChoseView.getScene().getWindow().sizeToScene();
+    }
+
+    private void updateViewHome() {
+        HomeView homeView = new HomeView();
+        HomeViewPresenter presenter = new HomeViewPresenter(homeView);
+        view.getScene().setRoot(homeView);
+        homeView.getScene().getWindow().sizeToScene();
     }
 }

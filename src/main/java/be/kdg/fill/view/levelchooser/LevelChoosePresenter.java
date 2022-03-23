@@ -20,36 +20,39 @@ public class LevelChoosePresenter {
         this.view = view;
         addEventHandlerComboBox(pattern);
         addEventHandlerHome();
+        this.board = new Board(pattern);
+
     }
-
+    //event-handlers
     private void addEventHandlerComboBox(String pattern) throws FillGameException {
-        board = new Board(pattern);
-        view.getComboBox().setOnAction(actionEvent -> {
-
-            LevelView levelView = new LevelView();
-            try {
-                board = new Board(pattern);
-                board.setPattern(pattern); /*we gebruiken het patroon die is meegegeven in de constructor zodat we de juiste moeilijkheid hebben*/
-                board.setCurrentLevel(view.getComboBox().getSelectionModel().getSelectedItem());
-                LevelPresenter presenter = new LevelPresenter(levelView, board, pattern);
-
-            } catch (FillGameException e) {
-                e.printStackTrace();
-            }
-            view.getScene().setRoot(levelView);
-            levelView.getScene().getWindow().sizeToScene();
-        });
+        view.getComboBox().setOnAction(actionEvent -> updateViewComboBox(pattern));
 
     }
     private void addEventHandlerHome() {
-        view.getHomeButton().setOnAction(actionEvent -> {
-            HomeView homeView = new HomeView();
-            HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
-            view.getScene().setRoot(homeView);
-            homeView.getScene().getWindow().sizeToScene();
+        view.getHomeButton().setOnAction(actionEvent -> updateViewHome());
+    }
 
+    //view updaters
+    private void updateViewHome() {
+        HomeView homeView = new HomeView();
+        HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
+        view.getScene().setRoot(homeView);
+        homeView.getScene().getWindow().sizeToScene();
+    }
+    private void updateViewComboBox(String pattern) {
+        LevelView levelView = new LevelView();
+        try {
+            board = new Board(pattern);
+            board.setPattern(pattern); /*we gebruiken het patroon die is meegegeven in de constructor zodat we de juiste moeilijkheid hebben*/
+            board.setCurrentLevel(view.getComboBox().getSelectionModel().getSelectedItem());
+            LevelPresenter presenter = new LevelPresenter(levelView, board, pattern);
 
-        });
+        } catch (FillGameException e) {
+            e.printStackTrace();
+            System.out.println("There seems to be a problem at the level choose combobox handler");
+        }
+        view.getScene().setRoot(levelView);
+        levelView.getScene().getWindow().sizeToScene();
     }
 }
 

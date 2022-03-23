@@ -18,50 +18,57 @@ public class LoginPresenter {
         addEventHandlerRegister();
 
     }
-
+    //event-handler
     private void addEventHandlerHome() {
 
         view.getSingInBtn().setOnAction(actionEvent -> {
 
             if(view.getUserTextField().getText().isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("Username is empty");
-                alert.show();
-                return;
+                showAlertEmpty("Username");
             }
             if(view.getPwField().getText().isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("Password is empty");
-                alert.show();
-                return;
+                showAlertEmpty("Password");
             }
             String userName = view.getUserTextField().getText();
             String userPass = view.getPwField().getText();
-
-
             Player player =  new Player();
             boolean flag = player.validate(userName, userPass);
             if(!flag){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("Password or username is wrong");
-                alert.show();
+               showAlertWrong();
             } else {
-                HomeView homeView = new HomeView();
-                HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
-                view.getScene().setRoot(homeView);
-                homeView.getScene().getWindow().sizeToScene();
-                Player.setPlayerName(view.getUserTextField().getText());
+                updateViewHome();
             }
         });
     }
 
     private void addEventHandlerRegister(){
-        view.getRegisterBtn().setOnAction(actionEvent -> {
-            RegisterView registerView = new RegisterView();
-            RegisterPresenter presenter = new RegisterPresenter(registerView);
-            view.getScene().setRoot(registerView);
-            registerView.getScene().getWindow().sizeToScene();
-        });
+        view.getRegisterBtn().setOnAction(actionEvent -> updateViewRegister());
+    }
+
+    //view updaters
+    private void updateViewRegister() {
+        RegisterView registerView = new RegisterView();
+        RegisterPresenter presenter = new RegisterPresenter(registerView);
+        view.getScene().setRoot(registerView);
+        registerView.getScene().getWindow().sizeToScene();
+    }
+
+    private void updateViewHome() {
+        HomeView homeView = new HomeView();
+        HomeViewPresenter homeViewPresenter = new HomeViewPresenter(homeView);
+        view.getScene().setRoot(homeView);
+        homeView.getScene().getWindow().sizeToScene();
+        Player.setPlayerName(view.getUserTextField().getText());
+    }
+    private void showAlertEmpty(String type) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText(type+" is empty");
+        alert.show();
+    }
+    private void showAlertWrong() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText("Password or username is wrong");
+        alert.show();
     }
 
 }
