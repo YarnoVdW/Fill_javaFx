@@ -111,15 +111,13 @@ public class LevelPresenter {
 
         });
     }
-
-
     private void addEventHandlerHome() {
         view.getHomeButton().setOnAction(actionEvent -> updateViewHome());
     }
     private void addEventHandlerToggle(Board board){
         view.getSoundButton().setOnAction(actionEvent -> updateViewSound(board));
     }
-    //view updaters
+    //view updaters§
     private void updateViewRestart(int nextLevel, String pattern) throws FillGameException {
         LevelView newView = new LevelView();
         Board board = new Board(pattern);

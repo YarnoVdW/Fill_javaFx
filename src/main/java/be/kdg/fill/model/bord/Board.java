@@ -64,6 +64,7 @@ public class Board {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        assert path != null;//anders geeft hij een waarschuwing
         File file = path.toFile();
 
 
@@ -148,11 +149,7 @@ public class Board {
             this.boardLayout[move.getColumn()][move.getRow()].giveColor();
             this.boardLayout[move.getColumn()][move.getRow()].setUsable(false);
             setLastTurn(move);
-            return;
         }
-
-        if (this.isAllowedMove(move)) this.isNextTo(move);
-
     }
 
     public boolean isCompleted() {

@@ -17,7 +17,7 @@ public class LevelView extends GridPane {
     private Button restart;
     private Button homeButton;
     private ToggleButton soundButton;
-    private HBox hbtn;
+    private HBox hBox;
     public LevelView() {
 
         this.initialiseNodes();
@@ -31,17 +31,18 @@ public class LevelView extends GridPane {
             this.getColumnConstraints().add(new ColumnConstraints(50));
             this.getRowConstraints().add(new RowConstraints(50));
         }
-        this.add(hbtn, 3, 7);
-        this.hbtn.getChildren().add(restart);
-        this.hbtn.getChildren().add(homeButton);
-        this.hbtn.getChildren().add(soundButton);
-        this.hbtn.setAlignment(Pos.BOTTOM_CENTER);
+
+        this.add(hBox, 3, 7);
+        this.hBox.getChildren().add(restart);
+        this.hBox.getChildren().add(homeButton);
+        this.hBox.getChildren().add(soundButton);
+        this.hBox.setAlignment(Pos.BOTTOM_CENTER);
     }
     private void initialiseNodes() {
         this.restart = new Button("", new ImageView("/herstart.png"));
         this.homeButton = new Button("", new ImageView("/homeButton.png"));
         this.soundButton = new ToggleButton("", new ImageView("/soundOn.png"));
-        this.hbtn = new HBox(10);
+        this.hBox = new HBox(10);
     }
     public void setPosition(Image v, int x, int y) {
 
