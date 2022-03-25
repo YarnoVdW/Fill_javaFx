@@ -50,6 +50,7 @@ public class LevelDifPresenter {
             System.out.println("There seems to be a problem at the buttons in levelDif presenter");
         }
         view.getScene().setRoot(levelChoseView);
+        assert levelChoseView != null;
         levelChoseView.getScene().getWindow().sizeToScene();
     }
 

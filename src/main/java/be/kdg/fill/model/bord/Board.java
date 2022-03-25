@@ -52,7 +52,7 @@ public class Board {
         }
     }
 
-    public void makePattern(String pattern) throws FillGameException {
+    public void makePattern(String pattern) {
         this.fillBoard();
 
         Image beginImage = new Image("/white.png");
@@ -182,9 +182,7 @@ public class Board {
             player.seek(Duration.ZERO);
             player.setVolume(volume);
             player.play();
-
         }
-
     }
 
     public boolean isGameComplete() {

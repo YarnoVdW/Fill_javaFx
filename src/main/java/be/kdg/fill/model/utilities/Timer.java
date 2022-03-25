@@ -21,7 +21,7 @@ public class Timer {
         }
     };
     public void schedule() {
-        timer.schedule(task, 300000);
+        timer.schedule(task, 150000);
     }
 
 }

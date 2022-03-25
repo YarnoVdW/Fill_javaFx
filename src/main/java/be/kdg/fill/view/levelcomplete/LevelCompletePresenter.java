@@ -17,7 +17,7 @@ public class LevelCompletePresenter {
 
     public LevelCompletePresenter(LevelCompleteView view, int nextLevel, String pattern) throws FillGameException {
         this.view = view;
-        board = new Board(pattern);
+        this.board = new Board(pattern);
         addEventHandlerHome();
         addEventHandlerRestart(nextLevel, pattern);
         addNextLevelHandler(nextLevel, pattern);
