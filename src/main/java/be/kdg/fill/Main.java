@@ -10,18 +10,15 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
-
+/**Main klasse van het spel Fill*/
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Timer timer = new Timer();
         timer.schedule();
         LoginView view = new LoginView();
-        //HighScoreView view = new HighScoreView();
-        //HighScorePresenter presenter = new HighScorePresenter(new HighScoreView());
         LoginPresenter presenter = new LoginPresenter(view);
-        //GameCompleteView view = new GameCompleteView();
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Fill");

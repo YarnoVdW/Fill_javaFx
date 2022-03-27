@@ -1,5 +1,3 @@
-/**Registreer presenter, heeft methodes om in het database nieuwe spelers aan te maken*/
-
 package be.kdg.fill.view.register;
 
 import be.kdg.fill.model.player.Player;
@@ -7,6 +5,7 @@ import be.kdg.fill.view.login.LoginPresenter;
 import be.kdg.fill.view.login.LoginView;
 import javafx.scene.control.Alert;
 
+/**Registreer presenter, heeft methodes om in het database nieuwe spelers aan te maken*/
 public class RegisterPresenter {
     private final RegisterView view;
 
@@ -30,14 +29,14 @@ public class RegisterPresenter {
         String passHerhaal = view.getPwFieldRepeat().getText();
 
         if (pass.equals(passHerhaal)) {
-            Player.writeToDatabase(user, pass);
+            Player.writeToDatabase(user, pass); //schrijft een speler naar de database
             LoginView loginView = new LoginView();
             LoginPresenter presenter = new LoginPresenter(loginView);
             view.getScene().setRoot(loginView);
             loginView.getScene().getWindow().sizeToScene();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("fout wachtwoord");
+            alert.setHeaderText("Passwords don't match");
             alert.show();
         }
     }

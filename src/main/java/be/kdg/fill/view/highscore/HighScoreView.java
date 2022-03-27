@@ -1,4 +1,3 @@
-/**Highscore view klasse, deze bevat een array list met spelers, de 0e is de speler met het meeste levels gespeeld*/
 
 package be.kdg.fill.view.highscore;
 
@@ -15,14 +14,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import java.sql.SQLException;
 import java.util.ArrayList;
+/**Highscore view klasse, deze bevat een array list met spelers, de 0e is de speler met het meeste levels gespeeld*/
 
 public class HighScoreView extends GridPane {
-
 
     private Label firstLabel;
     private Label secondLabel;
     private Label thirdLabel;
-
     private Button homeButton;
     private HBox hBox;
     private final ArrayList<String> players = Player.getHighScores();
@@ -40,7 +38,7 @@ public class HighScoreView extends GridPane {
         this.thirdLabel = new Label(players.get(2));
         this.homeButton = new Button("", new ImageView("/homeButton.png"));
         this.hBox = new HBox();
-        Image podium = new Image("/podium.png");
+        Image podium = new Image("/stage_highscores.png");
         bImg = new BackgroundImage(podium,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
@@ -80,15 +78,13 @@ public class HighScoreView extends GridPane {
         GridPane.setValignment(secondLabel, VPos.BOTTOM);
         GridPane.setValignment(thirdLabel, VPos.TOP);
 
-
-
         this.add(hBox, 2, 7);
         this.hBox.setAlignment(Pos.CENTER);
         this.hBox.getChildren().add(homeButton);
 
     }
 
-    public Button getHomeButton() {
+    Button getHomeButton() {
         return homeButton;
     }
 }

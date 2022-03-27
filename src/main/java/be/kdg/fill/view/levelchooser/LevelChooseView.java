@@ -1,4 +1,3 @@
-/**LevelChooseView klasse, bepaalt hoe de view er moet uitzien wanneer men een level kiest*/
 
 package be.kdg.fill.view.levelchooser;
 
@@ -14,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import java.sql.SQLException;
+/**LevelChooseView klasse, bepaalt hoe de view er moet uitzien wanneer men een level kiest*/
 
 public class LevelChooseView extends GridPane {
 
@@ -30,7 +30,7 @@ public class LevelChooseView extends GridPane {
         this.getStylesheets().add("style.css");
     }
 
-    private void initialiseNodes() throws SQLException {
+    private void initialiseNodes() {
         this.hBoxLabel = new HBox(10);
         this.hBoxComboBox = new HBox(10);
 
@@ -63,7 +63,7 @@ public class LevelChooseView extends GridPane {
         this.hBoxLabel.getChildren().add(label);
     }
 
-    public Button getHomeButton() {
+    Button getHomeButton() {
         return homeButton;
     }
 

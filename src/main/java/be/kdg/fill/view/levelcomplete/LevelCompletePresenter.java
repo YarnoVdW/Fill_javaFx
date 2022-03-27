@@ -1,13 +1,13 @@
-/**De presenter voor de levelComplete view*/
 
 package be.kdg.fill.view.levelcomplete;
 
-import be.kdg.fill.model.bord.Board;
+import be.kdg.fill.model.board.Board;
 import be.kdg.fill.model.utilities.FillGameException;
 import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.level.LevelPresenter;
 import be.kdg.fill.view.level.LevelView;
+/**De presenter voor de levelComplete view*/
 
 public class LevelCompletePresenter {
 
@@ -22,8 +22,9 @@ public class LevelCompletePresenter {
         addEventHandlerRestart(nextLevel, pattern);
         addNextLevelHandler(nextLevel, pattern);
 
-
     }
+
+
     //event-handlers
     private void addEventHandlerHome() {
         view.getHomeButton().setOnAction(actionEvent -> updateViewHome());
@@ -54,7 +55,7 @@ public class LevelCompletePresenter {
     private void updateViewRestartLevel(int nextLevel, String pattern) {
         LevelView levelView = new LevelView();
         try {
-            board.setCurrentLevel(nextLevel-1);
+            board.setCurrentLevel(nextLevel-1); // -1 omdat hij anders verder gaat ipv dezelfde level opnieuw te spelen
             LevelPresenter levelPresenter = new LevelPresenter(levelView, board, pattern);
         } catch (FillGameException e) {
             e.printStackTrace();

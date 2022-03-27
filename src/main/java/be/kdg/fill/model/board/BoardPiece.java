@@ -1,19 +1,19 @@
-/**Elke coordinaat van het bord heeft zijn eigen BoardPiece, dit piece hoort bij deze klasse.
- */
-package be.kdg.fill.model.bord;
+
+package be.kdg.fill.model.board;
 
 
 import javafx.scene.image.Image;
 import java.util.Objects;
-
+/**Elke coordinaat van het bord heeft zijn eigen BoardPiece, dit piece hoort bij deze klasse.
+ */
 public class BoardPiece {
-
-    private boolean isUsable = false, used = false;
+    private boolean isUsable = false;
+    private boolean used = false;
     private Image color;
 
     public Image giveColor() {
         this.used = true;
-        return this.color = new Image("/VakjeKleur.png");
+        return this.color = new Image("/blue.png");
     }
 
     public void setColor(Image color) {

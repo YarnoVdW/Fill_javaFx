@@ -1,4 +1,3 @@
-/**De presenter van de Homeview, deze heeft een aantal methodes, en roept ook methodes op uit de klasse speler*/
 
 
 package be.kdg.fill.view.home;
@@ -15,6 +14,7 @@ import javafx.scene.control.ButtonType;
 
 import java.sql.SQLException;
 
+/**De presenter van de Homeview, deze heeft een aantal methodes, en roept ook methodes op uit de klasse speler*/
 
 public class HomeViewPresenter {
     private final HomeView view;
@@ -32,7 +32,6 @@ public class HomeViewPresenter {
     private void addEventHandlerPlay() {
         view.getPlayButton().setOnAction(actionEvent -> updateLevelDif());
     }
-
     private void addEventHandlerInfo() {
         view.getInfoButton().setOnAction(actionEvent -> showAlertInfo());
     }
@@ -46,6 +45,8 @@ public class HomeViewPresenter {
     private void addEventHandlerScores() {
         view.getHighScores().setOnAction(actionEvent -> updateHighscores());
     }
+
+
     //view updaters
     private void updateHighscores() {
         try {

@@ -1,0 +1,10 @@
+create table player (
+	name varchar(20) constraint pk_name PRIMARY KEY,
+	password varchar(20),
+	levels numeric(2) Default 1,
+	level2 numeric(2) default null
+);
+
+database naam: JavaFx
+bij mij staat de user op postgres en het wachtwoord op student.
+In de klasse player staat dit ook vermeld bij enkele methodes die connectie moeten maken met de database

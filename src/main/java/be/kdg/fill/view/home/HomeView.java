@@ -1,4 +1,3 @@
-/**Home view klasse*/
 
 package be.kdg.fill.view.home;
 
@@ -9,13 +8,14 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
+/**Home view klasse*/
 
 public class HomeView extends GridPane {
 
     private Button playButton;
     private Button infoButton;
     private ImageView imageView;
-    private HBox hbtn;
+    private HBox hBox;
     private Button logout;
     private Button resetLevel;
     private Button highScores;
@@ -33,7 +33,7 @@ public class HomeView extends GridPane {
         imageView = new ImageView("/fill_homeScreen.png");
         logout = new Button("", new ImageView("/logout.png"));
         highScores = new Button("", new ImageView("/highscore.png"));
-        this.hbtn = new HBox(10);
+        this.hBox = new HBox(10);
         this.resetLevel = new Button("", new ImageView("/resetbutton.png"));
     }
     private void layoutNodes() {
@@ -52,7 +52,7 @@ public class HomeView extends GridPane {
         this.setPadding(new Insets(20));
         this.setAlignment(Pos.CENTER);
 
-        GridPane.setVgrow(hbtn, Priority.ALWAYS);
+        GridPane.setVgrow(hBox, Priority.ALWAYS);
         GridPane.setVgrow(this, Priority.ALWAYS);
         GridPane.setHgrow(this, Priority.ALWAYS);
         GridPane.setHgrow(imageView, Priority.ALWAYS);
@@ -61,37 +61,34 @@ public class HomeView extends GridPane {
         GridPane.setHalignment(infoButton, HPos.CENTER);
 
 
-        this.hbtn.getChildren().add(playButton);
-        this.hbtn.getChildren().add(infoButton);
-        this.hbtn.setAlignment(Pos.BOTTOM_CENTER);
-        this.hbtn.getChildren().add(logout);
-        this.hbtn.getChildren().add(resetLevel);
-        this.hbtn.getChildren().add(highScores);
-        this.add(hbtn, 1, 4);
+        this.hBox.getChildren().add(playButton);
+        this.hBox.getChildren().add(infoButton);
+        this.hBox.setAlignment(Pos.BOTTOM_CENTER);
+        this.hBox.getChildren().add(logout);
+        this.hBox.getChildren().add(resetLevel);
+        this.hBox.getChildren().add(highScores);
+        this.add(hBox, 1, 4);
         this.setVgap(5);
 
-        this.playButton.setId("playButton");
-        this.infoButton.setId("infoButton");
-        this.logout.setId("logoutButton");
 
     }
 
-    public Button getPlayButton() {
+    Button getPlayButton() {
         return playButton;
     }
 
-    public Button getInfoButton() {
+    Button getInfoButton() {
         return infoButton;
     }
-    public Button getLogout() {
+    Button getLogout() {
         return logout;
     }
 
-    public Button getResetLevel() {
+    Button getResetLevel() {
         return resetLevel;
     }
 
-    public Button getHighScores() {
+    Button getHighScores() {
         return highScores;
     }
 }

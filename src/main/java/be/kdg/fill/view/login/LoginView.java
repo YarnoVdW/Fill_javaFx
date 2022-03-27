@@ -1,5 +1,3 @@
-/**Bijhorende view van de login presenter, laat een simpel login form zien*/
-
 package be.kdg.fill.view.login;
 
 import javafx.geometry.Insets;
@@ -14,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**Bijhorende view van de login presenter, laat een simpel login form zien*/
 public class LoginView extends GridPane {
     private Label userName;
     private TextField userTextField;
@@ -61,18 +60,18 @@ public class LoginView extends GridPane {
 
 
     }
-    public Button getSingInBtn() {
+    Button getSingInBtn() {
         return singInBtn;
     }
-    public Button getRegisterBtn() {
+    Button getRegisterBtn() {
         return registerBtn;
     }
 
-    public TextField getUserTextField() {
+    TextField getUserTextField() {
         return userTextField;
     }
 
-    public PasswordField getPwField() {
+    PasswordField getPwField() {
         return pwField;
     }
 }

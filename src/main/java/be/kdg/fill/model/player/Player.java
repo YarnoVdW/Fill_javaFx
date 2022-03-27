@@ -1,5 +1,4 @@
-/**Player klasse, deze klasse praat vooral met de database om zo spelers te schrijven en levels op te slaan..
- */
+
 
 package be.kdg.fill.model.player;
 
@@ -10,22 +9,24 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**Player klasse, deze klasse praat vooral met de database om zo spelers te schrijven en levels op te slaan..
+ */
 public class Player {
 
     private static int levelDif1 =0;
     private static int levelDif2 = 0;
     private static String playerName;
-    private static final ObservableList<Integer> playerLevels = FXCollections.observableArrayList();
-    private static final ObservableList<Integer> playerLevels2 = FXCollections.observableArrayList();
+    private static final ObservableList<Integer> PLAYER_LEVELS = FXCollections.observableArrayList();
+    private static final ObservableList<Integer> PLAYER_LEVELS_2 = FXCollections.observableArrayList();
 
+
+    /**Deze methode gaat een speler aanmaken en in het database opslaan */
     public static void writeToDatabase(String userName, String userPassword) {
-        /*Deze methode gaat een speler aanmaken en in het database opslaan */
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
         String password = "student";
 
-        String query = "INSERT INTO player(name, password) VALUES(?, ?)";
+        String query = "INSERT INTO player(name, password) VALUES(?, ?)"; //bij elke query geeft hij bij mij een waarschuwing omdat er geen data source geconfigureerd is..
 
         try (Connection con = DriverManager.getConnection(url, user, password);
              PreparedStatement pst = con.prepareStatement(query)) {
@@ -42,8 +43,8 @@ public class Player {
         }
     }
 
+    /**Valideren of een speler bestaat, als dit niet is wordt er een foutmelding getoond*/
     public boolean validate(String userName, String pass) {
-        /*Valideren of een speler bestaat, als dit niet is wordt er een foutmelding getoond*/
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
         String password = "student";
@@ -66,8 +67,8 @@ public class Player {
         return false;
     }
 
+    /**levels setten van difficulty 1, in het database is dit de table levels*/
     public static void setLevelsPlayedDif1(String userName, int levelsPlayed) {
-        //levels setten van difficulty 1, in het database is dit de table levels
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
         String password = "student";
@@ -83,12 +84,11 @@ public class Player {
             pst.execute();
 
         } catch (SQLException ex) {
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("User name already exists!");
-            alert.show();
+            Logger lgr = Logger.getLogger(Player.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
+    /**levels setten van difficulty 2, in het database is dit de table levels*/
     public static void setLevelsPlayedDif2(String userName, int levelsPlayed) {
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
@@ -110,7 +110,7 @@ public class Player {
         }
 
     }
-
+    /**De methode maakt de levels in de database terug leeg zodat al de levels opnieuw unlocked moeten worden*/
     public static void emptyPlayerLevels(String userName)  {
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
         String user = "postgres";
@@ -131,19 +131,20 @@ public class Player {
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
 
-        //Clear all the prev data
-        playerLevels.clear();
-        playerLevels2.clear();
+        //al de vorige data wissen --> anders krijgen we dezelfde levels te zien van de vorige speler als we uitloggen en inloggen in eenzelfde sessie
+        PLAYER_LEVELS.clear();
+        PLAYER_LEVELS_2.clear();
 
         for (int i = 1; i <= Player.levelDif1; i++) {
-            if(!playerLevels.contains(i)) playerLevels.add(i);
+            if(!PLAYER_LEVELS.contains(i)) PLAYER_LEVELS.add(i);
         }
 
         for (int i = 1; i <= Player.levelDif2; i++) {
-            if(!playerLevels2.contains(i)) playerLevels2.add(i);
+            if(!PLAYER_LEVELS_2.contains(i)) PLAYER_LEVELS_2.add(i);
         }
     }
 
+    /**Deze methode maakt een list aan van het aantal gespeelde levels, dit wordt gebruikt bij de combobox zodat hij altijd weet welke lijst hij moet tonen*/
     public static void makeLevelList() throws SQLException {
         String Sql = "Select levels, level2 from player where name = ?";
 
@@ -168,14 +169,15 @@ public class Player {
 
         }
         for (int i = 1; i <= Player.getLevelDif1(); i++) {
-            if(!playerLevels.contains(i)) playerLevels.add(i);
+            if(!PLAYER_LEVELS.contains(i)) PLAYER_LEVELS.add(i);
         }
         for (int i = 1; i <= Player.getLevelDif2(); i++) {
-            if(!playerLevels2.contains(i)) playerLevels2.add(i);
+            if(!PLAYER_LEVELS_2.contains(i)) PLAYER_LEVELS_2.add(i);
         }
 
 
     }
+    /**Methode om een arraylist aan te maken voor de highscores in op te slaan*/
     public static ArrayList<String> getHighScores() throws SQLException {
         String sql = "select name, levels+level2 from player order by 2 desc nulls last fetch first 3 rows only";
         String url = "jdbc:postgresql://localhost:5433/JavaFx";
@@ -218,11 +220,11 @@ public class Player {
     }
 
     public static ObservableList<Integer> getPlayerLevels() {
-        return playerLevels;
+        return PLAYER_LEVELS;
     }
 
     public static ObservableList<Integer> getPlayerLevels2() {
-        return playerLevels2;
+        return PLAYER_LEVELS_2;
     }
 
 }

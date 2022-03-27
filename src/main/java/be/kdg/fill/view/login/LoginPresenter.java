@@ -1,4 +1,3 @@
-/**Presenter van het login view, met een aantal methodes om in te loggen en gegevens uit de database te halen*/
 
 package be.kdg.fill.view.login;
 
@@ -8,6 +7,7 @@ import be.kdg.fill.view.home.HomeViewPresenter;
 import be.kdg.fill.view.register.RegisterView;
 import be.kdg.fill.view.register.RegisterPresenter;
 import javafx.scene.control.Alert;
+/**Presenter van het login view, met een aantal methodes om in te loggen en gegevens uit de database te halen*/
 
 public class LoginPresenter {
     private final LoginView view;
@@ -23,17 +23,18 @@ public class LoginPresenter {
 
         view.getSingInBtn().setOnAction(actionEvent -> {
 
-            if(view.getUserTextField().getText().isEmpty()) {
-                showAlertEmpty("Username");
-            }
-            if(view.getPwField().getText().isEmpty()) {
-                showAlertEmpty("Password");
-            }
+
             String userName = view.getUserTextField().getText();
             String userPass = view.getPwField().getText();
             Player player =  new Player();
             boolean flag = player.validate(userName, userPass);
-            if(!flag){
+            if(view.getUserTextField().getText().isEmpty()) {
+                showAlertEmpty("Username");
+            }
+            else if(view.getPwField().getText().isEmpty()) {
+                showAlertEmpty("Password");
+            }
+            else if(!flag){
                showAlertWrong();
             } else {
                 updateViewHome();

@@ -1,4 +1,3 @@
-/**View om te registreren*/
 
 package be.kdg.fill.view.register;
 
@@ -14,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+
+/**View om te registreren*/
 
 public class RegisterView extends GridPane {
     private Label userName;
@@ -66,23 +67,23 @@ public class RegisterView extends GridPane {
         this.backButton = new Button("", new ImageView("/logout.png"));
     }
 
-    public Button getRegisterButton() {
+    Button getRegisterButton() {
         return registerButton;
     }
 
-    public TextField getUserTextField() {
+    TextField getUserTextField() {
         return userTextField;
     }
 
-    public PasswordField getPwField() {
+    PasswordField getPwField() {
         return pwField;
     }
 
-    public PasswordField getPwFieldRepeat() {
+    PasswordField getPwFieldRepeat() {
         return pwFieldRepeat;
     }
 
-    public Button getBackButton() {
+    Button getBackButton() {
         return backButton;
     }
 }

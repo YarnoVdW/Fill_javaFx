@@ -1,4 +1,3 @@
-/**Deze klasse bepaalt hoe de view eruit ziet van het kiezen van een difficulty*/
 
 package be.kdg.fill.view.leveldif;
 
@@ -12,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+/**Deze klasse bepaalt hoe de view eruit ziet van het kiezen van een difficulty*/
 
 public class LevelDifView extends GridPane {
     private Button btn1;
@@ -21,7 +21,7 @@ public class LevelDifView extends GridPane {
     private HBox hBoxLabel;
     private HBox hBoxButtons;
     private Button homeButton;
-    private HBox hboxHome;
+    private HBox hBoxHome;
     private Label label;
 
     public LevelDifView(){
@@ -37,12 +37,12 @@ public class LevelDifView extends GridPane {
         this.btn2 = new Button("2");
 
         this.homeButton = new Button("",new ImageView("/homeButton.png"));
-        this.hboxHome = new HBox(10);
+        this.hBoxHome = new HBox(10);
         this.label = new Label("Choose difficulty");
     }
 
     private void layoutNodes() {
-        int GRID_PANE_HEIGTH = 250;
+        int GRID_PANE_HEIGHT = 250;
         int GRID_PANE_WIDTH = 250;
         this.hBoxButtons.getChildren().add(btn1);
         this.hBoxButtons.getChildren().add(btn2);
@@ -59,10 +59,10 @@ public class LevelDifView extends GridPane {
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(20,20,20,20));
 
-        this.setMinSize(GRID_PANE_WIDTH, GRID_PANE_HEIGTH);
-        this.hboxHome.getChildren().add(homeButton);
-        this.hboxHome.setAlignment(Pos.TOP_RIGHT);
-        this.add(hboxHome, 0,2);
+        this.setMinSize(GRID_PANE_WIDTH, GRID_PANE_HEIGHT);
+        this.hBoxHome.getChildren().add(homeButton);
+        this.hBoxHome.setAlignment(Pos.TOP_RIGHT);
+        this.add(hBoxHome, 0,2);
         this.homeButton.setMaxSize(5,5);
 
         this.label.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -71,16 +71,16 @@ public class LevelDifView extends GridPane {
 
     }
 
-    public Button getHomeButton() {
+    Button getHomeButton() {
         return homeButton;
     }
 
 
-    public Button getBtn1() {
+    Button getBtn1() {
         return btn1;
     }
 
-    public Button getBtn2() {
+    Button getBtn2() {
         return btn2;
     }
 

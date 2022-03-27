@@ -1,7 +1,4 @@
-/**De klasse board staat in voor het maken en vullen van het bord maar ook het maken van het patroon
- */
-
-package be.kdg.fill.model.bord;
+package be.kdg.fill.model.board;
 
 import be.kdg.fill.model.move.Move;
 import be.kdg.fill.model.player.Player;
@@ -22,39 +19,41 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
-
+/**De klasse board staat in voor het maken en vullen van het bord maar ook het maken van het patroon
+ */
 
 public class Board {
 
     private final BoardPiece[][] boardLayout;
     private static final int BOARD_WIDTH = 6;
     private static final int BOARD_HEIGHT = 6;
-    private String pattern = "/maakPatroon.txt";
+    private String pattern = "/makePatternDif1.txt";
     private boolean gameComplete = false;
     private final ArrayList<Integer> firstMoveX = new ArrayList<>();
     private final ArrayList<Integer> firstMoveY = new ArrayList<>();
     private Move lastTurn;
     private int currentLevel = 1;
-    private final Image imageOrange = new Image("/Oranje.png");
+    private final Image imageOrange = new Image("/Orange.png");
     private double volume = 1;
 
-
+    /**De constructor maakt een nieuw boardlayout aan en maakt op dit boardlayout een nieuw patroon*/
     public Board(String pattern) throws FillGameException {
         this.boardLayout = new BoardPiece[BOARD_WIDTH][BOARD_HEIGHT];
         this.makePattern(pattern);
     }
 
-    private void fillBoard() { //methode om het bord te vullen met allemaal vakjes die mogelijks als patroon gebruikt gaan worden
+    /**methode om het bord te vullen met allemaal vakjes die mogelijks als patroon gebruikt gaan worden*/
+    private void fillBoard() {
         for (int i = 0; i < BOARD_WIDTH; i++) {
             for (int j = 0; j < BOARD_HEIGHT; j++) {
                 this.boardLayout[i][j] = new BoardPiece();
             }
         }
     }
-
+    /**Deze methode leest uit een tekstbestand de coordinaaten van de juiste vakjes die ingekleurd moeten worden en maakt
+     * zo een patroon aan om te bespelen*/
     public void makePattern(String pattern) {
         this.fillBoard();
-
         Image beginImage = new Image("/white.png");
         URL url = getClass().getResource(pattern);
         assert url != null;
@@ -90,7 +89,7 @@ public class Board {
                     boardPiece.setColor(imageOrange);
                     boardPiece.setUsable(true);
                 }
-                this.boardLayout[firstMoveX.get(0)][firstMoveY.get(0)].setColor(beginImage);
+                this.boardLayout[firstMoveX.get(0)][firstMoveY.get(0)].setColor(beginImage); //eerste coordinaat gebruiken als startblok
                 this.boardLayout[firstMoveX.get(0)][firstMoveY.get(0)].setUsed(true);
                 lastTurn = new Move(firstMoveX.get(0), firstMoveY.get(0));
                 firstMoveY.clear();
@@ -103,10 +102,9 @@ public class Board {
 
     }
 
+    /**Deze methode telt het aantal lijnen in het patroonbestand voor dif 1. Van zodra het aantal gespeelde levels gelijk is
+     * aan het aantal lijnen in het bestand is het spel volledig uitgespeeld.*/
     public void countPatternLines(String filePattern) throws URISyntaxException, IOException {
-
-        /*In deze methode tel ik het aantal lijnen in het patroon bestand voor dif 1. Van zodra het aantal gespeelde levels gelijk is
-        * aan het aantal lijnen in het bestand is het spel volledig uitgespeeld.*/
         URL url = getClass().getResource(filePattern);
         assert url != null;
         Path path;
@@ -125,19 +123,18 @@ public class Board {
         return boardPiece.isUsable();
     }
 
-
+    /**Deze methode checkt of de volgende move begrensd is met de vorige move.*/
     public boolean isNextTo(Move move) {
         int rowDiff = Math.abs(this.lastTurn.getRow() - move.getRow());
         int colDiff = Math.abs(this.lastTurn.getColumn() - move.getColumn());
         return (rowDiff == 1 ^ colDiff == 1) && rowDiff + colDiff == 1;
-        /*Deze methode checkt of de volgende move begrensd is met de vorige move. Ik gebruik een exclusive or omdat als dit een gewone
+        /* Ik gebruik een exclusive or omdat als dit een gewone
         * or is mogen ze ook beide 1 zijn. als dit waar is zouden diagonale zetten ook mogen, wat niet de bedoeling is
         * daarom kijk ik ten eerst of dat 1 van de twee 1 is. en dan tel ik deze op want dit moeten uiteraard opgeteld 1 zijn. Als
         * Ze opgeteld zijn en 1 uitkomen weet je dat er één 0 is en de andere 1 (door de xor)*/
     }
 
-    private BoardPiece getBoardPiece(Move move) {
-
+    private BoardPiece getBoardPiece(Move move) { //methode om te checken dat alles in de scope van het bord ligt, dus niet buiten het bord
         if (move.getColumn() >= this.boardLayout.length ||
                 move.getRow() >= this.boardLayout[move.getColumn()].length) return null;
 
@@ -151,22 +148,24 @@ public class Board {
             setLastTurn(move);
         }
     }
-
+     /**Methode om te checken wanneer al de vakjes ingekleurd zijn*/
     public boolean isCompleted() {
-        /*Methode om te checken wanneer al de vakjes ingekleurd zijn*/
+        /* allMatch= ze moeten allemaal true geven, we doen dit twee keer omdat we een 2D array hebben*/
         return Arrays.stream(this.boardLayout)
                 .allMatch(boardPieces -> Arrays.stream(boardPieces)
                         .filter(boardPiece -> boardPiece.getColor() != null)
                         .allMatch(BoardPiece::isUsed));
     }
 
+
+    /**Update de postgresql database*/
     public void setPlayerLevel() {
-        if(this.getPattern().equals("/maakPatroon.txt")) {
+        if(this.getPattern().equals("/makePatternDif1.txt")) {
             if(this.getCurrentLevel() >= Player.getLevelDif1()) {//we moeten enkel updaten als het level nog niet gespeeld is
                 if(!this.isGameComplete()) Player.setLevelsPlayedDif1(Player.getPlayerName(),this.getCurrentLevel()+1);
 
             }
-        } else if(this.getPattern().equals("/patroonDif2.txt")) {
+        } else if(this.getPattern().equals("/makePatternDif2.txt")) {
             if(this.getCurrentLevel() >= Player.getLevelDif2()) {
                 if(!this.isGameComplete()) Player.setLevelsPlayedDif2(Player.getPlayerName(), this.getCurrentLevel()+1);
 

@@ -1,4 +1,3 @@
-/**Levelview klasse, deze bepaalt hoe het spel eruit ziet als het spel gespeeld wordt*/
 
 package be.kdg.fill.view.level;
 
@@ -12,21 +11,21 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+/**Levelview klasse, deze bepaalt hoe het spel eruit ziet als het spel gespeeld wordt*/
 
 public class LevelView extends GridPane {
     private Button restart;
     private Button homeButton;
     private ToggleButton soundButton;
     private HBox hBox;
-    public LevelView() {
 
+    public LevelView() {
         this.initialiseNodes();
         this.layoutNodes();
 
     }
 
     private void layoutNodes() {
-        this.setGridLinesVisible(false);
         for (int i = 0; i <6; i++){
             this.getColumnConstraints().add(new ColumnConstraints(50));
             this.getRowConstraints().add(new RowConstraints(50));
@@ -39,28 +38,28 @@ public class LevelView extends GridPane {
         this.hBox.setAlignment(Pos.BOTTOM_CENTER);
     }
     private void initialiseNodes() {
-        this.restart = new Button("", new ImageView("/herstart.png"));
+        this.restart = new Button("", new ImageView("/restart.png"));
         this.homeButton = new Button("", new ImageView("/homeButton.png"));
         this.soundButton = new ToggleButton("", new ImageView("/soundOn.png"));
         this.hBox = new HBox(10);
     }
-    public void setPosition(Image v, int x, int y) {
 
+    public void setPosition(Image v, int x, int y) {
         ImageView label = new ImageView(v);
         this.add(label, x, y);
         GridPane.setHalignment(label, HPos.CENTER);
 
     }
 
-    public Button getRestart() {
+    Button getRestart() {
         return restart;
     }
 
-    public Button getHomeButton() {
+    Button getHomeButton() {
         return homeButton;
     }
 
-    public ToggleButton getSoundButton() {
+    ToggleButton getSoundButton() {
         return soundButton;
     }
 }

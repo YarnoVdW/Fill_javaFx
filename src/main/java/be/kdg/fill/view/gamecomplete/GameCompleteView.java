@@ -1,4 +1,3 @@
-/**View die bij de gamecompletepresenter hoort*/
 
 package be.kdg.fill.view.gamecomplete;
 
@@ -12,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+/**View die bij de gamecompletepresenter hoort*/
 
 public class GameCompleteView extends BorderPane {
     private Label label;
@@ -30,19 +30,19 @@ public class GameCompleteView extends BorderPane {
         int GRID_PANE_HEIGHT = 250;
         int GRID_PANE_WIDTH = 350;
         this.setMinSize(GRID_PANE_HEIGHT, GRID_PANE_WIDTH);
-        this.homeButton.setMinSize(30, 30);
         this.setPrefSize(GRID_PANE_HEIGHT, GRID_PANE_WIDTH);
         this.setCenter(unlockedLabel);
         BorderPane.setAlignment(label, Pos.TOP_CENTER);
         this.unlockedLabel.setAlignment(Pos.CENTER);
         this.unlockedLabel.setTextAlignment(TextAlignment.CENTER);
-        this.setTop(label);
+        this.unlockedLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
+        this.label.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
+        this.homeButton.setMinSize(30, 30);
         this.hBoxHome.getChildren().add(homeButton);
         this.hBoxHome.setAlignment(Pos.BOTTOM_CENTER);
+        this.setTop(label);
         this.setBottom(hBoxHome);
         this.setPadding(new Insets(20));
-        this.label.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
-        this.unlockedLabel.setFont(Font.font("Tahoma", FontWeight.BLACK, 20));
         this.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, CornerRadii.EMPTY, Insets.EMPTY)));
 
     }
@@ -57,14 +57,10 @@ public class GameCompleteView extends BorderPane {
 
     }
 
-    public Button getHomeButton() {
+    Button getHomeButton() {
         return homeButton;
     }
     public Label getLabel() {
         return unlockedLabel;
     }
-
-
-
-
 }

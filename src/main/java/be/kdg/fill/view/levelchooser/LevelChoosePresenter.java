@@ -1,8 +1,7 @@
-/**Presenter van de view levelchooser, deze klasse selecteert het juiste level op basis van de keuze die wordt gemaakt door de speler*/
 
 package be.kdg.fill.view.levelchooser;
 
-import be.kdg.fill.model.bord.Board;
+import be.kdg.fill.model.board.Board;
 import be.kdg.fill.model.utilities.FillGameException;
 import be.kdg.fill.view.home.HomeView;
 import be.kdg.fill.view.home.HomeViewPresenter;
@@ -10,6 +9,7 @@ import be.kdg.fill.view.level.LevelPresenter;
 import be.kdg.fill.view.level.LevelView;
 
 
+/**Presenter van de view levelchooser, deze klasse selecteert het juiste level op basis van de keuze die wordt gemaakt door de speler*/
 
 public class LevelChoosePresenter {
     private final LevelChooseView view;

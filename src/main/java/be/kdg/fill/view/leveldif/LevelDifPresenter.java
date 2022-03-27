@@ -1,4 +1,3 @@
-/**Presenter voor het kiezen van één van de twee difficulty's*/
 
 package be.kdg.fill.view.leveldif;
 
@@ -13,6 +12,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 
+/**Presenter voor het kiezen van één van de twee difficulty's*/
 
 public class LevelDifPresenter {
     private final LevelDifView view;
@@ -21,7 +21,7 @@ public class LevelDifPresenter {
         this.view = view;
         addEventHandlerHome();
         addEventHandlerBtn1();
-        addEventHandlerDif2();
+        addEventHandlerBtn2();
 
     }
     //event-handlers
@@ -30,11 +30,11 @@ public class LevelDifPresenter {
     }
 
     private void addEventHandlerBtn1() {
-        view.getBtn1().setOnAction(actionEvent -> updateViewDifficulty("/maakPatroon.txt", Player.getPlayerLevels()));
+        view.getBtn1().setOnAction(actionEvent -> updateViewDifficulty("/makePatternDif1.txt", Player.getPlayerLevels()));
     }
 
-    private void addEventHandlerDif2() {
-        view.getBtn2().setOnAction(actionEvent -> updateViewDifficulty("/patroonDif2.txt", Player.getPlayerLevels2()));
+    private void addEventHandlerBtn2() {
+        view.getBtn2().setOnAction(actionEvent -> updateViewDifficulty("/makePatternDif2.txt", Player.getPlayerLevels2()));
     }
     // view updaters
     private void updateViewDifficulty(String pattern, ObservableList<Integer> levels) {
