@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
-/**De klasse board staat in voor het maken en vullen van het bord maar ook het maken van het patroon
+/**De klasse board staat in voor het maken en vullen van het bord
  */
 
 public class Board {
@@ -114,7 +114,7 @@ public class Board {
         if(lineCount == this.currentLevel) gameComplete = true;
 
     }
-
+    /**@return of de move gezet mag worden op een beschikbare plaats*/
     public boolean isAllowedMove(Move move) {
         BoardPiece boardPiece = this.getBoardPiece(move);
         /*wanneer boardpiece nul is betekend dit dat er op dit deel van het bord, geen vakje staat en dus mag dit
@@ -123,7 +123,8 @@ public class Board {
         return boardPiece.isUsable();
     }
 
-    /**Deze methode checkt of de volgende move begrensd is met de vorige move.*/
+    /**Deze methode checkt of de volgende move begrensd is met de vorige move.
+     * @return boolean true als de move naast de vorige ligt*/
     public boolean isNextTo(Move move) {
         int rowDiff = Math.abs(this.lastTurn.getRow() - move.getRow());
         int colDiff = Math.abs(this.lastTurn.getColumn() - move.getColumn());
@@ -148,7 +149,8 @@ public class Board {
             setLastTurn(move);
         }
     }
-     /**Methode om te checken wanneer al de vakjes ingekleurd zijn*/
+     /**Methode om te checken wanneer al de vakjes ingekleurd zijn
+      * @return boolean of het level voltooid is*/
     public boolean isCompleted() {
         /* allMatch= ze moeten allemaal true geven, we doen dit twee keer omdat we een 2D array hebben*/
         return Arrays.stream(this.boardLayout)

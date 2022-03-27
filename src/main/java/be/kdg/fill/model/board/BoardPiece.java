@@ -16,11 +16,11 @@ public class BoardPiece {
         return this.color = new Image("/blue.png");
     }
 
-    public void setColor(Image color) {
+    void setColor(Image color) {
         this.color = color;
     }
 
-    public boolean isUsed() {
+    boolean isUsed() {
         return used;
     }
 
@@ -29,7 +29,7 @@ public class BoardPiece {
         return this.color;
     }
 
-    public boolean isUsable() {
+    boolean isUsable() {
         return this.isUsable;
     }
 
